@@ -1,0 +1,649 @@
+\chapter{Adjoint Operators on Inner Product Spaces}
+
+In this chapter, we generalize the notion of taking transpose (or Hermitian transpose) of a matrix for linear operators. 
+
+
+\begin{definition} Let \(T : V \rightarrow  V\) be a linear operator between inner product spaces. The \emph{adjoint} of \(T\) is defined as \(T' : V \rightarrow  V\) satisfying
+\[
+\left\langle  {T'\left( \mathbf{v}\right) ,\mathbf{w}}\right\rangle   = \langle \mathbf{v},T\left( \mathbf{w}\right) \rangle ,\forall \mathbf{w} \in  V \tag{10.1}
+\]
+\end{definition}
+
+\begin{remark}
+Previously we have another definition of the adjoint of \(T : V \rightarrow  W\), denoted as \({T}^{ * } : {W}^{ * } \rightarrow {V}^{ * }\). 
+    It is an unfortunate abuse of the same terminology but with different meaning. To distinguish the two adjoints, we will use
+    $$T':V \to V$$
+    for the adjoint of operators of inner product spaces, and 
+    $$T: W^* \to V^*$$
+    for the adjoint of linear transformations.
+\end{remark}
+
+It is not clear that whether such $T':V \to V$ exists from the definition, let alone whether it is a linear operator or not. These issues are dealt with by the following:
+\begin{proposition} If \(\dim \left( V\right)  < \infty\) , then \(T'\) exists, and it is unique. Moreover, \(T'\) is a linear map.
+\end{proposition}
+
+\begin{proof} Fix any \({\bf v} \in  V\) . Consider the mapping
+\[
+{\alpha }_{\mathbf{v}} : \mathbf{w}\overset{T}{ \rightarrow  }T\left( \mathbf{w}\right) \overset{{\phi }_{\mathbf{v}}}{ \rightarrow  }\langle \mathbf{v},T\left( \mathbf{w}\right) \rangle
+\]
+
+This is a linear transformation from \(V\) to \(\mathbb{F}\) , i.e., \({\alpha }_{\bf v} \in  V^{ * }\). By \autoref{thm:riesz}, \(\phi\) is an isomorphism from \(V\) to \(V^{ * }\). Therefore, for any \({\alpha }_{\bf v} \in  {V}^{ * }\), there exists a vector \(T'\left( {\bf v}\right)  \in  V\) such that
+\[
+\phi \left( {T'\left( \mathbf{ v}\right) }\right)  = {\alpha }_{\mathbf{v}} \in  {V}^{ * }
+\]
+
+Or equivalently, \({\phi }_{T'\left( \mathbf{v}\right) }\left( \mathbf{w}\right)  = {\alpha }_{\mathbf{v}}\left( \mathbf{w}\right) ,\forall \mathbf{w} \in  V\) , i.e., 
+\begin{equation}\label{eq:adjoint}\left\langle  {T'\left( \mathbf{v}\right) ,\mathbf{w}}\right\rangle   = \langle \mathbf{v},T\left( \mathbf{w}\right) \rangle.\end{equation}
+
+Therefore, from \(\bf v\) we have constructed \(T'\left(\bf v\right)\) satisfying \autoref{eq:adjoint}. Now define 
+\[T' : V \rightarrow  V \quad \quad  \mathbf{v} \mapsto  T'\left( \mathbf{v}\right).\]
+Since the choice of \(T'\left( v\right)\) is unique by the injectivity of \(\phi ,T'\) is well-defined. 
+
+Now we show \(T'\) is a linear transformation: Let \({\mathbf{v}}_{1},{\mathbf{v}}_{2} \in  V,a,b \in \mathbb{F}\). For all \(\mathbf{w} \in  V\), we have
+\begin{align*}
+\left\langle  {T'\left( {a{\mathbf{v}}_{1} + b{\mathbf{v}}_{2}}\right) ,\mathbf{w}}\right\rangle   = \left\langle  {a{\mathbf{v}}_{1} + b{\mathbf{v}}_{2},T\left( \mathbf{w}\right) }\right\rangle
+&= \bar{a}\left\langle  {{\mathbf{v}}_{1},T\left( \mathbf{w}\right) }\right\rangle   + \bar{b}\left\langle  {{\mathbf{v}}_{2},T\left( \mathbf{w}\right) }\right\rangle
+\\
+&= \bar{a}\left\langle  {T'\left( {\mathbf{v}}_{1}\right) ,\mathbf{w}}\right\rangle   + \bar{b}\left\langle  {T'\left( {\mathbf{v}}_{2}\right) ,\mathbf{w}}\right\rangle
+\\
+&= \left\langle  {aT'\left( {\mathbf{v}}_{1}\right)  + bT'\left( {\mathbf{v}}_{2}\right) ,\mathbf{w}}\right\rangle
+\end{align*}
+
+Therefore, 
+\[
+\left\langle  {T'\left( {a{\mathbf{v}}_{1} + b{\mathbf{v}}_{2}}\right)  - \left\lbrack  {aT'\left( {\mathbf{v}}_{1}\right)  + bT'\left( {\mathbf{v}}_{2}\right) }\right\rbrack  ,\mathbf{w}}\right\rangle   = 0,\forall \mathbf{w} \in  V.
+\]
+By the non-degeneracy of inner product,
+\[
+T'\left( {a{\mathbf{v}}_{1} + b{\mathbf{v}}_{2}}\right)  - \left\lbrack  {aT'\left( {\mathbf{v}}_{1}\right)  + bT'\left( {\mathbf{v}}_{2}\right) }\right\rbrack   = \mathbf{0},
+\]
+i.e., \(T'\left( {a{\mathbf{v}}_{1} + b{\mathbf{v}}_{2}}\right)  = aT'\left( {\mathbf{v}}_{1}\right)  + bT'\left( {\mathbf{v}}_{2}\right)\).
+\end{proof}
+
+\begin{example} Let \(V = ({\mathbb{R}}^{n},\langle  \cdot  , \cdot  \rangle)\) be the usual inner product. Consider the matrix-multiplication mapping \(T : \;V \rightarrow  V\) given by:
+\[
+T\left( \mathbf{v}\right)  = A\mathbf{v}.
+\]
+Then \(\left\langle  {{T}^{\prime }\left( \mathbf{v}\right) ,\mathbf{w}}\right\rangle   = \langle \mathbf{v},T\left( \mathbf{w}\right) \rangle\) implies
+\[
+{\left( {T}^{\prime }\left( \mathbf{v}\right) \right) }^{\mathrm{T}}\mathbf{w} = \langle \mathbf{v},\mathbf{A}\mathbf{w}\rangle
+= {\mathbf{v}}^{\mathrm{T}}\mathbf{A}\mathbf{w}
+= {\left( {\mathbf{A}}^{\mathrm{T}}\mathbf{v}\right) }^{\mathrm{T}}\mathbf{w}
+\]
+Therefore, 
+\[{T}^{\prime }\left( \mathbf{v}\right)  = {A}^{\mathrm{T}}\mathbf{v}.\]
+
+Meanwhile, for the usual inner product \(V = ({\mathbb{C}}^{n},\langle  \cdot  , \cdot  \rangle)\), the adjoint is equal to
+\[{T}^{\prime }\left( \mathbf{v}\right)  = {A}^{\mathrm{H}}\mathbf{v} = \overline{A}^{\mathrm{T}}{\bf v},\]
+where the extra complex conjugate comes from the sesquilinear form of $\langle  \cdot  , \cdot  \rangle$.
+\end{example}
+
+\begin{proposition} \label{prop:adjoint_matrix} Let \(T : V \rightarrow  V\) be a linear transformation, \(V\) a inner product space. Suppose that \(\mathcal{B} = \left\{  {{\mathbf{e}}_{1},\ldots ,{\mathbf{e}}_{n}}\right\}\) is an orthonormal basis of \(V\) , then
+\[
+{\left( {T}^{\prime }\right) }_{\mathcal{B},\mathcal{B}} = \overline{{\left( {\left( T\right) }_{\mathcal{B},\mathcal{B}}\right) }^{\mathrm{T}}}.
+\]
+\end{proposition}
+
+\begin{proof} Suppose that \({\left( T\right) }_{\mathcal{B},\mathcal{B}} = \left( {a}_{ij}\right)\) , where \(T\left( {\mathbf{e}}_{j}\right)  = \mathop{\sum }\limits_{{k = 1}}^{n}{a}_{kj}{\mathbf{e}}_{k}\) , then
+\[
+\left\langle  {{\mathbf{e}}_{i},T\left( {\mathbf{e}}_{j}\right) }\right\rangle   = \left\langle  {{\mathbf{e}}_{i},\mathop{\sum }\limits_{{k = 1}}^{n}{a}_{kj}{\mathbf{e}}_{k}}\right\rangle
+= \mathop{\sum }\limits_{{k = 1}}^{n}{a}_{kj}\left\langle  {{\mathbf{e}}_{i},{\mathbf{e}}_{k}}\right\rangle
+= {a}_{ij}
+\]
+Also, suppose \({\left( {T}^{\prime }\right) }_{\mathcal{B},\mathcal{B}} = \left( {b}_{ij}\right)\) , we imply \({T}^{\prime }\left( {\mathbf{e}}_{j}\right)  = \mathop{\sum }\limits_{{k = 1}}^{n}{b}_{ij}{\mathbf{e}}_{k}\) , which follows that
+\(
+\left\langle  {{\mathbf{e}}_{i},{T}^{\prime }\left( {\mathbf{e}}_{j}\right) }\right\rangle   = {b}_{ij}
+\)
+i.e., \(\overline{{a}_{ji}} = {b}_{ij}\).
+\end{proof}
+
+Note that \autoref{prop:adjoint_matrix} does not hold if \(\mathcal{B}\) is not an orthonormal basis.
+
+\section{Self-Adjoint Operators}
+\begin{definition}[Self-Adjoint]
+Let \(V\) be an inner product space and \(T : V \rightarrow  V\) be a linear operator. Then \(T\) is self-adjoint if \(T' = T\).
+\end{definition}
+
+\begin{example}
+Let \(V = {\mathbb{C}}^{n}\), and \(\mathcal{B} = \left\{  {{\mathbf{e}}_{1},\ldots ,{\mathbf{e}}_{n}}\right\}\) be a orthonormal basis. Let \(T : V \rightarrow  V\) be given by
+
+\[
+T\left( \mathbf{v}\right)  = \mathbf{{Av}},\;\text{ where }A \in  {M}_{n \times  n}\left( \mathbb{C}\right) .
+\]
+
+Or equivalently, there exists basis \(\mathcal{B}\) such that \({\left( T\right) }_{\mathcal{B},\mathcal{B}} = A\).
+
+In such case, \(T\) is self-adjoint if and only if \({\left( T'\right) }_{\mathcal{B},\mathcal{B}} = {\left( T\right) }_{\mathcal{B},\mathcal{B}}\), i.e., \(\overline{{\left( T\right) }_{\mathcal{B},\mathcal{B}}^{\mathrm{T}}} = {\left( T\right) }_{\mathcal{B},\mathcal{B}}\), i.e., \({A}^{\mathrm{H}} = A.\)
+
+Therefore, \(T\left( \mathbf{v}\right)  = \mathbf{{Av}}\) is self-adjoint if and only if \({A}^{\mathrm{H}} = A\).
+
+Moreover, if \(\mathbb{C}\) is replaced by \(\mathbb{R}\), then \(T\) is self-adjoint if and only if \(A\) is symmetric.
+\end{example}
+
+The notion of self-adjoint for linear operator is essentially the generalized notion of Hermitian for matrix that we have stuided in MAT 2040.
+
+We also have some nice properties for self-adjoint, and the proof for which are essentially the same for the proof in the case of Hermitian matrices.
+
+\begin{proposition}\label{prop: self-adjoint-eigenvalue}
+If \(\lambda\) is an eigenvalue of a self-adjoint operator \(T\), then \(\lambda \in \mathbb{R}\).
+\end{proposition}
+
+\begin{proof}
+Suppose there is an eigen-pair \(\left( {\lambda ,\mathbf{w}}\right)\) for \(\mathbf{w} \neq  \mathbf{0}\), then
+\[
+\lambda \langle \mathbf{w},\mathbf{w}\rangle  = \langle \mathbf{w},\lambda \mathbf{w}\rangle
+= \langle \mathbf{w},T\left( \mathbf{w}\right) \rangle  = \left\langle  {T'\left( \mathbf{w}\right) ,\mathbf{w}}\right\rangle
+= \langle T\left( \mathbf{w}\right) ,\mathbf{w}\rangle  = \langle \lambda \mathbf{w},\mathbf{w}\rangle
+= \bar{\lambda }\langle \mathbf{w},\mathbf{w}\rangle
+\]
+
+Since \(\langle \mathbf{w},\mathbf{w}\rangle  \neq  0\) by non-degeneracy property, we have \(\lambda  = \bar{\lambda }\), i.e., \(\lambda  \in  \mathbb{R}\).
+\end{proof}
+
+\begin{proposition}\label{prop:self-adjoint-orthogonal-space}
+If \(U \leq V\) is \(T\)-invariant over the self-adjoint operator \(T\), then so is \(U^\perp\).
+\end{proposition}
+
+\begin{proof}
+It suffices to show \(T\left( \mathbf{v}\right)  \in  {U}^{ \bot  },\forall \mathbf{v} \in  {U}^{ \bot  }\), i.e., for any \(\mathbf{u} \in  U\), check that
+
+\[
+\langle \mathbf{u},T\left( \mathbf{v}\right) \rangle  = \left\langle  {T'\left( \mathbf{u}\right) ,\mathbf{v}}\right\rangle   = \langle T\left( \mathbf{u}\right) ,\mathbf{v}\rangle  = 0,
+\]
+
+where the last equality is because that \(T\left( \mathbf{u}\right)  \in  U\) and \(\mathbf{v} \in  {U}^{ \bot  }\). Therefore, \(T\left( \mathbf{v}\right)  \in  {U}^{ \bot  }\).
+\end{proof}
+
+\begin{theorem}\label{thm: spectral-self-aadjoint}
+If \(T : V \rightarrow V\) is self-adjoint, and \(\dim(V) < \infty\), then there exists an orthonormal basis of eigenvectors of \(T\), i.e., an orthonormal basis of V such that any element from this
+basis is an eigenvector of T.
+\end{theorem}
+
+\begin{proof}
+We use the induction on \(\dim \left( V\right)\) :
+
+\begin{itemize}
+\item The result is trival for \(\dim \left( V\right)  = 1\).
+
+\item Suppose that this theorem holds for all vector spaces \(V\) with \(\dim \left( V\right)  \leq  k\), then we want to show the theorem holds when \(\dim \left( V\right)  = k + 1\) :
+
+Suppose that \(T : V \rightarrow  V\) is self-adjoint with \(\dim \left( V\right)  = k + 1\), then consider
+
+\[
+{\mathcal{X}}_{T}\left( x\right)  = det(xI - T) = {x}^{k + 1} + \cdots  + {a}_{1}x + {a}_{0},\;{a}_{i} \in  \mathbb{K}\text{ , where }\mathbb{K}\text{ denotes }\mathbb{R}\text{ or }\mathbb{C}\text{ . }
+\]
+
+
+\item If \(\mathbb{K} = \mathbb{C}\), then \({\mathcal{X}}_{T}\left( x\right)\) can be decomposed as
+
+\[
+{\mathcal{X}}_{T}\left( x\right)  = \left( {x - {\lambda }_{1}}\right) \cdots \left( {x - {\lambda }_{k + 1}}\right)
+\]
+
+In paricular, we obtain the eigen-pair \(\left( {{\lambda }_{1},\mathbf{v}}\right)\)
+
+\item If \(\mathbb{K} = \mathbb{R}\), i.e., we treat real number as scalars, then
+\end{itemize}
+
+\[
+{\mathcal{X}}_{T}\left( x\right)  = \left( {x - {\lambda }_{1}}\right) \cdots \left( {x - {\lambda }_{k + 1}}\right) \text{ , where }{\lambda }_{i} \in  \mathbb{C}\text{ . }
+\]
+
+By \autoref{prop: self-adjoint-eigenvalue}, all \({\lambda }_{i}\) ’s are real. Moreover, we also obtain
+
+the eigen-pair \(\left( {{\lambda }_{1},\mathbf{v}}\right)\).
+\newline
+
+Consider \(U = \operatorname{span}\{ \mathbf{v}\}\), then
+
+\begin{itemize}
+\item \(U\) is \(T\) -invariant by \(T(v) = \lambda v\)
+\item \({U}^{ \bot  }\) is \(T\) -invariant by \autoref{prop: self-adjoint-eigenvalue}
+\item \(V = U \oplus  {U}^{ \bot  }\), since \(V\) is finite dimensional inner product space.
+\end{itemize}
+
+Consider \({\left. T\right| }_{{U}^{ \bot  }}\), which is a self-adjoint operator on \({U}^{ \bot  }\), with \(\dim \left( {U}^{ \bot  }\right)  = k\). By induction, there exists an orthonormal basis \(\left\{  {{\mathbf{e}}_{2},\ldots ,{\mathbf{e}}_{k + 1}}\right\}\) of eigenvectors of \(T{ \mid  }_{{U}^{ \bot  }}\).
+
+Consider the basis \(\mathcal{B} = \left\{  {{\mathbf{v}}^{\prime } = \frac{\mathbf{v}}{\parallel \mathbf{v}\parallel} ,{\mathbf{e}}_{2},\ldots ,{\mathbf{e}}_{k + 1}}\right\}\). As a result,
+
+\begin{enumerate}
+    \item \(\mathcal{B}\) forms a basis of \(V\).
+    \item All \({\mathbf{v}}^{\prime },{\mathbf{e}}_{i}\) are of norm 1 eigenvectors of \(T\).
+    \item \(\mathcal{B}\) is an orthonormal set, e.g., \(\left\langle  {{\mathbf{v}}^{\prime },{\mathbf{e}}_{i}}\right\rangle   = 0\), where \({\mathbf{v}}^{\prime } \in  U\) and \({\mathbf{e}}_{i} \in  {U}^{ \bot  }\).
+\end{enumerate}
+Therefore, \(\mathcal{B}\) is a basis of orthonormal eigenvectors of \(V\).
+\end{proof}
+
+\begin{corollary}
+If \(\dim(V) < \infty\), and \(T : V \rightarrow V\) is self-adjoint, then there exists an orthonormal basis \(\mathcal{B}\) such that
+\[(T)_{\mathcal{B},\mathcal{B}} = \begin{bmatrix} \lambda_1 &  &  \\  & \ddots &  \\  &  & \lambda_n \end{bmatrix}.\]
+In particular, for all real symmetric matrix \(A \in  {\mathbb{S}}^{n}\), there exists orthogonal matrix \(P\) i.e. \(\left( {{P}^{\mathrm{T}}P = {I}_{n}}\right)\) such that
+\[
+{P}^{-1}{AP} = \begin{bmatrix} \lambda_1 &  &  \\  & \ddots &  \\  &  & \lambda_n \end{bmatrix}.
+\]
+\end{corollary}
+\begin{proof}
+\begin{enumerate}
+    \item By applying \autoref{thm: spectral-self-aadjoint}, there exists orthonormal basis of \(V\), say \(\mathcal{B} =\)  \(\left\{  {{\mathbf{v}}_{1},\ldots ,{\mathbf{v}}_{n}}\right\}\) such that \(T\left( {\mathbf{v}}_{i}\right)  = {\lambda }_{i}{\mathbf{v}}_{i}\). Directly writing the basis representation gives
+
+    \[
+    {\left( T\right) }_{\mathcal{B},\mathcal{B}} = \operatorname{diag}\left( {{\lambda }_{1},\ldots ,{\lambda }_{n}}\right) .
+    \]
+    
+    \item For the second part, consider \(T : {\mathbb{R}}^{n} \rightarrow  {\mathbb{R}}^{n}\) by \(T\left( \mathbf{v}\right)  = \mathbf{{Av}}\). Since \({A}^{\mathrm{T}} = A\), we imply \(T\) is self-adjoint. There exists orthonormal basis \(\mathcal{B} = \left\{  {{\mathbf{v}}_{1},\ldots ,{\mathbf{v}}_{n}}\right\}\) such that
+
+    \[
+    {\left( T\right) }_{\mathcal{B},\mathcal{B}} = \operatorname{diag}\left( {{\lambda }_{1},\ldots ,{\lambda }_{n}}\right) .
+    \]
+    
+    In particular, if \(\mathcal{A} = \left\{  {{\mathbf{e}}_{1},\ldots ,{\mathbf{e}}_{n}}\right\}\), then \({\left( T\right) }_{\mathcal{A},\mathcal{A}} = A\). We construct \(P \mathrel{\text{ := }} {\mathcal{C}}_{\mathcal{A},\mathcal{B}}\), which is the change of basis matrix from \(\mathcal{B}\) to \(\mathcal{A}\), then
+    
+    \[
+    P = \left( \begin{array}{lll} {\mathbf{v}}_{1} & \cdots & {\mathbf{v}}_{n} \end{array}\right)
+    \]
+    
+    and
+    
+    \[
+    {P}^{-1}{\left( T\right) }_{\mathcal{A},\mathcal{A}}P = {\left( T\right) }_{\mathcal{B},\mathcal{B}}
+    \]
+    
+    Or equivalently, \({P}^{-1}{AP} = \operatorname{diag}\left( {{\lambda }_{1},\ldots ,{\lambda }_{n}}\right)\), with
+    
+    \[
+    {P}^{\mathrm{T}}P = \left( \begin{matrix} {\mathbf{v}}_{1}^{\mathrm{T}} \\  \vdots \\  {\mathbf{v}}_{n}^{\mathrm{T}} \end{matrix}\right) \left( \begin{array}{lll} {\mathbf{v}}_{1} & \cdots & {\mathbf{v}}_{n} \end{array}\right)  = I
+    \]
+\end{enumerate}
+\end{proof}
+
+\section{Orthogonal and Unitary Operators}
+
+\begin{definition}[Orthogonal/Unitary Operator]
+A linear operator \(T : V \rightarrow V\) over \(\mathbb{K}\) with \(\langle T(\mathbf{w}),T(\mathbf{v}) \rangle = \langle \mathbf{w},\mathbf{v}\rangle, \forall \mathbf{v},\mathbf{w} \in V\), is called:
+\begin{itemize}
+  \item Orthogonal if \(\mathbb{K} = \mathbb{R}\)
+  \item Unitary if \(\mathbb{K} = \mathbb{C}\)
+\end{itemize}
+\end{definition}
+
+\begin{proposition}\label{prop:orthogonal-unitary}
+\( T \) is orthogonal (real case) or unitary (complex case) if and only if \( T' \circ T = I \).
+\end{proposition}
+
+\begin{proof}
+The reverse direction is by directly checking that
+\[
+\langle T(\mathbf{w}), T(\mathbf{v}) \rangle 
+= \langle T' \circ T(\mathbf{w}), \mathbf{v} \rangle 
+= \langle \mathbf{w}, \mathbf{v} \rangle.
+\]
+
+The forward direction is by checking that \( T' \circ T(\mathbf{w}) = \mathbf{w} \) for all \( \mathbf{w} \in V \):
+\[
+\langle T' \circ T(\mathbf{w}), \mathbf{v} \rangle 
+= \langle T(\mathbf{w}), T(\mathbf{v}) \rangle 
+= \langle \mathbf{w}, \mathbf{v} \rangle 
+\Rightarrow 
+\langle T' \circ T(\mathbf{w}) - \mathbf{w}, \mathbf{v} \rangle = 0, \quad \forall \mathbf{v} \in V.
+\]
+By non-degeneracy of the inner product, \( T' \circ T(\mathbf{w}) - \mathbf{w} = 0 \), i.e.,
+\[
+T' \circ T(\mathbf{w}) = \mathbf{w}, \quad \forall \mathbf{w} \in V.
+\]
+\end{proof}
+
+\begin{example}
+Let \(T : \mathbb{K}^n \rightarrow \mathbb{K}^n\) be given by \(T(v) = Av\). Then:
+\begin{itemize}
+  \item If \(\mathbb{K} = \mathbb{R}\): \(T\) is orthogonal \(\Leftrightarrow A^T A = I\)
+  \item If \(\mathbb{K} = \mathbb{C}\): \(T\) is unitary \(\Leftrightarrow A^H A = I\)
+\end{itemize}
+\end{example}
+
+\begin{definition}[Orthogonal/Unitary Group]
+\[
+\text{ Orthognoal Group : }O\left( {n,\mathbb{R}}\right)  = \left\{  {A \in  {M}_{n \times  n}\left( \mathbb{R}\right)  \mid  {A}^{\mathrm{T}}A = I}\right\}
+\]
+\[
+\text{ Unitary Group : }U\left( {n,\mathbb{C}}\right)  = \left\{  {A \in  {M}_{n \times  n}\left( \mathbb{C}\right)  \mid  {A}^{\mathrm{H}}A = I}\right\}
+\]
+\end{definition}
+
+
+\begin{proposition}
+Let \( T : V \rightarrow V \) be a linear operator on a vector space over \( \mathbb{K} \) satisfying \( T' T = I \). Then for all eigenvalues \( \lambda \) of \( T \), we have \( |\lambda| = 1 \).
+\end{proposition}
+
+\begin{proof}
+Suppose we have the eigen-pair \( (\lambda, \mathbf{v}) \), then
+\[
+\langle T\mathbf{v}, T\mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{v} \rangle 
+\Leftrightarrow \langle \lambda \mathbf{v}, \lambda \mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{v} \rangle 
+\Leftrightarrow \overline{\lambda} \lambda \langle \mathbf{v}, \mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{v} \rangle
+\]
+
+Since \( \langle \mathbf{v}, \mathbf{v} \rangle \neq 0 \) (i.e., \( \mathbf{v} \neq 0 \)), we imply \( |\lambda|^2 = 1 \), i.e., \( |\lambda| = 1 \).
+\end{proof}
+
+\begin{proposition}
+Let \( T : V \to V \) be an operator on a finite dimension \( V \) over \( \mathbb{K} \) satisfying \( T'T = I \). If \( U \leq V \) is \( T \)-invariant, then \( U \) is also \( T^{-1} \)-invariant.
+\end{proposition}
+
+\begin{proof}
+Since \( T'T = I \), i.e., \( T \) is invertible, we imply \( 0 \) is not a root of \( X_T(x) \), i.e., \( 0 \) is not a root of \( m_T(x) \). Since \( m_T(0) \neq 0 \), \( m_T(x) \) has the form
+\[
+m_T(x) = x^m + \cdots + a_1 x + a_0, \quad a_0 \neq 0,
+\]
+which follows that
+\[
+m_T(T) = T^m + \cdots + a_0 I = 0 \Rightarrow T \left( T^{m-1} + \cdots + a_1 I \right) = -a_0 I
+\]
+Or equivalently,
+\[
+T \left( -\frac{1}{a_0} (T^{m-1} + \cdots + a_1 I) \right) = I
+\]
+Therefore,
+\[
+T^{-1} = -\frac{1}{a_0} T^{m-1} - \cdots - \frac{a_2}{a_0} T - \frac{a_1}{a_0} I,
+\]
+i.e., the inverse \( T^{-1} \) can be expressed as a polynomial involving \( T \) only.
+
+Since \( U \) is \( T \)-invariant, we imply \( U \) is \( T^m \)-invariant for \( m \in \mathbb{N} \), and therefore \( U \) is \( T^{-1} \)-invariant since \( T^{-1} \) is a polynomial of \( T \).
+\end{proof}
+
+\begin{proposition}
+Let \( T : V \to V \) satisfy \( T'T = I \) (\( \dim(V) < \infty \)), then if \( U \leq V \) is \( T \)-invariant, it implies \( U^\perp \) is \( T \)-invariant.
+\end{proposition}
+
+\begin{proof}
+Let \( {\bf v} \in U^\perp \), it suffices to show \( T({\bf v}) \in U^\perp \). Indeed, for all \({\bf  u} \in U \), we have
+\[
+\langle {\bf u}, T({\bf v}) \rangle = \langle T'({\bf u}), {\bf v} \rangle = \langle T^{-1}({\bf u}), {\bf v} \rangle
+\]
+Since \( U \) is \( T^{-1} \)-invariant, we imply \( T^{-1}({\bf u}) \in U \), and therefore
+\[
+\langle {\bf u}, T({\bf v}) \rangle = \langle T^{-1}({\bf u}), {\bf v} \rangle = 0 \Rightarrow T({\bf v}) \in U^\perp.
+\]
+\end{proof}
+
+\begin{theorem} Let \(T : V \rightarrow  V\) be a unitary operator on finite dimension \(V\) (over \(\mathbb{C}\)),
+
+then there exists an orthonormal basis \(\mathcal{A}\) such that
+
+\[
+{\left( T\right) }_{\mathcal{A},\mathcal{A}} = \operatorname{diag}\left( {{\lambda }_{1},\ldots ,{\lambda }_{n}}\right) ,\left| {\lambda }_{i}\right|  = 1,\forall i.
+\]
+\end{theorem}
+
+\begin{proof} Note that \({\mathcal{X}}_{T}\left( x\right)\) always admits a root in \(\mathbb{C}\), so we can always find an eigenvector \(v \in  V\) of \(T\).
+
+Then the theorem follows by the same argument before on self-adjoint operators.
+
+\begin{itemize}
+\item Consider \(U = \operatorname{span}\{ \mathbf{v}\}\)
+\end{itemize}
+
+\begin{itemize}
+\item \(V = U \oplus  {U}^{ \bot  }\) and \({U}^{ \bot  }\) is \(T\) -invariant
+\end{itemize}
+
+\begin{itemize}
+\item Use induction on the unitary operator \({\left. T\right| }_{{U}^{ \bot  }} : {U}^{ \bot  } \rightarrow  {U}^{ \bot  }\)
+\end{itemize}
+\end{proof}
+
+The argument above fails for orthogonal operators. For instance, let \(
+T : \mathbb{R} \rightarrow  {\mathbb{R}}^{2}
+\) be given by 
+\[
+T\left( \mathbf{v}\right)  = \left( \begin{matrix} \cos \theta &  - \sin \theta \\  \sin \theta & \cos \theta  \end{matrix}\right) \mathbf{v}
+\]
+The matrix \(A\) is not diagonalizable over \(\mathbb{R}\). It has no real eigenvalues. However, if we treat \(A\) as \(T : {\mathbb{C}}^{2} \rightarrow  {\mathbb{C}}^{2}\) with \(T\left( \mathbf{v}\right)  = \mathbf{{Av}}\), then \({A}^{\mathrm{H}}A = I\), and therefore \(T\) is unitary. Then \(A\) is diagonalizable over \(\mathbb{C}\) with eigenvalues \({e}^{i\theta },{e}^{-{i\theta }}\)
+
+\begin{itemize}
+\item As a corollary of the theorem, for all \(A \in  {M}_{n \times  n}\left( \mathbb{C}\right)\) satisfying \({A}^{\mathrm{H}}A = I\), there exists \(P \in  {M}_{n \times  n}\left( \mathbb{C}\right)\) such that
+\end{itemize}
+
+\[
+{P}^{-1}{AP} = \operatorname{diag}\left( {{\lambda }_{1},\ldots ,{\lambda }_{n}}\right) ,\;\left| {\lambda }_{i}\right|  = 1,
+\]
+
+where \(P = \left( {{\mathbf{u}}_{1},\ldots ,{\mathbf{u}}_{n}}\right)\), with \(\left\{  {{\mathbf{u}}_{1},\ldots ,{\mathbf{u}}_{n}}\right\}\) forming orthonormal basis of \({\mathbb{C}}^{n}\). In fact,
+
+\[
+{P}^{\mathrm{H}}P = \left( \begin{matrix} {\mathbf{u}}_{1}^{\mathrm{H}} \\  \vdots \\  {\mathbf{u}}_{n}^{\mathrm{H}} \end{matrix}\right) \left( {{\mathbf{u}}_{1}\cdots {\mathbf{u}}_{n}}\right)  = \left( \begin{matrix} \left\langle  {{\mathbf{u}}_{1},{\mathbf{u}}_{1}}\right\rangle  & \cdots & \left\langle  {{\mathbf{u}}_{1},{\mathbf{u}}_{n}}\right\rangle  \\  \vdots &  \ddots  & \vdots \\  \left\langle  {{\mathbf{u}}_{n},{\mathbf{u}}_{1}}\right\rangle  & \cdots & \left\langle  {{\mathbf{u}}_{n},{\mathbf{u}}_{n}}\right\rangle   \end{matrix}\right)
+\]
+
+Conclusion: all matrices \(A \in  {M}_{n \times  n}\left( \mathbb{C}\right)\) with \({A}^{\mathrm{H}}A = I\) can be written as
+
+\[
+A = P^{-1}\operatorname{diag}\left( {{\lambda }_{1},\ldots ,{\lambda }_{n}}\right) P,
+\]
+
+with some \(P\) satisfying \(P^{\mathrm{H}}P = I\).
+
+\textbf{Notation.} Let \(U\left( n\right)  = \left\{  {A \in  {M}_{n \times  n}\left( \mathbb{C}\right)  \mid  {A}^{\mathrm{H}}A = I}\right\}\) be the unitary group, then all \(A \in  U\left( n\right)\) can be diagonalized by
+
+\[
+A = {P}^{-1}\operatorname{diag}\left( {{\lambda }_{1},\ldots ,{\lambda }_{n}}\right) P,\;P \in  U\left( n\right) .
+\]
+
+\section{Normal Operators}
+
+\begin{definition}[Normal Operator]
+Let \( T : V \to V \) be a linear operator over a \( \mathbb{C} \)-inner product vector space \( V \). We say that \( T \) is \textbf{normal} if
+\[
+T^\prime T = T T^\prime,
+\]
+where \( T^\prime \) denotes the adjoint of \( T \).
+\end{definition}
+
+\begin{example}[Examples of Normal Operators]\leavevmode
+\begin{itemize}
+    \item All self-adjoint operators are normal:
+    \[
+    T = T^\prime \Rightarrow T T^\prime = T T = T^2.
+    \]
+
+    \item All (finite-dimensional) unitary operators are normal:
+    \[
+    T^\prime T = T T^\prime = I.
+    \]
+\end{itemize}
+\end{example}
+
+\begin{proposition}
+Let \( T \) be a normal operator on \( V \). Then:
+\begin{enumerate}
+    \item \( \|T({\bf v})\| = \|T'({\bf v})\| \) for all \( {\bf v} \in V \).\\
+    In particular, \( T({\bf v}) = 0 \) if and only if \( T'({\bf v}) = 0 \).
+    
+    \item \( (T - \lambda I) \) is also a normal operator for any \( \lambda \in \mathbb{C} \).
+
+    \item \( T({\bf v}) = \lambda {\bf v} \) if and only if \( T'({\bf v}) = \bar{\lambda} {\bf v} \).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}[label=\arabic*.]
+\item
+\begin{align*}
+\langle {\bf v}, T{\bf v} \rangle &= \langle T'{\bf v}, {\bf v} \rangle = \langle T'T {\bf v}, {\bf v} \rangle = \langle TT'{\bf v}, {\bf v} \rangle = \langle T'{\bf v}, T'{\bf v} \rangle = \|T'({\bf v})\|^2.
+\end{align*}
+Therefore, \( \|T({\bf v})\|^2 = \|T'({\bf v})\|^2 \Rightarrow \|T({\bf v})\| = \|T'({\bf v})\| \).
+
+\item
+By the hypothesis that \( T \) is normal, we have \( T'T = TT' \). We check:
+\[
+(T - \lambda I)'(T - \lambda I) = (T - \lambda I)(T - \lambda I)'.
+\]
+Expanding both sides:
+\begin{align*}
+(T - \lambda I)'(T - \lambda I) &= (T' - \bar{\lambda} I)(T - \lambda I) = T'T - \bar{\lambda} T - \lambda T' + |\lambda|^2 I, \\
+(T - \lambda I)(T - \lambda I)' &= T T' - \lambda T' - \bar{\lambda} T + |\lambda|^2 I.
+\end{align*}
+These expressions are equal since \( T'T = TT' \), hence \( T - \lambda I \) is normal.
+
+\item
+\textbf{Forward direction:} If \( (T - \lambda I){\bf v} = 0 \), then \( T{\bf v} = \lambda {\bf v} \). By (2), \( T - \lambda I \) is normal, so:
+\[
+\| (T - \lambda I)'({\bf v}) \| = 0 \Rightarrow (T - \lambda I)'({\bf v}) = 0 \Rightarrow T'{\bf v} = \bar{\lambda} {\bf v}.
+\]
+
+\textbf{Reverse direction:} Suppose \( (T' - \bar{\lambda} I){\bf v} = 0 \), i.e., \( T'{\bf v} = \bar{\lambda} {\bf v} \). Then:
+\[
+(T' - \bar{\lambda} I) {\bf v} = 0 \Rightarrow ((T')' - \lambda I) {\bf v} = 0,
+\]
+but \( (T')' = T \) by the self-adjoint property in Hilbert spaces. Thus, \( (T - \lambda I){\bf v} = 0 \).
+
+\item
+Suppose \( T{\bf v} = \lambda {\bf v} \), \( T\bm{w} = \mu \bm{w} \), and \( \lambda \neq \mu \). Then:
+\[
+\lambda \langle {\bf v}, \bm{w} \rangle = \langle T{\bf v}, \bm{w} \rangle = \langle {\bf v}, T'\bm{w} \rangle = \langle {\bf v}, \bar{\mu} \bm{w} \rangle = \bar{\mu} \langle {\bf v}, \bm{w} \rangle.
+\]
+Since \( \lambda \neq \bar{\mu} \), we must have \( \langle {\bf v}, \bm{w} \rangle = 0 \). The proof is complete.
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}\label{thm:spectral-normal} Let \(T\) be an operator on a finite dimensional \(\left( {\dim \left( V\right)  = n}\right) \mathbb{C}\) -inner product vector space \(V\) satisfying \(T'T = TT'\). Then there is an orthonormal basis of eigenvectors of \(V\), i.e., an orthonormal basis of \(V\) such that any element from this basis is an eigenvector of \(T\).
+\end{theorem}
+\begin{proof} Since \({\mathcal{X}}_{T}\left( x\right)\) must have a root in \(\mathbb{C}\), there must exist an eigen-pair \(\left( {{\bf v},\lambda }\right)\) of \(T\).
+
+\begin{itemize}
+\item Construct \(U = \operatorname{span}\{ \mathbf{v}\}\), and it follows that
+\end{itemize}
+
+\[
+T\mathbf{v} = \lambda \mathbf{v} \Rightarrow  U\text{ is }T\text{ -invariant. }
+\]
+
+\[
+T'\mathbf{v} = \bar{\lambda }\mathbf{v} \Rightarrow  U\text{ is }T'\text{ -invariant. }
+\]
+
+\begin{itemize}
+\item Moreover, we claim that \({U}^{ \bot  }\) is \(T\) and \(T'\) invariant: let \(\mathbf{w} \in  {U}^{ \bot  }\), and for all \(\mathbf{u} \in  U\),
+\end{itemize}
+
+we have
+
+\[
+\langle \mathbf{u},T\left( \mathbf{w}\right) \rangle  = \left\langle  {T'\left( \mathbf{u}\right) ,\mathbf{w}}\right\rangle   = \langle \bar{\lambda }\mathbf{u},\mathbf{w}\rangle  = \lambda \langle \mathbf{u},\mathbf{w}\rangle  = 0,
+\]
+
+i.e., \({U}^{ \bot  }\) is \(T\) invariant.
+
+\[
+\left\langle  {\mathbf{u},T'\left( \mathbf{w}\right) }\right\rangle   = \langle T\left( \mathbf{u}\right) ,\mathbf{w}\rangle  = \langle \lambda \mathbf{u},\mathbf{w}\rangle  = \bar{\lambda }\langle \mathbf{u},\mathbf{w}\rangle  = 0,
+\]
+
+which implies \({U}^{ \bot  }\) is \(T'\) invariant.
+
+\begin{itemize}
+\item Therefore, we construct the operator \({\left. T\right| }_{{U}^{ \bot  }} : {U}^{ \bot  } \rightarrow  {U}^{ \bot  }\), and
+\end{itemize}
+
+\[
+TT' = T'T \Rightarrow  \left( {\left. T\right| }_{{U}^{ \bot  }}\right) \left( {T'{\left. \right| }_{{U}^{ \bot  }}}\right)  = \left( {\left. T'\right| }_{{U}^{ \bot  }}\right) \left( {\left. T\right| }_{{U}^{ \bot  }}\right) ,
+\]
+
+i.e., \(\left( {\left. T\right| }_{{U}^{ \bot  }}\right)\) is normal on \({U}^{ \bot  }\). Moreover, \(\dim \left( {U}^{ \bot  }\right)  = n - 1\).
+
+Applying the same trick as in \autoref{thm: spectral-self-aadjoint}, we imply there exists an orthonormal basis \(\left\{  {{\mathbf{e}}_{2},\ldots ,{\mathbf{e}}_{n}}\right\}\) of eigenvectors of \(\left( {\left. T\right| }_{{U}^{ \bot  }}\right)\). Then we can argue that
+\[
+\mathcal{B} = \left\{  {{\mathbf{v}}^{\prime } = \frac{\mathbf{v}}{\parallel \mathbf{v}\parallel} ,{\mathbf{e}}_{2},\ldots ,{\mathbf{e}}_{k + 1}}\right\}
+\]
+is a basis of orthonormal eigenvectors of \(V\).
+\end{proof}
+
+\begin{corollary}[Spectral Theorem for Normal Operators]\label{cor:spectral-theorem-normal-operators}
+Let \(T : V \rightarrow  V\) be a normal operator on a \(\mathbb{C}\) -inner product space with \(\dim \left( V\right)  < \infty\). Then there exists self-adjoint operators \({P}_{1},\ldots ,{P}_{k}\) such that
+\[
+{P}_{i}^{2} = {P}_{i},\;{P}_{i}{P}_{j} = 0,i \neq  j,\;\mathop{\sum }\limits_{{i = 1}}^{k}{P}_{i} = I,
+\]
+and \(T = \mathop{\sum }\limits_{{i = 1}}^{k}{\lambda }_{i}{P}_{i}\), where \({\lambda }_{i}\) ’s are the eigenvalues of \(T\).
+
+These \({P}_{i}\) ’s are the orthogonal projections from \(V\) to the \(\lambda_{i}\) -eigenspace \(\ker (T - \lambda_{i}I)\) of \(T\), i.e., we have
+
+\[
+{\bf v} = {P}_{i}\left({\bf  v}\right)  + \left( {{\bf v} - {P}_{i}\left({\bf  v}\right) }\right)
+\]
+
+where \({P}_{i}\left({\bf  v}\right)  \in  \ker \left( {T - {\lambda }_{i}I}\right)\), and \({\bf v} - {P}_{i}\left({\bf  v}\right)  \in  {\left( \ker \left( T - {\lambda }_{i}I\right) \right) }^{ \bot  }\).
+\end{corollary}
+You should know how to compute the projections \( P_i \) when \( T({\bf v}) = A{\bf v} \) in MAT2040.
+
+\textbf{Proof.}
+Since \( T \) has a basis of eigenvectors, it is diagonalizable. By Proposition (8.2),
+\[
+m_T(x) = (x - \lambda_1) \cdots (x - \lambda_k),
+\]
+with distinct eigenvalues \( \lambda_i \). By Corollary (9.2), it suffices to show that each projection \( P_i \) is self-adjoint.
+
+\begin{itemize}
+\item Recall that \( P_i = a_i(T) q_i(T) := b_m T^m + \cdots + b_1 T + b_0 I \), i.e., a polynomial in \( T \). Then,
+\[
+P_i' = \bar{b}_m (T')^m + \cdots + \bar{b}_1 T' + \bar{b}_0 I.
+\]
+
+We claim \( P_i \) is normal. Since \( T'T = TT' \), we have:
+\[
+(T')^p T^q = T^q (T')^p \quad \forall\, p, q \in \mathbb{N}.
+\]
+
+Thus:
+\[
+P_i P_i' = \left( b_m T^m + \cdots + b_0 I \right) \left( \bar{b}_m (T')^m + \cdots + \bar{b}_0 I \right)
+= \sum_{x,y=0}^m b_x \bar{b}_y T^x (T')^y
+\]
+\[
+= \sum_{x,y=0}^m \bar{b}_y b_x (T')^y T^x = P_i' P_i.
+\]
+
+\item In general, if an operator \( S \) is self-adjoint, then it is normal. The converse is not true unless all eigenvalues of \( S \) are real. But in this case:
+
+By \autoref{thm:spectral-normal}, a normal operator \( S \) is orthonormally diagonalizable, so its matrix representation in some orthonormal basis \( \mathcal{B} \) is
+\[
+S_{\mathcal{B}, \mathcal{B}} = \operatorname{diag}(\lambda_1, \ldots, \lambda_k).
+\]
+This same basis diagonalizes \( S' \) as well, and by part (3) of Proposition (12.1),
+\[
+(S')_{\mathcal{B}, \mathcal{B}} = \operatorname{diag}(\lambda_1, \ldots, \lambda_k).
+\]
+Therefore, \( S = S' \), so \( S \) is self-adjoint.
+
+In particular, for \( S = P_i \), all eigenvalues are 0 or 1, which are real. Hence, each \( P_i \) is self-adjoint.
+\end{itemize}
+
+\begin{corollary}
+Let \( T : V \to V \) be a linear operator on a \( \mathbb{C} \)-inner product space with \( \dim(V) < \infty \). Then \( T \) is normal if and only if \( T' = f(T) \) for some polynomial \( f(x) \in \mathbb{C}[x] \).
+\end{corollary}
+
+\textbf{Proof.} 
+
+For the reverse direction, if \( T' = f(T) \), then
+\[
+T'T = f(T)T = Tf(T) = TT'.
+\]
+
+\begin{itemize}
+\item For the forward direction, suppose that \( T \) is normal. Then by Corollary (12.1), we have:
+\[
+T = \sum_{i=1}^k \lambda_i P_i, \quad P_i = f_i(T),
+\]
+where the \( P_i \) are self-adjoint.
+
+\medskip
+
+It follows that
+\[
+T' = \left( \sum_{i=1}^k \lambda_i P_i \right)' 
+= \sum_{i=1}^k \bar{\lambda}_i P_i' 
+= \sum_{i=1}^k \bar{\lambda}_i P_i 
+= \sum_{i=1}^k \bar{\lambda}_i f_i(T).
+\]
+\end{itemize}
+
+\begin{remark}
+The normal operator is a generalization of Hermitian matrices, and it inherits many nice properties of Hermitian operators.
+\end{remark}

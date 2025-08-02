@@ -1,0 +1,577 @@
+\chapter{Review of Vector Space and Basis}
+
+\section{Introduction}
+
+Advanced Linear Algebra (MAT 3040) is one of the most important courses in MATH major, with prerequisite MAT 2040 and MAT 1001/1011. This course will offer {\bf true} linear algebra knowledge. 
+
+\medskip
+
+{\bf What will be covered?}
+\begin{itemize}
+\item In MAT 2040 we have studied the space \({\mathbb{R}}^n\) ; while in MAT 3040 we will study the general vector space \(V\).
+
+\item In MAT 2040 we have studied the linear transformation between Euclidean spaces, i.e., \(T : {\mathbb{R}}^n \rightarrow  {\mathbb{R}}^{m}\) ; while in MAT 3040 we will study the linear transformation from vector spaces to vector spaces: \(T : V \rightarrow  W\)
+
+\item In MAT 2040 we have studied the eigenvalues of \(n \times  n\) matrix \(A\) ; while in MAT 3040 we will study the eigenvalues of a linear operator \(T : V \rightarrow  V\).
+
+\item In MAT 2040 we have studied the dot product \(\mathbf{x} \cdot  \mathbf{y} = \mathop{\sum }\limits_{{i = 1}}^n{x}_{i}{y}_{i}\) ; while in MAT 3040 we will study the inner product \(\left\langle  {{\bf v}_1,{\bf v}_2}\right\rangle\).
+\end{itemize}
+
+{\bf Why generalize?} In mathematics (and beyond), we come across many other spaces than $\mathbb{R}^n$, for example:
+\begin{itemize}
+\item \(\mathcal{C}\left( \mathbb{R}\right)\), the space of all functions on \(\mathbb{R}\),
+\item \({\mathcal{C}}^{\infty }\left( \mathbb{R}\right)\), the space of all infinitely differentiable functions on \(\mathbb{R}\),
+\item \(\mathbb{R}[x]\), the space of polynomials of one real variable.
+\end{itemize}
+
+Here are some applications in partial differential equations and physics:
+\begin{example}
+1. Consider the Laplace equation \({\Delta f} = 0\) with Laplace operator:
+
+\[
+\Delta  : {C}^{\infty }\left( {\mathbb{R}}^{3}\right)  \rightarrow  {C}^{\infty }\left( {\mathbb{R}}^{3}\right), \quad \quad f \mapsto  \left( {\frac{{\partial }^2}{\partial {x}^2} + \frac{{\partial }^2}{\partial {y}^2} + \frac{{\partial }^2}{\partial {z}^2}}\right) f
+\]
+The solution to the partial differential equation \({\Delta f} = 0\) is the $0$-eigenspace of \(\Delta\).
+
+\medskip
+2. Consider the Schrödinger equation \(\widehat{H}f = {Ef}\) with the Schrödinger operator
+\[
+\widehat{H} : {C}^{\infty }\left( {\mathbb{R}}^{3}\right)  \rightarrow  {C}^{\infty }\left( {\mathbb{R}}^{3}\right),\quad \quad f \mapsto  \left(  {\frac{-{\hslash }^2}{2\mu }{\nabla }^2 + V\left( {x,y,z}\right) }\right)  f
+\]
+
+Solving the equation \(\widehat{H}f = \lambda f\) is equivalent to finding the $\lambda$-eigenspace of \(\widehat{H}\). In fact, a major observation in quantum mechanics is that the eigenvalues of \(\widehat{H}\) are discrete.    
+\end{example}
+
+
+\section{Vector Spaces}
+
+\begin{definition}[Vector Space] A {\bf vector space} over a field \(\mathbb{F}\) (in particular, \(\mathbb{F} = \mathbb{R}\) or \(\mathbb{C}\)) is a set of objects \(V\) equipped with vector addiction $+$ and scalar multiplication $\cdot$ such that the following rules are satisfied:
+\begin{itemize}
+    \item Commutativity: \({\bf v}_1 + {\bf v}_2 = {\bf v}_2 + {\bf v}_1\).
+
+    \item Associativity: \({\bf v}_1 + \left( {{\bf v}_2 + {\bf v}_{3}}\right)  = \left( {{\bf v}_1 + {\bf v}_2}\right)  + {\bf v}_{3}\).
+
+    \item Zero vector: there exists \(\mathbf{0} \in  V\) such that \(\mathbf{0} + \mathbf{v} = \mathbf{v}\) for all \(\mathbf{v} \in  V\).
+
+    \item Additive inverse: for all ${\bf v} \in V$, there exists \(-{\bf v} \in V\) such that ${\bf v} + (-{\bf v}) = {\bf 0}$.
+
+    \item Distributivity of vectors: \(\alpha \left( {{\bf v}_1 + {\bf v}_2}\right)  = \alpha {\bf v}_1 + \alpha {\bf v}_2\).
+
+    \item Distributivity of scalars: \(\left( {\alpha_1 + \alpha_2}\right) \mathbf{v} = \alpha_1\mathbf{v} + \alpha_2\mathbf{v}\).
+
+    \item Compatibility of scalar multiplication: \(\alpha_1\left( {\alpha_2\mathbf{v}}\right)  = \left( {\alpha_1\alpha_2}\right) \mathbf{v}\).
+
+    \item Multiplicative identity: \(1\mathbf{v} = \mathbf{v}\).
+\end{itemize}
+\end{definition}
+
+Here we study several examples of vector spaces:
+
+\begin{example} For \(V = {\mathbb{F}}^n\), we can define scalar multiplication:
+\[
+\alpha \left( \begin{matrix} {x}_1 \\  \vdots \\  {x}_n \end{matrix}\right)  = \left( \begin{matrix} \alpha {x}_1 \\  \vdots \\  \alpha {x}_n \end{matrix}\right)
+\]
+and vector addition:
+\[
+\left( \begin{matrix} {x}_1 \\  \vdots \\  {x}_n \end{matrix}\right)  + \left( \begin{matrix} {y}_1 \\  \vdots \\  {y}_n \end{matrix}\right)  = \left( \begin{matrix} {x}_1 + {y}_1 \\  \vdots \\  {x}_n + {y}_n \end{matrix}\right).
+\]
+In such a case,
+\(
+\mathbf{0} = \left( \begin{matrix} 0 \\  \vdots \\  0 \end{matrix}\right)
+\) is the zero vector.
+\end{example}
+
+\begin{example}
+It is clear that the set \(V = {M}_{m \times  n}\left( \mathbb{F}\right)\) (the set of all \(m \times  n\) real matrices) is a vector space as well. In such a case, the zero `vector' is the zero matrix ${\bf 0}_{m \times n}$.
+\end{example}
+
+\begin{example}
+The set \(V = \mathcal{C}\left( \mathbb{R}\right)\) is a vector space with scalar multiplication:
+\[
+\left( {\alpha f}\right) \left( x\right)  = {\alpha f}\left( x\right) ,\forall \alpha  \in  \mathbb{R},f \in  V
+\]    
+and vector addition:
+\[
+\left( {f + g}\right) \left( x\right)  = f\left( x\right)  + g\left( x\right) ,\forall f,g \in  V
+\]
+Here the zero vector is the zero function, i.e., \(\mathbf{0}\left( x\right)  = 0\) for all \(x \in  \mathbb{R}\).
+\end{example}
+
+
+\begin{definition} A sub-collection \(W \subseteq  V\) of a vector space \(V\) is called a {\bf vector subspace} of \(V\) if \(W\) itself forms a vector space, denoted by \(W \leq  V\).
+\end{definition}
+
+\begin{example} 
+For \(V = {\mathbb{R}}^{3}\), \(W := \{ \left( {x,y,0}\right)  \mid  x,y \in  \mathbb{R}\}  \leq  V\), but \(W' := \{ \left( {x,y,1}\right)  \mid  x,y \in  \mathbb{R}\}\) is not a vector subspace of \(V\).
+\end{example}
+
+\begin{proposition}\label{prop:vecsubspceiff} A subset \(W \subseteq  V\) is a vector subspace of \(V\) iff for all \({\bf w}_1,{\bf w}_2 \in  W\), we have 
+\[\alpha \mathbf{\bf w}_1 + \beta {\bf w}_2 \in  W\] 
+for all \(\alpha ,\beta  \in  \mathbb{F}\).
+\end{proposition}
+The proof is identical to that of MAT 2040.
+
+
+\begin{example} 
+We look at a few more examples and non-examples of vector subspaces:
+\begin{itemize}
+    \item Let \(V = {M}_{n \times  n}\left( \mathbb{F}\right)\), then the subset of all symmetric matrices \(W = \left\{  A \in  V \mid  {A^t = A}\right\}   \leq  V\) is a subspace of $V$.
+
+    \item Let \(V = {C}^{\infty }\left( \mathbb{R}\right)\). Define \(W = \left\{  {f \in  V \mid  \frac{{\mathrm{d}}^2}{\mathrm{\;d}{x}^2}f + f = 0}\right\}   \leq  V\). For \(f,g \in  W\), we have
+\[
+{\left( \alpha f + \beta g\right) }^{\prime \prime } = \alpha {f}^{\prime \prime } + \beta {g}^{\prime \prime } = \alpha \left( {-f}\right)  + \beta \left( {-g}\right)  =  - \left( {{\alpha f} + {\beta g}}\right) ,
+\]
+
+which implies \({\left( \alpha f + \beta g\right) }^{\prime \prime } + \left( {{\alpha f} + {\beta g}}\right)  = 0\). Therefore, $W \leq V$.
+
+\item Let \(V = {\mathbb{R}}^2\). Then the set \( {\mathbb{R}}_{ + }^2 := \{(x,y) \in \mathbb{R}^2\ | x, y > 0\}\) is not a vector subspace, since \(W\) is not closed under scalar multiplication.
+
+\item Moreover, the set \({\mathbb{R}}_{ + }^2 \cup {\mathbb{R}}_{ - }^2 := \{(x,y) \in \mathbb{R}^2\ | xy > 0\} \) is not a vector subspace of $V = \mathbb{R}^2$ since it is not closed under addition.
+
+\item For \(V = {\mathbb{M}}_{3 \times  3}\left( \mathbb{R}\right)\), the set of invertible \(3 \times  3\) matrices is not a vector subspace, since the zero `vector' ${\bf0}_{3 \times 3}$ is not invertible (Exercise: How about the set of all singular matrices?).
+\end{itemize}
+\end{example}
+
+\subsection{Spanning Set and Linear Independence}
+
+\begin{definition} Let \(V\) be a vector space over \(\mathbb{F}\) :
+
+1. A {\bf linear combination} of a subset \(S\) in \(V\) is of the form
+\[
+\mathop{\sum }\limits_{{i = 1}}^n\alpha_{i}{\mathbf{s}}_{i},\quad \alpha_{i} \in  \mathbb{F},{\mathbf{s}}_{i} \in  S
+\]
+for $n \in \mathbb{N}$. Note that the summation should be finite.
+
+2. The {\bf span} of a subset \(S \subseteq  V\) is
+\[
+\operatorname{span}\left( S\right)  = \left\{  {\mathop{\sum }\limits_{{i = 1}}^n\alpha_{i}{\mathbf{s}}_{i} \Big|  \alpha_{i} \in  \mathbb{F},{\mathbf{s}}_{i} \in  S}\right\}
+\]
+
+3. \(S\) is a {\bf spanning set} of \(V\), or say \(S\) {\bf spans} \(V\), if
+\[
+\operatorname{span}\left( S\right)  = V\text{ . }
+\]
+\end{definition}
+
+\begin{example} 
+\leavevmode
+\begin{enumerate}
+    \item For \(V = \mathbb{R}\left\lbrack  x\right\rbrack\), define the set \(S := \left\{  {1,{x}^2,{x}^{4},\ldots ,{x}^{6}}\right\} \subseteq V\). Then \(2 + {x}^{4} + \pi {x}^{106} \in  \operatorname{span}\left( S\right)\), while the series \(1 + {x}^2 + {x}^{4} + \cdots  \notin  \operatorname{span}\left( S\right)\). 
+
+It is clear that \(\operatorname{span}\left( S\right)  \neq  V\), but \(S\) is the spanning set of \(W = \{ p \in  V \mid  p\left( x\right)  = p\left( {-x}\right) \}\).
+
+\item For \(V = {M}_{3 \times  3}\left( \mathbb{R}\right)\), let \({\bf w}_1 = \left\{  {A \in  V \mid  {A}^{\mathrm{T}} = A}\right\}\) and \({\bf w}_2 = \left\{  {B \in  V \mid  {B}^{\mathrm{T}} =  - B}\right\}\) (the set of skew-symmetric matrices) be two vector subspaces. {\bf Exercise:} show that the set \( S := {\bf w}_1\cup {\bf w}_2\) spans \(V\).
+\end{enumerate}
+\end{example}
+
+
+\begin{proposition} \label{prop:exchangelem}
+Let \(S\) be a subset in a vector space \(V\).
+
+\begin{enumerate}
+\item \(S \subseteq  \operatorname{span}\left( S\right)\)
+
+\item \(\operatorname{span}\left( S\right)  = \operatorname{span}\left( {\operatorname{span}\left( S\right) }\right)\)
+
+\item (Exchange Lemma) If \(\mathbf{w} \in  \operatorname{span}\left\{  {{\bf v}_1,\ldots ,{\bf v}_n}\right\}   \smallsetminus  \operatorname{span}\left\{  {{\bf v}_2,\ldots ,{\bf v}_n}\right\}\), then
+
+\[
+{\bf v}_1 \in  \operatorname{span}\left\{  {\mathbf{w},{\bf v}_2,\ldots ,{\bf v}_n}\right\}   \smallsetminus  \operatorname{span}\left\{  {{\bf v}_2,\ldots ,{\bf v}_n}\right\}
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof} 
+\begin{enumerate}
+    \item For each \(s \in  S\), we have
+
+\[
+\mathbf{s} = 1 \cdot  \mathbf{s} \in  \operatorname{span}\left( S\right)
+\]
+
+    \item From (1), it’s clear that \(\operatorname{span}\left( S\right)  \subseteq  \operatorname{span}\left( {\operatorname{span}\left( S\right) }\right)\), and therefore suffices to show
+
+\(\operatorname{span}\left( {\operatorname{span}\left( S\right) }\right)  \subseteq  \operatorname{span}\left( S\right)\) :
+
+Pick \(\mathbf{v} = \mathop{\sum }\limits_{{i = 1}}^n\alpha_{i}{\bf v}_{i} \in  \operatorname{span}\left( {\operatorname{span}\left( S\right) }\right)\), where \({\bf v}_{i} \in  \operatorname{span}\left( S\right)\). Rewrite
+
+\[
+{\bf v}_{i} = \mathop{\sum }\limits_{{j = 1}}^{n_{i}}\beta_{ij}{\mathbf{s}}_{j},\;{\mathbf{s}}_{j} \in  S,
+\]
+
+which implies
+
+\[
+\mathbf{v} = \mathop{\sum }\limits_{{i = 1}}^n\alpha_{i}\mathop{\sum }\limits_{{j = 1}}^{n_{i}}\beta_{ij}{\mathbf{s}}_{j} = \mathop{\sum }\limits_{{i = 1}}^n\mathop{\sum }\limits_{{j = 1}}^{n_{i}}\left( {\alpha_{i}\beta_{ij}}\right) {\mathbf{s}}_{j},
+\]
+
+i.e., \(\bf v\) is a finite linear combination of elements in \(S\), which implies \({\bf v} \in  \operatorname{span}\left( S\right)\).
+
+    \item  By hypothesis, \(\mathbf{w} = \alpha_1{\bf v}_1 + \cdots  + \alpha_n{\bf v}_n\) with \(\alpha_1 \neq  0\), which implies
+    \[
+    {\bf v}_1 =  - \frac{\alpha_2}{\alpha_1}{\bf v}_2 + \cdots  + \left( {-\frac1{\alpha_1}\mathbf{w}}\right)
+    \]
+    which implies \({\bf v}_1 \in  \operatorname{span}\left\{  {\mathbf{w},{\bf v}_2,\ldots ,{\bf v}_n}\right\}\). It suffices to show \({\bf v}_1 \notin  \operatorname{span}\left\{  {{\bf v}_2,\ldots ,{\bf v}_n}\right\}\). Suppose on the contrary that \({\bf v}_1 \in  \operatorname{span}\left\{  {{\bf v}_2,\ldots ,{\bf v}_n}\right\}\). It’s clear that \(\operatorname{span}\left\{  {{\bf v}_1,\ldots ,{\bf v}_n}\right\}   =\)  \(\operatorname{span}\left\{  {{\bf v}_2,\ldots ,{\bf v}_n}\right\}\). (left as exercise). Therefore,
+    \[
+    \varnothing  = \operatorname{span}\left\{  {{\bf v}_1,\ldots ,{\bf v}_n}\right\}   \smallsetminus  \operatorname{span}\left\{  {{\bf v}_2,\ldots ,{\bf v}_n}\right\}  ,
+    \]
+    
+    which is a contradiction.
+\end{enumerate}
+
+\end{proof}
+
+\begin{definition}[Linear Independence] Let \(S\) be a (not necessarily finite) subset of \(V\). Then \(S\) is {\bf linearly independent} (l.i.) on \(V\) if for any finite subset \(\left\{  {{\mathbf{s}}_1,\ldots ,{\mathbf{s}}_{k}}\right\}\) in \(S\),
+
+\[
+\mathop{\sum }\limits_{{i = 1}}^{k}\alpha_{i}{\mathbf{s}}_{i} = 0 \Leftrightarrow  \alpha_{i} = 0\ \forall i.
+\]
+Otherwise, we say $S$ is {\bf linearly dependent}.
+\end{definition}
+
+\begin{example}
+\leavevmode
+\begin{itemize}
+\item For \(V = C\left( \mathbb{R}\right)\), \({S}_1 = \{ \sin x,\cos x\}\) is linearly independent, since
+\[
+\alpha \sin x + \beta \cos x = \mathbf{0}\text{ (means zero function) }
+\]
+Taking \(x = 0\) both sides leads to \(\beta  = 0\) ; taking \(x = \frac{\pi }2\) both sides leads to \(\alpha  = 0\).
+
+\item For \(V = C\left( \mathbb{R}\right)\), \({S}_2 = \left\{  {{\sin }^2x,{\cos }^2x,1}\right\}\) is linearly dependent, since
+\[
+1 \cdot  {\sin }^2x + 1 \cdot  {\cos }^2x + \left( {-1}\right)  \cdot  1 = 0,\forall x
+\]
+
+\item For \(V = \mathbb{R}\left\lbrack  x\right\rbrack\), \(S = \left\{  {1,x,{x}^2,{x}^{3},\ldots ,}\right\}\) is linearly independent: Pick \({x}^{{k}_1},\ldots ,{x}^{{k}_n} \in  S\) with \({k}_1 < \cdots  < {k}_n\). Consider that the equation
+
+\[
+\alpha_1{x}^{{k}_1} + \cdots  + \alpha_n{x}^{{k}_n} = \mathbf{0}
+\]
+
+holds for all \(x\), and try to solve for \(\alpha_1,\ldots ,\alpha_n\) (one way is differentation.)
+\end{itemize}
+\end{example}
+
+
+\begin{definition}[Basis] A subset \(S\) is a {\bf basis} of \(V\) if
+
+(a) \(S\) spans \(V\); and
+
+(b) \(S\) is linearly independent.
+\end{definition}
+
+\begin{example} 
+\leavevmode
+1. For \(V = {\mathbb{R}}^n,S = \left\{  {{\mathbf{e}}_1,\ldots ,{\mathbf{e}}_n}\right\}\) is a basis of \(V\)
+
+2. For \(V = \mathbb{R}\left\lbrack  x\right\rbrack  ,S = \left\{  {1,x,{x}^2,\ldots }\right\}\) is a basis of \(V\)
+
+3. For \(V = {M}_{2 \times  2}\left( \mathbb{R}\right)\),
+\[
+S = \left\{  {\left( \begin{array}{ll} 1 & 0 \\  0 & 0 \end{array}\right) ,\left( \begin{array}{ll} 0 & 1 \\  0 & 0 \end{array}\right) ,\left( \begin{array}{ll} 0 & 0 \\  1 & 0 \end{array}\right) ,\left( \begin{array}{ll} 0 & 0 \\  0 & 1 \end{array}\right) }\right\}
+\]
+is a basis of \(V\).
+\end{example}
+
+\begin{proposition} Let \(V = \operatorname{span}\left\{  {{\bf v}_1,\ldots ,{\bf v}_{m}}\right\}\). Then there exists a subset of \(\left\{  {{\bf v}_1,\ldots ,{\bf v}_{m}}\right\}\) which is a basis of \(V\).
+\end{proposition}
+
+\begin{proof} If \(\left\{  {{\bf v}_1,\ldots ,{\bf v}_{m}}\right\}\) is linearly independent, the proof is complete. Otherwise, \(\alpha_1{\bf v}_1 + \cdots  + \alpha_{m}{\bf v}_{m} = \mathbf{0}\) has a non-trivial solution. w.l.o.g., \(\alpha_1 \neq  0\), which implies
+
+\[
+{\bf v}_1 =  \left(- \frac{\alpha_2}{\alpha_1}\right){\bf v}_2 + \cdots  + \left(- \frac{\alpha_{m}}{\alpha_1}\right) {\bf v}_{m} \Rightarrow  {\bf v}_1 \in  \operatorname{span}\left\{  {{\bf v}_2,\ldots ,{\bf v}_{m}}\right\}
+\]
+
+By the proof in \autoref{prop:exchangelem} (3),
+\[
+V =\operatorname{span}\left\{  {{\bf v}_1,\ldots ,{\bf v}_{m}}\right\}   = \operatorname{span}\left\{  {{\bf v}_2,\ldots ,{\bf v}_{m}}\right\}  ,
+\]
+which implies \(V = \operatorname{span}\left\{  {{\bf v}_2,\ldots ,{\bf v}_{m}}\right\}\).
+So one can continue this argument finitely many times until one has \(\left\{  {{\bf v}_{i},{\bf v}_{i + 1},\ldots ,{\bf v}_{m}}\right\}\) is linearly independent, and spans \(V\). The proof is complete.
+\end{proof}
+
+
+\begin{corollary} \label{cor:fghasbasis}
+Suppose \(V\) is {\bf finitely-generated}, i.e. there exists a finite set $\{{\bf v}_1,\ldots ,{\bf v}_{m}\}$ such that $V = \operatorname{span}\left\{{\bf v}_1,\ldots ,{\bf v}_{m}\right\}$.
+Then \(V\) has a basis. 
+\end{corollary}
+The same conclusion holds for non-finitely generated \(V\) if one assumes \href{https://en.wikipedia.org/wiki/Zorn%27s_lemma}{Zorn's lemma}.
+
+
+\begin{proposition} If \(\left\{  {{\bf v}_1,\ldots ,{\bf v}_n}\right\}\) is a basis of \(V\), then every \(v \in  V\) can be expressed uniquely as
+
+\[
+\mathbf{v} = \alpha_1{\bf v}_1 + \cdots  + \alpha_n{\bf v}_n
+\]
+\end{proposition}
+
+\begin{proof} Since \(\left\{  {{\bf v}_1,\ldots ,{\bf v}_n}\right\}\) spans \(V\), so \(\mathbf{v} \in  V\) can be written as in the form given in the Proposition.
+Suppose further that
+\[
+\mathbf{v} = \beta_1{\bf v}_1 + \cdots  + \beta_n{\bf v}_n,
+\]
+for some $\beta_i \in \mathbb{F}$, it suffices to show that \(\alpha_{i} = \beta_{i}\) for all \(i\): Indeed, by subtracting the above equations, one has
+\[
+\left( {\alpha_1 - \beta_1}\right) {\bf v}_1 + \cdots  + \left( {\alpha_n - \beta_n}\right) {\bf v}_n = 0.
+\]
+By the hypothesis of linear independence, we have \(\alpha_{i} - \beta_{i} = 0\) for all \(i\), i.e., \(\alpha_{i} = \beta_{i}\).
+\end{proof}
+
+\subsection{Basis and Dimension}
+
+We begin by showing that the bases of any finitely generated vector space have the same number of vectors:
+
+\begin{theorem} \label{thm:basisdim}
+Let $V$ be a finitely generated vector space (so that $V$ has a basis by \autoref{cor:fghasbasis}. Suppose $\{ \mathbf{v}_1,\ldots, \mathbf{v}_{m} \}$ and $\{ \mathbf{w}_1,\ldots, \mathbf{w}_n \}$ are two bases of $V$. Then $m = n$.
+\end{theorem}
+
+\begin{proof}
+Suppose on the contrary that $m \neq n$. Without loss of generality, assume that $m < n$. Let
+\[
+\mathbf{v}_1 = \alpha_1 \mathbf{w}_1 + \cdots + \alpha_n \mathbf{w}_n
+\]
+with some $\alpha_i \neq 0$. By rearranging the terms if necessary, assume $\alpha_1 \neq 0$. Then
+\begin{equation}\label{eq:replacement}
+\mathbf{v}_1 \in \operatorname{span}\{ \mathbf{w}_1, \mathbf{w}_2, \ldots, \mathbf{w}_n \} \setminus \operatorname{span}\{ \mathbf{w}_2, \ldots, \mathbf{w}_n \}.
+\end{equation}
+
+This implies that
+\[
+\mathbf{w}_1 \in \operatorname{span}\{ \mathbf{v}_1, \mathbf{w}_2, \ldots, \mathbf{w}_n \} \setminus \operatorname{span}\{ \mathbf{w}_2, \ldots, \mathbf{w}_n \}.
+\]
+We now claim that $\{ \mathbf{v}_1, \mathbf{w}_2, \ldots, \mathbf{w}_n \}$ is a basis of $V$.
+
+\begin{enumerate}
+  \item \textbf{Spanning Set:} Firstly, note that
+  $\mathbf{w}_1 \in \operatorname{span}\{ \mathbf{v}_1, \mathbf{w}_2, \ldots, \mathbf{w}_n \}$, so 
+  \[\operatorname{span}\{ \mathbf{w}_1, \mathbf{w}_2, \ldots, \mathbf{w}_n \} \subseteq \operatorname{span}\{ \mathbf{v}_1, \mathbf{w}_2, \ldots, \mathbf{w}_n \}.
+  \]
+  Since $\operatorname{span}\{ \mathbf{w}_1, \ldots, \mathbf{w}_n \} = V$, we have $\operatorname{span}\{ \mathbf{v}_1, \mathbf{w}_2, \ldots, \mathbf{w}_n \} = V$.
+
+  \item \textbf{Linear independence:} Suppose
+  \[
+  \beta_1 \mathbf{v}_1 + \beta_2 \mathbf{w}_2 + \cdots + \beta_n \mathbf{w}_n = \mathbf{0}.
+  \]
+  \begin{itemize}
+    \item If $\beta_1 \neq 0$, then
+    \[
+    \mathbf{v}_1 = -\frac{\beta_2}{\beta_1} \mathbf{w}_2 - \cdots - \frac{\beta_n}{\beta_1} \mathbf{w}_n \in \operatorname{span}\{ \mathbf{w}_2, \ldots, \mathbf{w}_n \},
+    \]
+    contradicting \textcolor{darkblue}{($\ref{eq:replacement}$)}.
+
+    \item If $\beta_1 = 0$, then independence of $\{ \mathbf{w}_2, \ldots, \mathbf{w}_n \}$ implies $\beta_2 = \cdots = \beta_n = 0$.
+  \end{itemize}
+\end{enumerate}
+
+Thus $\{ \mathbf{v}_1, \mathbf{w}_2, \ldots, \mathbf{w}_n \}$ is a basis. By repeating this replacement process, we ultimately construct
+\[\mathcal{B} :=
+\{ \mathbf{v}_1, \ldots, \mathbf{v}_m, \mathbf{w}_{m+1}, \ldots, \mathbf{w}_n \}
+\]
+as a basis of $V$. But then $\mathbf{w}_{m+1}$ would be a linear combination of $\mathbf{v}_1, \ldots, \mathbf{v}_m$, contradicting the linear independence the basis $\mathcal{B}$. Hence, $m = n$.
+\end{proof}
+
+\begin{definition}[Dimension] \label{def:dimension}
+    Let $V$ be a vector space over $\mathbb{F}$. 
+    \begin{itemize}
+        \item If $V$ is finitely-generated, then the {\bf dimension} of $V$ is defined as $\dim(V) = n$, where $n$ the size of {\it any} basis of $V$ (c.f. \autoref{thm:basisdim}).
+        \item If $V$ is not finitely-generated, then the dimension of $V$ is infinite, i.e. $\dim(V) = \infty$.
+    \end{itemize}
+\end{definition}
+
+
+\begin{example}
+A vector space may have more than one basis. For instance, suppose \(V = \mathbb{F}^n\). Then clearly \(\dim(V) = n\), and
+\[
+\left\{ \mathbf{e}_1, \ldots, \mathbf{e}_n \right\}
+\]
+is a basis of \(V\), where \(\mathbf{e}_i\) denotes the standard unit vector. Also, another basis of \(V\) can be taken as:
+\[
+\left\{
+\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix},
+\begin{pmatrix} 1 \\ 1 \\ \vdots \\ 0 \end{pmatrix},
+\ldots,
+\begin{pmatrix} 1 \\ 1 \\ \vdots \\ 1 \end{pmatrix}
+\right\}.
+\]
+
+In fact, the columns of any invertible \(n \times n\) matrix form a basis of \(V\).
+\end{example}
+
+\begin{example}
+Let \(V = M_{m \times n}(\mathbb{R})\). Then \(\dim(V) = mn\). More explicitly, a basis of $V$ is given by the set
+\[
+\left\{ E_{ij} \;\middle|\; 1 \leq i \leq m,\; 1 \leq j \leq n \right\},
+\]
+where \(E_{ij}\) is the \(m \times n\) matrix with a 1 in the \((i,j)\)-th entry and 0s elsewhere.
+\end{example}
+
+\begin{example}
+Let \(V\) be the space of all real polynomials of degree \(\leq n\). Then
+\[
+\dim(V) = n + 1.
+\]
+A basis of $V$ is given by \(\{1, x, x^2, \ldots, x^n\}\).
+\end{example}
+
+\begin{example}
+Let \(V = \left\{ A \in M_{n \times n}(\mathbb{R}) \mid A^\mathrm{T} = A \right\}\), the space of real symmetric matrices. Then
+\[
+\dim(V) = \frac{n(n + 1)}{2}.
+\]
+\end{example}
+
+\begin{example}
+Let \(W = \left\{ B \in M_{n \times n}(\mathbb{R}) \mid B^\mathrm{T} = -B \right\}\), the space of real skew-symmetric matrices. Then
+\[
+\dim(W) = \frac{n(n - 1)}{2}.
+\]
+\end{example}
+
+\begin{example}
+Sometimes we need to specify the field \(\mathbb{F}\) for the scalar multiplication when we define a vector space. Consider the example below:
+\begin{enumerate}
+    \item Let \(V = \mathbb{C}\), then \(\dim _{\mathbb{C}}\left( \mathbb{C}\right)  = 1\) for as a vector space over the field \(\mathbb{F} = \mathbb{C}\).
+    \item Let \(V = \operatorname{span}_{\mathbb{R}}\{ 1,i\}  = \mathbb{C}\), then \(\dim_{\mathbb{R}}\left( \mathbb{C}\right)  = 2\) as a vector space over \(\mathbb{F} = \mathbb{R}\), since all \(z \in  V\) can be uniquely written as \(z = a + {bi}\), for some \(a,b \in  \mathbb{R}\).
+    In cases where there may be confusion, it is safer to write
+    \[
+    {\dim }_{\mathbb{C}}\left( \mathbb{C}\right)  = 1,\;{\dim }_{\mathbb{R}}\left( \mathbb{C}\right)  = 2.
+    \]
+\end{enumerate}    
+\end{example}
+
+Note that a basis for a vector space is characterized as the maximal linearly independent set.
+
+\begin{theorem}[Basis Extension]\label{thm: basis-extension}
+Let $V$ be a finite-dimensional vector space, and let $\{ \mathbf{v}_1, \ldots, \mathbf{v}_k \}$ be a linearly independent subset of $V$. Then we can extend it to a basis $\{ \mathbf{v}_1, \ldots, \mathbf{v}_k, \mathbf{v}_{k+1}, \ldots, \mathbf{v}_n \}$ of $V$.
+\end{theorem}
+
+\begin{proof}
+Suppose $\dim(V) = n > k$, and let $\{ \mathbf{w}_1, \ldots, \mathbf{w}_n \}$ be a basis of $V$. Consider the set
+\[
+\{ \mathbf{w}_1, \ldots, \mathbf{w}_n \} \cup \{ \mathbf{v}_1, \ldots, \mathbf{v}_k \},
+\]
+which spans $V$ but is linearly dependent, i.e., there exists non-trivial solutions of the linear equation
+\[
+\alpha_1 \mathbf{w}_1 + \cdots + \alpha_n \mathbf{w}_n + \beta_1 \mathbf{v}_1 + \cdots + \beta_k \mathbf{v}_k = \mathbf{0}.
+\]
+Note that there must be some $\alpha_i \neq 0$, otherwise the above equation will only involve the linearly independent set ${\bf v}_1$, $\dots$, ${\bf v}_k$, which forces $\beta_1 = \dots = \beta_k = 0$. 
+
+
+Without loss of generality, assume $\alpha_1 \neq 0$, so that ${\bf w}_1 \in  \operatorname{span}(\{{\bf w}_2, \dots, {\bf w}_n\} \cup \{ {\bf v}_1 \dots, {\bf v}_k\})$. Consider the set
+\[
+\{ \mathbf{w}_2, \ldots, \mathbf{w}_n \} \cup \{ \mathbf{v}_1, \ldots, \mathbf{v}_k \}.
+\]
+with ${\bf w}_1$ removed. As in the proof of spanning set in \autoref{thm:basisdim}, one has
+$$\operatorname{span}(\{ \mathbf{w}_2, \ldots, \mathbf{w}_n \} \cup \{ \mathbf{v}_1, \ldots, \mathbf{v}_k \}) = \operatorname{span}(\{ \mathbf{w}_1, \ldots, \mathbf{w}_n \} \cup \{ \mathbf{v}_1, \ldots, \mathbf{v}_k \}) = V.$$
+In other words, it is still a spanning set. If it is linearly dependent, we repeat the argument by removing ${\bf w}_2$ and get a smaller spanning set
+$$\{ \mathbf{w}_3, \ldots, \mathbf{w}_n \} \cup \{ \mathbf{v}_1, \ldots, \mathbf{v}_k \}$$
+Continue this process by removing more vectors $\mathbf{w}_3$, $\dots$, so that the remaining set still spans $V$, until we hit the first occasion when the set
+\[
+ \{ \mathbf{w}_{\ell}, \ldots, \mathbf{w}_m \} \cup \{ \mathbf{v}_1, \ldots, \mathbf{v}_k \}
+\]
+is linearly independent and spans $V$. Then this becomes a basis of $V$. Moreover, one has $\ell = k+1$ by \autoref{thm:basisdim}.
+\end{proof}
+
+\subsection{Intersection and Sum of Vector Subspaces}
+
+\begin{definition} \label{def:sumintersect} Let \(W_1\), \(W_2\) be two vector subspaces of \(V\). Then:
+
+\begin{enumerate}
+  \item \(W_1 \cap W_2 := \left\{ \mathbf{w} \in V \mid \mathbf{w} \in W_1 \text{ and } \mathbf{w} \in W_2 \right\}\)
+
+  \item \(W_1 + W_2 := \left\{ \mathbf{w}_1 + \mathbf{w}_2 \mid \mathbf{w}_i \in W_i\ \text{for}\ i = 1,2 \right\}\)
+
+  \item Furthermore, if \(W_1 \cap W_2 = \{ \mathbf{0} \}\), then \(W_1 + W_2 = W_1 \oplus W_2\) is called the \emph{direct sum} of $W_1$ and $W_2$.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+\(W_1 \cap W_2\) and \(W_1 + W_2\) are vector subspaces of \(V\).
+\end{proposition}
+\begin{proof}
+    Exercise (use \autoref{prop:vecsubspceiff}).
+\end{proof}
+
+\begin{proposition}
+Let \( W_1, W_2 \) be subspaces of a vector space \( V \). The following are equivalent (TFAE):
+\begin{enumerate}
+\item $W_1 + W_2 = W_1 \oplus W_2$ is a direct sum
+\item Every \( \mathbf{w} \in W_1 + W_2 \) can be uniquely written as $\mathbf{w} = \mathbf{w}_1 + \mathbf{w}_2$ for \( \mathbf{w}_1 \in W_1 \) and \( \mathbf{w}_2 \in W_2 \).
+\item For \( \mathbf{w}_1 \in W_1 \) and \( \mathbf{w}_2 \in W_2 \), 
+$$\mathbf{w}_1 + \mathbf{w}_2 = \mathbf{0} \quad \Leftrightarrow \quad \mathbf{w}_1 = \mathbf{w}_2 = \mathbf{0}.$$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    XXX
+\end{proof}
+
+Obviously, one can generalize \autoref{def:sumintersect} to any number of (even for uncountably many) vector subspaces:
+\begin{definition}
+ Let \(\{W_i\ |\ i \in I\}\)\ be a collection of vector subspaces of \(V\). Then:
+
+\begin{enumerate}
+  \item \(\bigcap_{i \in I} W_i  := \left\{ \mathbf{w} \in V \mid \mathbf{w} \in W_i \text{ for all } i \in I \right\}\)
+
+  \item \(\sum_{i \in I} W_i  := \left\{ \mathbf{w}_{i_1} + \dots + \mathbf{w}_{i_n} \mid i_k \in I \text{ for all } k,\ n \in \mathbb{N} \right\}\) (Note that the sum in the definition above must be finite).
+\end{enumerate}   
+\end{definition}
+ 
+
+Here is a generalization of direct sum of more than two subspaces:
+\begin{definition}
+ Let \( \{ W_i\ |\ i \in I \} \) be a collection of subspaces of a vector space \( V \). We write
+\[
+\bigoplus_{i \in I} W_i = \sum_{i \in I} W_i 
+\]
+as the \textbf{direct sum} of all \( W_i\)'s if for {\bf any} finite subset $\{i_1, \dots, i_n\} \subseteq I$ and ${\bf w}_{i_k} \in W_{i_k}$,
+\[
+\mathbf{w}_{i_1} + \cdots + \mathbf{w}_{i_n} = \mathbf{0} \quad \Leftrightarrow \quad \mathbf{w}_{i_1} = \dots  = \mathbf{w}_{i_n} = \mathbf{0},
+\]
+
+\end{definition}
+As in the two vector subspaces case, every element \( {\bf w} \in \bigoplus_{i \in I} W_i\) in the direct sum has a \textbf{unique} expression as a finite sum \( {\bf w} = \mathbf{w}_{i_1} + \cdots + \mathbf{w}_{i_n} \) of vectors \( \mathbf{w}_{i_k} \in W_{i_k} \).
+
+
+\begin{proposition}[Complementation]\label{prop:complementation}
+Let \( W \leq V \) be a subspace of a finite-dimensional vector space \( V \). Then there exists a subspace \( W' \leq V \) such that
+\[
+V = W \oplus W',
+\]
+i.e., every vector in \( V \) can be uniquely written as a sum of vectors from \( W \) and \( W' \).
+\end{proposition}
+
+\begin{proof}
+Let \( \dim(W) = k \leq n = \dim(V) \), and let \( \{ \mathbf{v}_1, \ldots, \mathbf{v}_k \} \) be a basis of \( W \).
+By the basis extension theorem, we can extend this to a basis of \( V \):
+\[
+\{ \mathbf{v}_1, \ldots, \mathbf{v}_k, \mathbf{v}_{k+1}, \ldots, \mathbf{v}_n \}.
+\]
+Define
+\[
+W' := \operatorname{span} \{ \mathbf{v}_{k+1}, \ldots, \mathbf{v}_n \}.
+\]
+
+We now verify the two conditions for a direct sum:
+
+\begin{enumerate}
+\item \textbf{Sum:} For every \( \mathbf{v} \in V \), we can write
+\[
+\mathbf{v} = \sum_{i=1}^{k} \alpha_i \mathbf{v}_i + \sum_{j=k+1}^{n} \alpha_j \mathbf{v}_j,
+\]
+where the first sum lies in \( W \) and the second in \( W' \), so \( V = W + W' \).
+
+\item \textbf{Intersection:} Suppose \( \mathbf{v} \in W \cap W' \). Then
+\[
+\mathbf{v} = \sum_{i=1}^{k} \beta_i \mathbf{v}_i = \sum_{j=k+1}^{n} \gamma_j \mathbf{v}_j.
+\]
+But since the \( \mathbf{v}_i \) form a basis of \( V \), their representation is unique. Hence all coefficients must vanish:
+\[
+\beta_1 = \cdots = \beta_k = \gamma_{k+1} = \cdots = \gamma_n = 0,
+\]
+so \( \mathbf{v} = \mathbf{0} \), and \( W \cap W' = \{ \mathbf{0} \} \).
+\end{enumerate}
+
+Thus, \( V = W \oplus W' \).
+\end{proof}

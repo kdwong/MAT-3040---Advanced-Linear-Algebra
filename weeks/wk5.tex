@@ -1,0 +1,427 @@
+\chapter{Dual Spaces, Annihilators, and the Adjoint Map}
+\section{Dual Spaces}
+\begin{definition}[Dual Space]\label{def:dual-space}
+Let $V$ be a vector space over a field $\mathbb{F}$. The \emph{dual vector space} $V^*$ is defined as
+\[
+V^* = \mathrm{Hom}_{\mathbb{F}}(V, \mathbb{F}) = \{ f : V \to \mathbb{F} \mid f \text{ is a linear transformation} \}.
+\]
+\end{definition}
+
+\begin{example}
+\leavevmode
+\begin{enumerate}
+  \item Let $V = \mathbb{R}^n$, and define $\phi_i : V \to \mathbb{R}$ to be the $i$-th coordinate function:
+  \[
+  \phi_i \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} = x_i.
+  \]
+  Then clearly $\phi_i \in V^*$. On the contrary, the function
+  \[
+  \phi_i^2 \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} = x_i^2
+  \]
+  is not linear, hence $\phi_i^2 \notin V^*$.
+
+  \item Let $V = \mathbb{F}[x]$, and define $\phi : V \to \mathbb{F}$ by $\phi(p(x)) = p(1)$. Then $\phi \in V^*$ because:
+  \[
+  \phi(ap(x) + bq(x)) = ap(1) + bq(1) = a \phi(p(x)) + b \phi(q(x)).
+  \]
+
+  \item Let $\psi : V \to \mathbb{F}$ be defined by $\psi(p(x)) = \int_0^1 p(x)\,dx$. Then $\psi \in V^*$.
+
+  \item Let $V = M_{n \times n}(\mathbb{F})$, and define $\mathrm{tr} : V \to \mathbb{F}$ by $\mathrm{tr}(M) = \sum_{i=1}^n M_{ii}$. Then $\mathrm{tr} \in V^*$. However, the determinant function $\det : V \to \mathbb{F}$ is not linear, hence $\det \notin V^*$.
+\end{enumerate}
+\end{example}
+
+\subsection{Dual Basis}
+\begin{definition}[Dual Basis]\label{def: dual-basis}
+Let $V$ be a vector space with basis $\mathcal{B} = \{{\bf v}_i \mid i \in I\}$ (where $I$ may be finite, countable, or uncountable). Define
+\[
+\mathcal{B}^* = \{ f_i : V \to \mathbb{F} \mid i \in I \},
+\]
+where the functionals $f_i \in V^*$ satisfies:
+\[
+f_i({\bf v}_j) = \delta_{ij} = \begin{cases} 1, & \text{if } i = j, \\ 0, & \text{if } i \ne j. \end{cases}
+\]
+for all ${\bf v}_j \in \mathcal{B}$; and for all ${\bf v} = \sum_{\ell=1}^k \alpha_{\ell} v_{i_{\ell}} \in V$:
+\[
+f_i\left(\sum_{\ell=1}^k \alpha_{\ell} {\bf v}_{i_{\ell}}\right) = \sum_{\ell=1}^k \alpha_{\ell} f_i({\bf v}_{i_{\ell}}) = \alpha_i.
+\]
+(c.f. \autoref{rmk:linear_trans_basis}). The natural question is: \textbf{Does the set $\mathcal{B}^*$ form a basis for $V^*$?}
+\end{definition}
+
+\begin{proposition}\label{prop:dual-basis}
+Let \( B = \{ \mathbf{v}_i \mid i \in I \} \) be a basis of a vector space \( V \), and define the dual set
+\[
+\mathcal{B}^* = \{ f_i : V \to \mathbb{F} \mid i \in I \}
+\]
+as in \autoref{def: dual-basis}. Then:
+\begin{enumerate}
+  \item \( \mathcal{B}^* \) is always linearly independent. That is, any finite subset of \( \mathcal{B}^* \) is linearly independent.
+  \item If \( V \) is finite-dimensional, then \( \mathcal{B}^* \) forms a basis of \( V^* \).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+  \item Let \( f_1, \ldots, f_k \in \mathcal{B}^* \), and suppose there exists a linear dependence:
+  \[
+  \alpha_1 f_1 + \alpha_2 f_2 + \cdots + \alpha_k f_k = 0_{V^*}.
+  \]
+  We will show all \( \alpha_i = 0 \). Since each \( f_i \in \mathcal{B}^* \) satisfies \( f_i(\mathbf{v}_j) = \delta_{ij} \), evaluate the left-hand side on \( \mathbf{v}_1 \in B \):
+  \[
+  \alpha_1 f_1(\mathbf{v}_1) + \alpha_2 f_2(\mathbf{v}_1) + \cdots + \alpha_k f_k(\mathbf{v}_1) = \alpha_1 = 0.
+  \]
+  Repeating this for \( \mathbf{v}_2, \ldots, \mathbf{v}_k \) gives \( \alpha_2 = \cdots = \alpha_k = 0 \). Thus, \( \{ f_1, \ldots, f_k \} \) is linearly independent.
+
+  \item Suppose \( V \) is finite-dimensional with basis \( B = \{ \mathbf{v}_1, \ldots, \mathbf{v}_n \} \), and let \( \mathcal{B}^* = \{ f_1, \ldots, f_n \} \). For any \( f \in V^* \), define
+  \[
+  g := \sum_{i=1}^n f(\mathbf{v}_i) f_i \in \mathrm{span}(\mathcal{B}^*).
+  \]
+  For any \( j = 1, \ldots, n \), we compute:
+  \[
+  g(\mathbf{v}_j) = \sum_{i=1}^n f(\mathbf{v}_i) f_i(\mathbf{v}_j) = \sum_{i=1}^n f(\mathbf{v}_i) \delta_{ij} = f(\mathbf{v}_j).
+  \]
+  Hence \( g(\mathbf{v}) = f(\mathbf{v}) \) for all \( \mathbf{v} \in V \), by linearity and since the \( \mathbf{v}_j \)'s form a basis. Therefore, \( f = g \in \mathrm{span}(\mathcal{B}^*) \), and we conclude:
+  \[
+  V^* = \mathrm{span}(\mathcal{B}^*).
+  \]
+  Since \( \mathcal{B}^* \) is linearly independent and spans \( V^* \), it forms a basis.
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}\label{cor: dual-dim-equality}
+If \( \dim(V) = n \), then \( \dim(V^*) = n \).
+\end{corollary}
+
+\begin{proof}
+Define the map
+\[
+\Phi: V \longrightarrow V^*, \qquad \Phi(\mathbf{v}_i) := f_i,
+\]
+where \( f_i \in \mathcal{B}^* \) is the dual basis corresponding to the basis \( \mathcal{B} = \{ \mathbf{v}_1, \dots, \mathbf{v}_n \} \) of \( V \) (once again, we use \autoref{rmk:linear_trans_basis} to define $\Phi$). This is a linear isomorphism.
+
+Alternatively, recall that $V^* = \mathrm{Hom}(V,\mathbb{F})$ and hence
+$$\dim(V^*) = \dim(V)\dim(\mathbb{F}) = \dim(V) \cdot 1 = \dim(V).$$
+\end{proof}
+
+\begin{remark}\label{rem: non-canonical-isomorphism}
+The above definition of the isomorphism $\Phi$ requires a specified choice of basis in \( V \), so it is not a \emph{natural isomorphism}.
+\end{remark}
+\begin{remark}
+Part (2) of \autoref{prop:dual-basis} does not hold when \( V \) is infinite-dimensional. That is, the set \( \mathcal{B}^* \) may not span all of \( V^* \), since we only allow finite linear combinations in the definition of span. The following example illustrates a counterexample.
+\end{remark}
+
+\begin{example}\label{ex:dual-nonfinite}
+Let \( V = \mathbb{F}[x] \), the space of polynomials, and define a basis
+\[
+B = \{ 1, x, x^2, x^3, \dots \}, \quad \text{so} \quad \mathcal{B}^* = \{ \phi_0, \phi_1, \phi_2, \dots \},
+\]
+where \( \phi_i : V \to \mathbb{F} \) is defined by evaluation on monomials:
+\[
+\phi_i(x^j) = \begin{cases}
+1, & \text{if } i = j, \\
+0, & \text{otherwise}.
+\end{cases}
+\]
+
+Consider a functional \( \phi \in V^* \) given by:
+\[
+\phi(p(x)) = p(1),
+\]
+i.e., \( \phi \) evaluates the polynomial at \( x = 1 \). Then we have:
+\[
+\phi(1) = 1, \quad \phi(x) = 1, \quad \phi(x^2) = 1, \quad \cdots, \quad \phi(x^n) = 1 \quad \text{for all } n \in \mathbb{N}.
+\]
+
+If \( \phi \) were in the span of \( \{ \phi_0, \phi_1, \phi_2, \dots \} \), then it could be written as a finite linear combination:
+\[
+g := \sum_{n=0}^{\infty} \phi(x^n)\phi_n = \sum_{n=0}^{\infty} \phi_n.
+\]
+This is a contradiction, since \( \operatorname{span}(\mathcal{B}^*) \) only consists of finite linear combinations of the \( \phi_i \)'s.
+
+\textbf{Conclusion:} If \( V \) is infinite-dimensional, then \( V^* \) strictly contains more elements than \( \operatorname{span}(\mathcal{B}^*) \). In fact, \( \dim(V^*) \) is uncountable, while \( \mathcal{B}^* \) is countable.
+
+Any subspace of a given vector space has some gap with the whole space when considered from the perspective of the dual space. We now turn to describing this more precisely.
+\end{example}
+
+\subsection{Annihilators}\label{sec:annihilators}
+
+\begin{definition}[Annihilator]\label{def:annihilator}
+Let \( V \) be a vector space and \( S \subseteq V \) a subset. The \emph{annihilator} of \( S \), denoted \( \mathrm{Ann}(S) \), is defined as:
+\[
+\mathrm{Ann}(S) = \{ f \in V^* \mid f(s) = 0, \, \forall s \in S \}.
+\]
+\end{definition}
+
+\begin{example}
+Let \( V = \mathbb{R}^4 \), with basis \( B = \{ \mathbf{e}_1, \dots, \mathbf{e}_4 \} \), and let the dual basis be \( \mathcal{B}^* = \{ f_1, \dots, f_4 \} \). Consider the subset \( S = \{ \mathbf{e}_3, \mathbf{e}_4 \} \).
+
+Then \( f_1 \in \mathrm{Ann}(S) \), since
+\[
+f_1(\mathbf{e}_3) = 0, \quad f_1(\mathbf{e}_4) = 0.
+\]
+
+Indeed, any linear combination \( a f_1 + b f_2 \in V^* \) such that the coefficients only involve functionals vanishing on \( S \), will be in \( \mathrm{Ann}(S) \).
+\end{example}
+
+\begin{proposition}[Properties of Annihilators]\label{prop:annihilator-properties}
+Let \( V \) be a vector space. Then:
+\begin{enumerate}
+  \item The set \( \mathrm{Ann}(S) \subseteq V^* \) is a vector subspace.
+  \item The annihilator is \textbf{inclusion-reversing}, i.e., if \( W_1 \subseteq W_2 \subseteq V \), then
+  \[
+  \mathrm{Ann}(W_1) \supseteq \mathrm{Ann}(W_2).
+  \]
+  \item The annihilator is \textbf{idempotent}, i.e.,
+  \[
+  \mathrm{Ann}(S) = \mathrm{Ann}(\operatorname{span}(S)).
+  \]
+  \item If \( V \) is finite-dimensional and \( W \leq V \), then the annihilator of \( W \) “fills in the gap”:
+  \[
+  \dim(W) + \dim(\mathrm{Ann}(W)) = \dim(V).
+  \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+  \item Suppose that \(f,g \in  \operatorname{Ann}\left( S\right)\), i.e., \(f\left( s\right)  = g\left( s\right)  = 0,\forall s \in  S\). It’s clear that \(({af} + {bg}) \in  \operatorname{Ann}\left( S\right)\).
+
+  \item Suppose that \(f \in  \operatorname{Ann}\left( W_2\right)\), we imply \(f\left( \mathbf{w}\right)  = 0\) for any \(\mathbf{w} \in  W_2\). Therefore, \(f\left( {\bf w}_1\right)  = 0\) for any \({\bf w}_1 \in W_1 \subseteq  W_2\), i.e., \(f \in  \operatorname{Ann}\left( W_1\right)\).
+
+
+  \item Note that \(S \subseteq  \operatorname{span}\left( S\right)\). Therefore we imply \(\operatorname{Ann}\left( S\right)  \supseteq  \operatorname{Ann}\left( {\operatorname{span}\left( S\right) }\right)\). It suffices to show \(\operatorname{Ann}\left( S\right)  \subseteq  \operatorname{Ann}\left( {\operatorname{span}\left( S\right) }\right)\):
+
+  For any \(f \in  \operatorname{Ann}\left( S\right)\) and any \(\sum_{i = 1}^n{k}_{i}{\mathbf{s}}_{i} \in  \operatorname{span}\left( S\right)\), we imply
+  \[
+  f\left( \sum_{i = 1}^n{k}_{i}{\mathbf{s}}_{i}\right)  = \sum_{i = 1}^n{k}_{i}f\left( {\mathbf{s}}_{i}\right) = \sum_{i = 1}^n{k}_{i} \cdot  0 = 0,
+  \]
+  i.e., \(f \in  \operatorname{Ann}\left( {\operatorname{span}\left( S\right) }\right)\).
+
+  \item Let \(\left\{  \mathbf{v}_1,\ldots ,\mathbf{v}_{k}\right\}\) be a basis of \(W\). By basis extension, we construct a basis of \(V\):
+  \[
+  \mathcal{B} = \left\{  \mathbf{v}_1,\ldots ,\mathbf{v}_{k},\mathbf{v}_{k + 1},\ldots ,\mathbf{v}_n\right\}.
+  \]
+  Let \(\mathcal{B}^* = \left\{  f_1,\ldots ,f_{k},f_{k + 1},\ldots ,f_n\right\}\) be a basis of \(V^{ * }\). We claim that \(\left\{  f_{k + 1},\ldots ,f_n\right\}\) is a basis of \(\operatorname{Ann}\left( W\right)\):
+  \begin{enumerate}
+    \item \(f_{j}\) are elements in \(\operatorname{Ann}\left( W\right)\) for \(j = k + 1,\ldots ,n\), since for any \(\mathbf{w} = \sum_{i = 1}^{k}\alpha_{i}\mathbf{v}_{i} \in  W\), we have
+    \[
+    f_{j}\left( \mathbf{w}\right)  = \sum_{i = 1}^{k}\alpha_{i}f_{j}\left( \mathbf{v}_{i}\right) = 0.
+    \]
+    \item The set \(\left\{  f_{k + 1},\ldots ,f_n\right\}\) is linearly independent.
+    \item \(\left\{  f_{k + 1},\ldots ,f_n\right\}\) spans \(\operatorname{Ann}\left( W\right)\): for any \(g \in  \operatorname{Ann}\left( W\right) \leq V^*\), it can be expressed as a linear combination of $\mathcal{B}^*$, i.e. \(g = \sum_{i = 1}^n\beta_{i}f_{i}\). Since $g \in \mathrm{Ann}(W)$
+    \[
+    0 = g\left( \mathbf{v}_j\right)  = \sum_{i = 1}^n\beta_{i}f_{i}\left( \mathbf{v}_j\right) = \beta_j,
+    \]
+    for all $1 \leq j \leq k$. We conclude
+    \[
+    g = \beta_{k + 1}f_{k + 1} + \cdots  + \beta_n f_n \in  \operatorname{span}\left\{ f_{k + 1},\ldots ,f_n \right\}.
+    \]
+  
+
+  Therefore, \(\left\{  f_{k + 1},\ldots ,f_n\right\}\) forms a basis for \(\operatorname{Ann}\left( W\right)\), i.e., \(\dim \operatorname{Ann}\left( W\right)  = n - k\).
+
+  Let \(W \leq  V\), with \(\dim V < \infty\), then
+  \[
+  \dim (\operatorname{Ann}(W)) = \dim (V) - \dim (W), \quad \dim((V/W)^*) = \dim(V/W) = \dim (V) - \dim (W).
+  \]
+\end{enumerate}
+\end{enumerate}
+So the result follows.
+\end{proof}
+
+\section{Adjoint Map}
+In the previous section, if $\dim(V) < \infty$, then both
+$V/W$ and $\operatorname{Ann}(W)$ has dimensional equal to $\dim(V) - \dim(W)$. One wishes to define a {\it natural} isomorphism between them without specifying any bases.
+
+In fact, the more natural isomorphism is instead:
+  \[
+  (V/W)^* \cong \operatorname{Ann}(W),
+  \]
+{\bf and this isomorphism holds even for infinite dimensional vector spaces!}
+
+\medskip
+We now construct the natural isomorphisms $\Phi: \operatorname{Ann}(W) \to (V/W)^*$ and 
+$\Psi: (V/W)^* \to \operatorname{Ann}(W)$
+explicitly, so that 
+$$\Phi \circ \Psi = \mathrm{id}_{(V/W)^*} \quad \quad \quad \Psi \circ \Phi = \mathrm{id}_{\operatorname{Ann}(W)}.$$
+Firstly, for $\Phi: \operatorname{Ann}(W) \to (V/W)^*$, we need to define $\Phi(f)$
+for $f \in \operatorname{Ann}(W) \leq V^*$. In other words, 
+\begin{center}
+$f: V \to \mathbb{F}$ with $W \leq \ker(f)$. 
+\end{center}
+By \autoref{prop: universal-property-quotient}, one can define a linear transformation \(\widetilde{f} : V/W \to \mathbb{F}\) such that the diagram commutes:
+
+\begin{figure}[h!]
+\centering
+\begin{tikzcd}[row sep=large, column sep=large]
+V \arrow[r, "\pi", blue] \arrow[rd, swap, "f"] & V/W \arrow[d, dashed, red, "\widetilde{f}"] \\
+& \mathbb{F}
+\end{tikzcd}
+\end{figure}
+
+i.e., \(\widetilde{f}(\mathbf{v} + W) = f(\mathbf{v})\). Then \(\Phi:\operatorname{Ann}(W) \to (V/W)^*\) is defined by
+   \[\Phi(f) := \widetilde{f}.\]
+
+\begin{proposition}
+The map \( \Phi \) is a linear transformation, i.e.,
+\[
+\Phi(af + bg) = a \cdot \Phi(f) + b \cdot \Phi(g).
+\]
+\end{proposition}
+
+\begin{proof}
+It suffices to show that
+\[
+\widetilde{(af + bg)} = a\widetilde{f} + b\widetilde{g}.
+\]
+\end{proof}
+
+Now we have constructed the natural linear transformation $\Phi$ without specifying any bases. To see whether \( \Phi \) is a bijection, we will construct its inverse \( \Psi \). In order to do so, we need the following:
+\begin{definition}[Adjoint Map]\label{def:adjoint-map}
+Let \( T : V \to W \) be a linear transformation. Define the \emph{adjoint} of \( T \) by
+\[
+T^* : W^* \to V^*
+\]
+such that for any \( f \in W^* \),
+\[
+[T^*(f)](v) := f(T(v)), \quad \forall v \in V.
+\]
+\end{definition}
+
+\begin{enumerate}
+  \item In other words, \( T^*(f) = f \circ T \), i.e., a linear transformation from \( V \) to \( \mathbb{F} \), so it belongs to \( V^* \).
+
+  \item Moreover, the mapping \( T^* \) itself is a linear transformation. For \( f, g \in W^* \), and for all \( v \in V \),
+  \begin{align*}
+  [T^*(af + bg)](v) &= (af + bg)[T(v)] \\
+  &= a f(T(v)) + b g(T(v)) \\
+  &= a [T^*(f)](v) + b [T^*(g)](v) \\
+  &= [a T^*(f) + b T^*(g)](v).
+  \end{align*}
+\end{enumerate}
+
+\begin{proposition}\label{prop: adjoint-injectivity-surjectivity}
+Let \( T : V \to W \) be a linear transformation.
+\begin{enumerate}
+  \item If \( T \) is injective, then \( T^* \) is surjective.
+  \item If \( T \) is surjective, then \( T^* \) is injective.
+\end{enumerate}
+This statement is intuitive, since \( T^* \) reverses the dual of the output into the dual of the input:
+\[
+T : V \to W, \quad T^* : W^* \to V^*.
+\]
+\end{proposition}
+
+\begin{proof}
+We prove only part (2): If \( T \) is surjective, then \( T^* \) is injective.
+
+Suppose \( g \in W^* \) and \( T^*(g) = 0_{V^*} \). Then, by definition of the adjoint map:
+\begin{equation} \label{eq:adjoint-kernel}
+[T^*(g)](v) = g(T(v)) = 0, \quad \forall v \in V.
+\end{equation}
+
+We want to show \( g = 0_{W^*} \), i.e., \( g(w) = 0 \) for all \( w \in W \).
+
+Since \( T \) is surjective, for every \( w \in W \), there exists \( v' \in V \) such that
+\[
+w = T(v').
+\]
+Substituting into \eqref{eq:adjoint-kernel}, we get
+\[
+g(w) = g(T(v')) = 0.
+\]
+Hence, \( g = 0_{W^*} \in Ker(T*)\) and \( T^* \) is thus injective.
+\end{proof}
+
+The following proposition shows the effect of adjoint map on matrix representations:
+\begin{proposition}
+Let \( T : V \to W \) be a linear transformation, and let \( \mathcal{A} = \{ \mathbf{v}_1, \dots, \mathbf{v}_n \} \), \( \mathcal{B} = \{ \mathbf{w}_1, \dots, \mathbf{w}_m \} \) be bases of \( V \) and \( W \), respectively. Let \( \mathcal{A}^* = \{ f_1, \dots, f_n \} \), \( \mathcal{B}^* = \{ g_1, \dots, g_m \} \) be the dual bases of \( V^* \) and \( W^* \), respectively. Then the adjoint \( T^* : W^* \to V^* \) has a matrix representation
+\[
+[T^*]_{\mathcal{A}^*, \mathcal{B}^*} = \left([T]_{\mathcal{B}, \mathcal{A}}\right)^{\mathsf{T}},
+\]
+where \([T^*]_{\mathcal{A}^*, \mathcal{B}^*} \in \mathbb{R}^{n \times m}\) and \([T]_{\mathcal{B}, \mathcal{A}} \in \mathbb{R}^{m \times n}\).
+\end{proposition}
+
+\begin{proof}
+Let \([T]_{\mathcal{B}, \mathcal{A}} = (\alpha_{ij})\) and \([T^*]_{\mathcal{A}^*, \mathcal{B}^*} = (\beta_{ij})\). By definition of the matrix representation:
+
+\[
+T(\mathbf{v}_j) = \sum_{i=1}^{m} \alpha_{ij} \mathbf{w}_i, \quad T^*(g_j) = \sum_{k=1}^{n} \beta_{kj} f_k \in V^*.
+\]
+
+Then for any \( i, j \), we compute:
+\[
+[T^*(g_j)](\mathbf{v}_j) = g_j(T(\mathbf{v}_j)) = g_j\left( \sum_{\ell=1}^{m} \alpha_{\ell j} \mathbf{w}_\ell \right) = \sum_{\ell=1}^{m} \alpha_{\ell j} g_j(\mathbf{w}_\ell) = \alpha_{ij}.
+\]
+
+On the other hand:
+\[
+[T^*(g_j)](\mathbf{v}_j) = \left( \sum_{k=1}^{n} \beta_{kj} f_k \right)(\mathbf{v}_j) = \sum_{k=1}^{n} \beta_{kj} f_k(\mathbf{v}_j) = \beta_{ji}.
+\]
+
+Therefore, we conclude that \( \beta_{ij} = \alpha_{ij} \), so \( [T^*] = [T]^{\mathsf{T}} \).
+\end{proof}
+
+\subsection{Relationship between Annihilator and Dual of Quotient Spaces}
+
+\begin{example}
+Consider the canonical projection mapping \( \pi_W : V \to V/W \) with its adjoint mapping:
+\[
+(\pi_W)^* : (V/W)^* \to V^*.
+\]
+To understand \( (\pi_W)^* \):
+\begin{enumerate}
+  \item Take \( h \in (V/W)^* \) and study \( (\pi_W)^*(h) \in V^* \).
+  \item Take \( {\bf v} \in V \) and compute:
+  \[
+  \left[(\pi_W)^*(h)\right]({\bf v}) = h(\pi_W({\bf v})) = h({\bf v} + W).
+  \]
+\end{enumerate}
+In particular, for all \( {\bf w} \in W \leq V \), we have:
+  \[
+  \left[(\pi_W)^*(h)\right]({\bf w}) = h({\bf w} + W) = h({\bf 0}_{V/W}) = 0_{\mathbb{F}}.
+  \]
+  Therefore, 
+  \[
+  (\pi_W)^*(h) \in \operatorname{Ann}(W).
+  \]
+  i.e., 
+  \[(\pi_W)^*: (V/W)^* \to \operatorname{Ann}(W).\]
+\end{example}
+
+So $\Psi = (\pi_W)^*$ is our candidate of the inverse of $\Phi$. 
+
+
+\begin{theorem}
+\[
+\Phi \circ \Psi = \operatorname{id}_{(V/W)^*}, \quad \Psi \circ \Phi = \operatorname{id}_{\operatorname{Ann}(W)}.
+\]
+Consequently, one has a natural isomorphism $(V/W)^* \cong \operatorname{Ann}(W)$ regardless of whether $\dim(V) < \infty$ or not.
+\end{theorem}
+\begin{proof}
+    Recall that for $f \in \mathrm{Ann}(W)$, $\Phi(f) \in (V/W)^*$ satisfies:
+    $$\Phi(f)({\bf v}+W) = f({\bf v}),$$ 
+    while for $h \in (V/W)^*$, $\Psi(h) \in \mathrm{Ann}(W)$ satisfies
+    $$\Psi(h)({\bf v}) = h({\bf v}+W).$$
+
+    Therefore, for all ${\bf v} +W \in V/W$,
+    $$(\Phi \circ \Psi(h))({\bf v} + W) = \Psi(h)({\bf v}) = h({\bf v}+W)$$
+    and hence $\Phi \circ \Psi(h) = h$ for all $h \in (V/W)^*$, i.e. $\Phi \circ \Psi = \mathrm{id}_{(V/W)^*}$.
+
+    On the other hand, for all ${\bf v} \in V$,
+    $$(\Psi \circ \Phi(f))({\bf v}) = \Phi(f)({\bf v} + W) = f({\bf v}),$$
+    which implies $\Psi \circ \Phi(f) = f$ for all $f \in \mathrm{Ann}(W)$. Consequently, $\Psi \circ \Phi = \mathrm{id}_{\mathrm{Ann}(W)}$ and the result follows.
+\end{proof}
+
+%my idea: \( \Phi : \operatorname{Ann}(W) \rightarrow (V/W)^*\)
+%\begin{enumerate}    \item Since \((\pi_W)*:(V/W)^* \rightarrow \operatorname{Ann}(W)\) is an injection, we can define \(\Phi\) as its inverse, which is a surjection and allow the left identity to hold.
+%    \item Similar to \[  \left[(\pi_W)^*(h)\right](w) = h(w + W) \], we see for \(f \in \operatorname{Ann}(W)\) and \(v + W \in V/W\), we define:\[\left[\Phi(f)\right](v + W) = f(v).\]
+%   \item We can now show the left identity, \(h \in (V/W)^*\) and \(v\in V\)  \[\Phi((\pi_W)^*)(h)(v) = \Phi(h)(v + W) = h(v)\]
+% \item And the right: \[((\pi_W)^* \circ \Phi) (f)(v) = (\pi_W)^*(f)(v) = f(v+W) = f(v) \] for \(h \in \operatorname{Ann}(W) \text{ and } v \in W\)
+%\end{enumerate}
+
+%I think there is problem in my idea since I inputted \(v \in V\) into \(h: V/W \rightarrow \mathbb{F}\) and \(v + W  \in V/W\) into \(f: W \rightarrow \{0\}\). That is mixing coset and vectors. But, i cant figure out another way to show this.
+
+
+
+

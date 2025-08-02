@@ -1,0 +1,561 @@
+\chapter{Primary Decomposition and Jordan Normal Form}
+
+We begin this chapter by re-defining the well-known notion of diagonalizability for linear operators:
+\begin{definition}[Diagonalizable]\label{def:diagonalizable}
+The linear operator \( T : V \to V \) is \emph{diagonalizable} over \( \mathbb{F} \) if and only if there exists a basis \( \mathcal{A} \) of \( V \) such that
+\[
+T_{\mathcal{A}, \mathcal{A}} = \operatorname{diag}(\lambda_1, \ldots, \lambda_n),
+\]
+where the \( \lambda_i \)'s are not necessarily distinct.
+\end{definition}
+
+\begin{proposition}\label{prop:minpoly-diagonal}
+If the linear operator \( T : V \to V \) is diagonalizable, then its minimal polynomial is
+\[
+m_T(x) = (x - \mu_1)\cdots(x - \mu_k),
+\]
+where the \( \mu_i \)'s are distinct.
+\end{proposition}
+
+\begin{proof}
+Suppose \( T \) is diagonalizable. Then there exists a basis \( \mathcal{A} \) of \( V \) such that
+\[
+T_{\mathcal{A}, \mathcal{A}} = \operatorname{diag}(\underbrace{\mu_1, \ldots, \mu_1}_{r_1}, \underbrace{\mu_2, \ldots, \mu_2}_{r_2}, \ldots, \underbrace{\mu_k, \ldots, \mu_k}_{r_k}),
+\]
+for some multiplicities \( r_i > 0 \) and distinct scalars \( \mu_i \in \mathbb{F} \). Then
+\[
+\left( T_{\mathcal{A}, \mathcal{A}} - \mu_1 I \right)\cdots\left( T_{\mathcal{A}, \mathcal{A}} - \mu_k I \right) = 0,
+\]
+i.e., \( m_T(x) \mid (x - \mu_1)\cdots(x - \mu_k) \).
+
+To show minimality, suppose we omit any factor \( (x - \mu_i) \) from the product. Then the matrix
+\[
+\left( T_{\mathcal{A}, \mathcal{A}} - \mu_1 I \right)\cdots \widehat{(T_{\mathcal{A}, \mathcal{A}} - \mu_iI)} \cdots \left( T_{\mathcal{A}, \mathcal{A}} - \mu_k I \right)
+\]
+is nonzero, since all \( \mu_i \)'s are distinct and appear on the diagonal. Hence, no proper sub-product annihilates \( T \), and we conclude
+\[
+m_T(x) = (x - \mu_1)\cdots(x - \mu_k).
+\]
+\end{proof}
+
+\section{Primary Decomposition Theorem}
+The converse of \autoref{prop:minpoly-diagonal} is also true, which is a special case of the Primary Decomposition Theorem.
+
+\begin{theorem}[Primary Decomposition Theorem]\label{thm:primary-decomposition}
+Let \( T : V \rightarrow V \) be a linear operator with minimal polynomial
+\[
+m_T(x) = \left[ p_1(x) \right]^{e_1} \cdots \left[ p_k(x) \right]^{e_k},
+\]
+where \( p_i(x) \) are distinct, monic, and irreducible polynomials over \( \mathbb{F} \). For each \( i = 1, \ldots, k \), define the subspace
+\[
+V_i = \ker\left( \left[ p_i(T) \right]^{e_i} \right) \leq V.
+\]
+Then the following hold:
+\begin{enumerate}
+    \item Each \( V_i \) is \( T \)-invariant, i.e.,
+    \[
+    T(V_i) \leq V_i.
+    \]
+    
+    \item The space \( V \) decomposes as a direct sum:
+    \[
+    V = V_1 \oplus V_2 \oplus \cdots \oplus V_k.
+    \]
+    
+    \item The minimal polynomial of the restriction \( T|_{V_i} : V_i \to V_i \) is
+    \[
+    m_{T|_{V_i}}(x) = \left[ p_i(x) \right]^{e_i}.
+    \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+    \item This follows from \autoref{ex:invariant-subspace}(3).
+
+    \item Define
+    \[
+    q_i(x) := \frac{m_T(x)}{p_i(x)^{e_i}} = \prod_{\substack{j = 1 \\ j \neq i}}^k p_j(x)^{e_j}.
+    \]
+    Then:
+    \begin{itemize}
+        \item \(\gcd(q_1, \dots, q_k) = 1\),
+        \item \(\gcd(q_i, p_i^{e_i}) = 1\),
+        \item \(q_i \cdot p_i^{e_i} = m_T\),
+        \item \(m_T(x) \mid q_i(x) q_j(x)\) for \(i \neq j\).
+    \end{itemize}
+
+    By \hyperref[cor:bezout]{Bézout’s Identity}, there exist polynomials \(a_1(x), \dots, a_k(x) \in \mathbb{F}[x]\) such that
+    \begin{equation}\label{eq:bezout-decomp}
+        a_1(x) q_1(x) + \cdots + a_k(x) q_k(x) = 1.
+    \end{equation}
+    Evaluating at \(T\), we obtain
+    \[
+    a_1(T) q_1(T) + \cdots + a_k(T) q_k(T) = I.
+    \]
+    Thus, for any \(\mathbf{v} \in V\),
+    \begin{equation}\label{eq:v-sum}
+        \mathbf{v} = \sum_{i=1}^k a_i(T) q_i(T) \mathbf{v},
+    \end{equation}
+    and each term \(a_i(T) q_i(T) \mathbf{v} \in V_i\). Therefore,
+    \begin{equation}
+        V = V_1 + \cdots + V_k. \label{eq:v-sum-plain}
+    \end{equation}
+
+    To show the sum is direct, suppose
+    \begin{equation}
+        \mathbf{0} = \mathbf{v}_1' + \cdots + \mathbf{v}_k', \quad \text{where } \mathbf{v}_i' \in V_i. \label{eq:zero-sum}
+    \end{equation}
+    Fix any index \(i\). Since \(\gcd(q_i, p_i^{e_i}) = 1\), Bézout’s identity gives polynomials \(b_i(x), c_i(x)\) such that
+    \[
+    b_i(x) q_i(x) + c_i(x) p_i(x)^{e_i} = 1 \quad \Rightarrow \quad b_i(T) q_i(T) + c_i(T) p_i(T)^{e_i} = I.
+    \]
+    Applying both sides to \(\mathbf{v}_i'\), and using \(p_i(T)^{e_i} \mathbf{v}_i' = 0\), we get
+    \[
+    b_i(T) q_i(T) \mathbf{v}_i' = \mathbf{v}_i'.
+    \]
+
+    Apply \(b_i(T) q_i(T)\) to both sides of \eqref{eq:zero-sum}:
+    \[
+    \mathbf{0} = b_i(T) q_i(T) (\mathbf{v}_1' + \cdots + \mathbf{v}_k') = \sum_{j=1}^k b_i(T) q_i(T) \mathbf{v}_j'.
+    \]
+    But for \(j \neq i\), \(q_i(T) \mathbf{v}_j' = 0\), since \(p_j(x)^{e_j} \mid q_i(x)\). So:
+    \[
+    \mathbf{0} = b_i(T) q_i(T) \mathbf{v}_i' = \mathbf{v}_i' \quad \Rightarrow \quad \mathbf{v}_i' = 0.
+    \]
+    Since this holds for each \(i\), the sum is direct:
+    \begin{equation}
+        V = V_1 \oplus \cdots \oplus V_k. \label{eq:direct-sum}
+    \end{equation}
+
+    \item Since \(p_i(T)^{e_i} \mathbf{v} = 0\) for any \(\mathbf{v} \in V_i\), it follows that \(m_{T|_{V_i}}(x) \mid p_i(x)^{e_i}\). By \autoref{cor:cayley-hamiton-cor}, we have
+    \[
+    m_{T|_{V_i}}(x) = p_i(x)^{f_i}, \quad \text{for some } 1 \leq f_i \leq e_i.
+    \]
+    Suppose \(f_i < e_i\) for some \(i\). Let \(\mathbf{v} := \sum_{j=1}^k \mathbf{v}_j\), with \(\mathbf{v}_j \in V_j\), and define
+    \[
+    f(x) := \prod_{j=1}^k p_j(x)^{f_j}.
+    \]
+    Then \(f(T) \mathbf{v} = 0\), so \(f(T) = 0\) on all of \(V\), and hence \(m_T(x) \mid f(x)\), contradicting the minimality of \(m_T(x)\). Therefore,
+    \[
+    m_{T|_{V_i}}(x) = p_i(x)^{e_i}. \qedhere
+    \]
+\end{enumerate}
+\end{proof}
+
+Now we can prove the converse of \autoref{prop:minpoly-diagonal}:
+\begin{corollary}\label{cor:diag-criterion}
+Let the minimal polynomial of \(T\) be
+\[
+m_T(x) = (x - \mu_1) \cdots (x - \mu_k),
+\]
+with \(\mu_i \in \mathbb{F}\) distinct. Then \(T\) is diagonalizable over \(\mathbb{F}\). 
+\end{corollary}
+
+\begin{proof}
+By the \hyperref[thm:primary-decomposition]{Primary Decomposition Theorem }, we have
+\[
+V = \bigoplus_{i = 1}^{k} V_i, \quad \text{where } V_i := \ker(T - \mu_i I).
+\]
+In other words, each \(V_i\) is the \(\mu_i\)-eigenspace of \(T\). Let \(\mathcal{B}_i\) be a basis of \(V_i\), and define \(\mathcal{B} := \bigcup_{i = 1}^k \mathcal{B}_i\). Then \(\mathcal{B}\) is a basis of \(V\) consisting entirely of eigenvectors of \(T\).
+
+With respect to \(\mathcal{B}\), the matrix representation of \(T\) is block-diagonal:
+\[
+T_{\mathcal{A}, \mathcal{A}} = \operatorname{diag}(\underbrace{\mu_1, \dots, \mu_1}_{\dim V_1}, \dots, \underbrace{\mu_k, \dots, \mu_k}_{\dim V_k}),
+\]
+which is diagonal. Hence \(T\) is diagonalizable.
+\end{proof}
+
+\begin{corollary}[Spectral Decomposition]\label{cor:spectral-decomposition}
+Suppose \(T : V \to V\) is diagonalizable. Then there exist linear operators \(P_i : V \to V\), for \(1 \leq i \leq k\), such that:
+\begin{enumerate}
+    \item \(P_i P_j = 0\) for all \(i \neq j\),
+    \item \(\sum_{i=1}^k P_i = I\),
+    \item \(P_i^2 = P_i\),
+    \item \(P_i T = T P_i\) for all \(i\),
+    \item \(T = \mu_1 P_1 + \cdots + \mu_k P_k\), for distinct scalars \(\mu_1, \ldots, \mu_k \in \mathbb{F}\).
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Since \(T : V \to V\) is diagonalizable, the minimal polynomial of \(T\) splits into distinct linear factors:
+\[
+m_T(x) = (x - \mu_1)(x - \mu_2) \cdots (x - \mu_k),
+\]
+with \(\mu_1, \ldots, \mu_k \in \mathbb{F}\) distinct. Define:
+\[
+q_i(x) := (x - \mu_1) \cdots \widehat{(x-\mu_i)} \cdot (c-\mu_k)
+\]
+As in the proof of \autoref{thm:primary-decomposition} such that $m_T(x) = (x - \mu_i) q_i(x)$, and there exist polynomials \(a_1(x), \ldots, a_k(x) \in \mathbb{F}[x]\) such that
+\[
+\sum_{i=1}^k a_i(x) q_i(x) = 1.
+\]
+
+Define operators \(P_i : V \to V\) by
+\[
+P_i := a_i(T) q_i(T).
+\]
+
+We now verify the required properties:
+\begin{enumerate}
+    \item[\textbf{(1)}] \textbf{Orthogonality:}  
+    For \(i \ne j\), we compute:
+    \[
+    P_i P_j = a_i(T) q_i(T) \cdot a_j(T) q_j(T) = a_i(T) a_j(T) q_i(T) q_j(T).
+    \]
+    Since \(q_i(x) q_j(x)\) is divisible by \(m_T(x)\), and \(m_T(T) = 0\), it follows that $P_i P_j = 0$.
+
+    \item[\textbf{(2)}] \textbf{Completeness:}  
+    By construction:
+    \[
+    \sum_{i=1}^k P_i = \sum_{i=1}^k a_i(T) q_i(T) = I.
+    \]
+    \item[\textbf{(3)}] \textbf{Idempotency:} Since \(I = \sum_{j=1}^k P_j = \sum_{j=1}^k a_j(T) q_j(T)\), and $P_iP_j = 0$ if $i \neq j$, we compute:
+    \[
+    P_i^2 = P_i \cdot (P_1 + \dots +P_i + \dots +P_k) = P_i \cdot I = P_i.
+    \]
+    \item[\textbf{(4)}] \textbf{Commutativity:}  
+    Each \(P_i = a_i(T) q_i(T)\) is a polynomial in \(T\), so it commutes with \(T\). Thus:
+    \[
+    P_i T = T P_i.
+    \]
+
+    \item[\textbf{(5)}] \textbf{Spectral decomposition:}  
+    For each \(i\), define the subspace
+    \[
+    V_i := \ker(T - \mu_i I) = \ker( m_i(T)),
+    \]
+    where \(m_i(x) := (x - \mu_i)\). Let \(\mathbf{v} \in V\). Then using \(\sum P_i = I\), write:
+    \[
+    \mathbf{v} = \sum_{i=1}^k P_i \mathbf{v}.
+    \]
+    Apply \(T\):
+    \[
+    T \mathbf{v} = \sum_{i=1}^k T(P_i \mathbf{v}) = \sum_{i=1}^k P_i T(\mathbf{v}) \quad \text{(since } T P_i = P_i T\text{)}.
+    \]
+    But \(P_i \mathbf{v} \in V_i\), and \(T|_{V_i} = \mu_i \cdot \mathrm{id}_{V_i}\), so:
+    \[
+    T(P_i \mathbf{v}) = \mu_i P_i \mathbf{v}.
+    \]
+    Hence,
+    \[
+    T \mathbf{v} = \sum_{i=1}^k \mu_i P_i \mathbf{v} \quad \Rightarrow \quad T = \sum_{i=1}^k \mu_i P_i.
+    \]
+\end{enumerate}
+\end{proof}
+
+\section{Jordan Normal Form}
+
+In the previous section, we have proved that a linear operator \( T \) is diagonalizable if and only if its minimal polynomial $m_T(x)$ consists of distinct linear terms. One may ask What happens if the minimal polynomial 
+\[ m_T(x) = (x-\lambda_1)^{e_1}\cdots (x-\lambda_k)^{e_k}\] 
+contains repeated linear factors? 
+
+\begin{theorem}[Jordan Normal Form]\label{thm:jordan-normal-form}
+Let \( \mathbb{F} \) be an algebraically closed field. Suppose that \( T : V \to V \) is a linear operator whose minimal polynomial has the form
+\[
+m_T(x) = \prod_{i=1}^k (x - \lambda_i)^{e_i},
+\]
+where the \( \lambda_i \in \mathbb{F} \) are distinct eigenvalues.
+
+Then there exists a basis \( \mathcal{A} \) of \( V \) such that the matrix representation of \( T \) with respect to \( \mathcal{A} \) is block diagonal:
+\[
+T_{\mathcal{A}, \mathcal{A}} = \operatorname{diag}(J_1, \ldots, J_k),
+\]
+where each block \( J_i \) is a \emph{Jordan block} of the form
+\[
+J_i = \begin{pmatrix}
+\mu & 1 & 0 & \cdots & 0 \\
+0 & \mu & 1 & \cdots & 0 \\
+\vdots & \ddots & \ddots & \ddots & \vdots \\
+0 & \cdots & 0 & \mu & 1 \\
+0 & \cdots & \cdots & 0 & \mu
+\end{pmatrix},
+\]
+for some \( \mu \in \{ \lambda_1, \ldots, \lambda_k \} \).
+\end{theorem}
+
+\subsection{First Step of Proof:}
+By the \hyperref[thm:primary-decomposition]{Primary Decomposition Theorem }, we have a direct sum decomposition:
+\[
+V = V_1 \oplus \cdots \oplus V_k,
+\quad \text{where } V_i = \ker \left( (T - \lambda_i I)^{e_i} \right),
+\]
+and each subspace \( \mathbf{v}_i \) is \( T \)-invariant.
+Moreover, choose a basis \( \mathcal{B}_i \) of \( \mathbf{v}_i \) for each $V_i$. Then the union \(\mathcal{B} := \bigcup_{i=1}^k \mathcal{B}_i
+\) forms a basis of \( V \), and the matrix representation of \( T \) in this basis is block diagonal:
+\[
+T_{\mathcal{B}, \mathcal{B}} =
+\begin{bmatrix}
+[T|_{\mathbf{v}_1}]_{\mathcal{B}_1, \mathcal{B}_1} & 0 & \cdots & 0 \\
+0 & [T|_{\mathbf{v}_2}]_{\mathcal{B}_2, \mathcal{B}_2} & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & [T|_{\mathbf{v}_k}]_{\mathcal{B}_k, \mathcal{B}_k}
+\end{bmatrix},
+\]
+with \( m_{T|_{\mathbf{v}_i}}(x) = (x - \lambda_i)^{e_i} \).
+
+\medskip
+
+Therefore, to prove the full Jordan normal form, it suffices to treat the case where
+\[
+m_T(x) = (x - \lambda)^e
+\]
+is a single primary factor.
+
+\subsection{Second Step of Proof}
+Firstly, we consider the case where the minimal polynomial has the form \(m_T(x) = x^m\):
+\begin{proposition}[Nilpotent Case of Jordan Normal Form]\label{prop:jordan-nilpotent}
+Suppose \( T : V \to V \) is a linear operator with minimal polynomial
+\[
+m_T(x) = x^m.
+\]
+Then there exists a basis \( \mathcal{A} \) of \( V \) such that
+\[
+[T]_{\mathcal{A},\mathcal{A}} = \operatorname{diag}(J_1, \ldots, J_\ell),
+\]
+where each block \( J_i \) is a Jordan block of the form
+\[
+J_i = \begin{bmatrix}
+0 & 1 &        &        \\
+  & 0 & \ddots &        \\
+  &   & \ddots & 1      \\
+  &   &        & 0
+\end{bmatrix}.
+\]
+\end{proposition}
+
+\begin{proof}
+Assume \( m_T(x) = x^m \). Then we have the ascending chain of kernels:
+\[
+\{0\} = \ker(T^0) \subsetneq \ker(T^1) \subsetneq \cdots \subsetneq \ker(T^m) = V,
+\]
+we have \(\ker \left( {T}^{i - 1}\right)  \subsetneq  \ker \left( {T}^{i}\right)\) for \(i = 1,\ldots ,m\) : Note that \(\ker \left( {T}^{m - 1}\right)  \subsetneq\)  \(\ker \left( {T}^{m}\right) = V\) due to the minimality of \({m}_{T}\left( x\right)\) ; and \(\ker \left( {T}^{m - 2}\right)  \subsetneqq  \ker \left( {T}^{m - 1}\right)\) since otherwise for any \(\mathbf{x} \in  \ker \left( {T}^{m}\right)\),
+\[
+{T}^{m - 1}\left( {T\mathbf{x}}\right)  = \mathbf{0} \Rightarrow  T\mathbf{x} \in  \ker \left( {T}^{m - 1}\right)  = \ker \left( {T}^{m - 2}\right)  \Rightarrow  {T}^{m - 2}\left( {T\mathbf{x}}\right)  = {T}^{m - 1}\left( \mathbf{x}\right)  = \mathbf{0},
+\]
+i.e., \(\mathbf{x} \in  \ker \left( {T}^{m - 1}\right)\) , which contradicts to the fact that \(\ker \left( {T}^{m - 1}\right)  \subsetneqq  \ker \left( {T}^{m}\right)\) . Proceeding this trick sequentially for \(i = m,m - 1,\ldots ,1\) , we proved the desired result.
+
+
+For each \( i = 1, \ldots, m \), define the quotient space:
+\[
+W_i = \ker(T^i)/\ker(T^{i-1}),
+\]
+Pictorially, 
+\[
+\{0\} = \underbrace{\ker(T^0) \subsetneq \ker(T^1)}_{W_1} \subsetneq \cdots  \subsetneq \underbrace{\ker(T^{m-1}) \subsetneq \ker(T^m)}_{W_m} = V,
+\]
+Choose a basis of $W_m$:
+\[
+\mathcal{B}_m' = \{ {\bf u}_1 + \ker(T^{m-1}), \ldots, {\bf u}_{\ell} + \ker(T^{m-1}) \} \subseteq W_m.
+\]
+And consider a {\bf set} $\mathcal{C}_m'$ in $W_{m-1}$:
+\[
+\mathcal{C}_m' = \{ T({\bf u}_1) + \ker(T^{m-2}), \ldots, T({\bf u}_{\ell}) + \ker(T^{m-2}) \} \subseteq W_{m-1}.
+\]
+(Note that each $T^{m-1}(T({\bf u}_j)) = T({\bf u}_j) = {\bf 0}$ since ${\bf u}_j \in \ker(T)$, therefore $T({\bf u}_j) \in \ker(T^{m-1})$)
+
+{\bf Claim:} \(\mathcal{C}_{m}'\) is linearly independent in $W_{m-1}$: consider the equation
+\[
+\mathop{\sum }\limits_{j}k_j\left( T({\bf u}_j) + \ker(T^{m-2})\right)  = {\mathbf{0}}_{{W}_{i}} \Leftrightarrow  T\left( {\mathop{\sum }\limits_{j}k_j{\bf u}_j}\right)  + \ker \left( {T}^{m - 2}\right)  = {\mathbf{0}}_{{W}_{i}}
+\]
+i.e.,
+\[
+T\left( {\mathop{\sum }\limits_{j}k_j{\bf u}_j}\right)  \in  \ker \left( {T}^{m - 2}\right)  \Leftrightarrow  {T}^{m-2}\left( T\left( {\mathop{\sum }\limits_{j}k_j{\bf u}_j}\right)\right)  = {\mathbf{0}}_{V}.
+\]
+In other words, ${\mathop{\sum }\limits_{j}k_j{\bf u}_j} \in  \ker \left( {T}^{m-1}\right)$ , and hence
+\[
+{\mathop{\sum }\limits_{j}k_j{\bf u}_j} + \ker \left( {T}^{m-1}\right)  = {\mathbf{0}}_{W_m} \Leftrightarrow  \mathop{\sum }\limits_{j}k_j\left( {{{\bf u}_j} + \ker \left( {T}^{m-1}\right) }\right)  = {\mathbf{0}}_{W_m}.
+\]
+Since \(\mathcal{B}_m = \left\{ {\bf u}_j + \ker \left( {T}^{m-1}\right)\ |\ 1 \leq j \leq \ell_m\right\}\) forms a basis of \({W}_m\), we have \(k_j = 0\) for all \(j\), and $\mathcal{C}_m'$ is linearly independent in $W_{m-1}$. 
+
+By Basis Extension Theorem, one can get a basis of $W_{m-1}$ of the form
+\[
+\mathcal{B}_{m-1}' = \{ T({\bf u}_1) + \ker(T^{m-2}), \ldots, T({\bf u}_{\ell}) + \ker(T^{m-2}), \quad {\bf v}_1 + \ker(T^{m-2}), \ldots, {\bf v}_p + \ker(T^{m-2}) \} \subseteq W_{m-1}.
+\]
+By similar arguments, one can get 
+\[
+\mathcal{C}_{m-1}' = \{ T^2({\bf u}_1) + \ker(T^{m-3}), \ldots, T^2({\bf u}_{\ell}) + \ker(T^{m-3}), \quad T({\bf v}_1) + \ker(T^{m-3}), \ldots, T({\bf v}_p) + \ker(T^{m-3}) \}
+\]
+is linearly independent in $W_{m-2}$, and one can construct a basis 
+\begin{center}
+$\mathcal{B}_{m-2}' = \{ T^2({\bf u}_1) + \ker(T^{m-3}), \ldots, T^2({\bf u}_{\ell}) + \ker(T^{m-3}), \quad T({\bf v}_1) + \ker(T^{m-3}), \ldots, T({\bf v}_p) + \ker(T^{m-3}), 
+{\bf w}_1 + \ker(T^{m-3}), \ldots, {\bf w}_q + \ker(T^{m-3})\}$
+\end{center}
+of $W_{m-2}$.
+
+Consequently, we have the following collection of bases of $W_i$:
+{\small\[
+\begin{array}{cccccc}
+    W_1 & \cdots &
+    W_{m-2} &
+    W_{m-1}&
+    W_{m}
+\\[2em]
+\left\{
+    \begin{array}{c}
+        T^{m-1}({\bf u}_1) + \ker(T^0) \\
+        \vdots \\
+        T^{m-1}({\bf u}_{\ell}) + \ker(T^0)
+    \end{array}
+\right\}
+& \cdots &
+\left\{
+    \begin{array}{c}
+        T^2({\bf u}_1) + \ker(T^{m-3}) \\
+        \vdots \\
+        T^2({\bf u}_{\ell}) + \ker(T^{m-3})
+    \end{array}
+\right\}
+& 
+\left\{
+    \begin{array}{c}
+        T({\bf u}_1) + \ker(T^{m-2}) \\
+        \vdots \\
+        T({\bf u}_{\ell}) + \ker(T^{m-2})
+    \end{array}
+\right\}
+& 
+\left\{
+    \begin{array}{c}
+        {\bf u}_1 + \ker(T^{m-1}) \\
+        \vdots \\
+        {\bf u}_{\ell} + \ker(T^{m-1})
+    \end{array}
+\right\}
+\\[2em]
+\left\{
+    \begin{array}{c}
+        T^{m-2}({\bf v}_1) + \ker(T^0) \\
+        \vdots \\
+        T^{m-2}({\bf v}_p) + \ker(T^0)
+    \end{array}
+\right\}
+& \cdots &
+\left\{
+    \begin{array}{c}
+        T({\bf v}_1) + \ker(T^{m-3}) \\
+        \vdots \\
+        T({\bf v}_p) + \ker(T^{m-3})
+    \end{array}
+\right\}
+& 
+\left\{
+    \begin{array}{c}
+        {\bf v}_1 + \ker(T^{m-2}) \\
+        \vdots \\
+        {\bf v}_p + \ker(T^{m-2})
+    \end{array}
+\right\}
+& 
+\\[2em]
+\left\{
+    \begin{array}{c}
+        T^{m-3}({\bf w}_1) + \ker(T^0) \\
+        \vdots \\
+        T^{m-3}({\bf w}_q) + \ker(T^0)
+    \end{array}
+\right\}
+& \cdots &
+\left\{
+    \begin{array}{c}
+        {\bf w}_1 + \ker(T^{m-3}) \\
+        \vdots \\
+        {\bf w}_q + \ker(T^{m-3})
+    \end{array}
+\right\}
+& & 
+\\[2em]
+\vdots & & & &
+\end{array}
+\]}
+
+Indeed, by removing the $\ker(T^i)$'s in the above list, the vectors will give a basis of $V$ (Exercise). Now choose the ordered basis \( \mathcal{A} \) of $V$ by arranging the vectors:
+\[
+\mathcal{A} = \left\{ 
+\begin{matrix}
+T^{m-1}({\bf u}_1), & T^{m-2}({\bf u}_1), & \cdots & T^2({\bf u}_1), & T({\bf u}_1), & {\bf u}_1, \\
+\vdots & \vdots &  & \vdots & \vdots & \vdots\\
+T^{m-1}({\bf u}_{\ell}), & T^{m-2}({\bf u}_{\ell}), & \cdots & T^2({\bf u}_1), & T({\bf u}_{\ell}), & {\bf u}_{\ell}, \\
+T^{m-2}({\bf v}_1), & T^{m-3}({\bf v}_1), & \cdots & T({\bf v}_1), & {\bf v}_1, &  \\
+\vdots & \vdots &  & \vdots & \vdots \\
+T^{m-2}({\bf v}_p), & T^{m-3}({\bf v}_p), & \cdots & T({\bf v}_p), & {\bf v}_p, &  \\
+T^{m-3}({\bf w}_1), & T^{m-4}({\bf w}_1), & \cdots & {\bf w}_1, &   \\
+\vdots & \vdots &  & \vdots \\
+T^{m-3}({\bf w}_q), & T^{m-4}({\bf w}_q), & \cdots & {\bf w}_q, &  \\
+\vdots & \vdots
+\end{matrix} \right\}
+\]
+Under this basis, \( T_{\mathcal{A},\mathcal{A}} \) is block diagonal with nilpotent Jordan blocks:
+\begin{itemize}
+  \item All diagonal entries are zero since \( T(T^{i-1}({\bf x})) = T^i({\bf x})\), and both $\{T^{i-1}({\bf x}), T^i({\bf x})\}$ are basis vectors.
+  \item All superdiagonal entries are 1, corresponding to \( T(T^{k}({\bf x})) = T^{k+1}({\bf x}) \).
+\end{itemize}
+In particular, the matrix representation is of the form:
+$$T_{\mathcal{A},\mathcal{A}} = \begin{pmatrix}
+    N_m & & & & & &\\
+    & \ddots & & & & & \\
+    & & N_m & & & & \\
+    & & & N_{m-1} & & & \\
+    & & & & \ddots & & \\
+    & & & & & N_{m-1} &  \\
+    & & & & & & N_{m-2} \\
+    & & & & & & & \ddots \\
+    & & & & & & & & N_{m-2} \\
+    & & & & & & & & & \ddots \\
+\end{pmatrix}$$
+where $N_i = \begin{pmatrix}
+0 & 1       &        &        \\
+        & 0 & \ddots &        \\
+        &         & \ddots & 1      \\
+        &         &        & 0
+\end{pmatrix}$ is an $i \times i$-matrix, and $J_m$ appears $\ell$ times, $J_{m-1}$ appears $p$ times, $J_{m-2}$ appears $q$ times in the above matrix.
+\end{proof}
+
+\subsection{Third Step of Proof}
+Then we consider the case where \({m}_{T}\left( x\right)  = {\left( x - \lambda \right) }^{e}\):
+\begin{corollary}
+Suppose \( T : V \to V \) is such that the minimal polynomial is
+\[
+m_T(x) = (x - \lambda)^e,
+\]
+for some \( \lambda \in \mathbb{F} \). Then there exists a basis \( \mathcal{A} \) of \( V \) such that
+\[
+T_{\mathcal{A}, \mathcal{A}} = \operatorname{diag}(J_1, \ldots, J_\ell),
+\]
+where each block \( J_i \) is of the form
+\[
+J_i = \begin{pmatrix}
+\lambda & 1       &        &        \\
+        & \lambda & \ddots &        \\
+        &         & \ddots & 1      \\
+        &         &        & \lambda
+\end{pmatrix}.
+\]
+\end{corollary}
+
+\begin{proof}
+Let \( U := T - \lambda I \). Then the minimal polynomial of \( U \) is \( m_U(x) = x^e \). By \autoref{prop:jordan-nilpotent}, there exists a basis \( \mathcal{A} \) such that
+\[
+U_{\mathcal{A}, \mathcal{A}} = \operatorname{diag}(M_1, \ldots, M_\ell),
+\]
+where $M_i = N_{\alpha_i}$ as given in \autoref{prop:jordan-nilpotent} for some $\alpha_i \in \mathbb{N}$.  Therefore,
+\[
+T_{\mathcal{A}, \mathcal{A}} = [U + \lambda I]_{\mathcal{A}, \mathcal{A}} = \operatorname{diag}(M_1 + \lambda I, \ldots, M_\ell + \lambda I),
+\]
+which gives the desired Jordan blocks centered at \( \lambda \).
+\end{proof}
+
+\begin{corollary}
+\label{cor:jordan-c-complete}
+Let \( A \in M_{n \times n}(\mathbb{C}) \). Then there exists an invertible matrix \( P \) such that
+\[
+P^{-1} A P = \operatorname{diag}(J_1, \ldots, J_\ell),
+\]
+where each \( J_i \) is a Jordan block of the form described above. That is, any complex square matrix is similar to a matrix in Jordan normal form.
+\end{corollary}
+\begin{proof}
+    By the Fundamental Theorem of Algebra, the minimal polynomial of $T$ can always be factorized into linear terms, i.e.
+    $$m_{T}(x) = (x-\lambda_1)^{e_1} \cdots (x-\lambda_k)^{e_k}.$$
+    Therefore, the result follows from \autoref{thm:jordan-normal-form} and the discussions in \autoref{sec:similar_basis}.
+\end{proof}
+

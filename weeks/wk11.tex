@@ -1,0 +1,245 @@
+\chapter{Introduction to Tensor Products}
+
+\section{Motivation of Tensor Products}
+\subsection{Constrains of Bilinear Form}
+Let \( U, V, W \) be vector spaces. We want to study bilinear maps \( f : U \times W \to U \), i.e., for all \( v, v_1, v_2 \in V \), \( w, w_1, w_2 \in W \), \( a, b, c, d \in \mathbb{F} \), one has
+\[
+f(av_1 + bv_2, w) = a f(v_1, w) + b f(v_2, w)
+\]
+\[
+f(v, cw_1 + dw_2) = c f(v, w_1) + d f(v, w_2)
+\]
+
+\begin{example}
+Let \( f : \mathbb{R}^n \times \mathbb{R}^n \to \mathbb{R} \) be with \( (u, v) \mapsto \langle u, v \rangle \).
+
+\begin{itemize}
+    \item Let \( f : M_{n \times n}(\mathbb{F}) \times M_{n \times n}(\mathbb{F}) \to M_{n \times n}(\mathbb{F}) \) be with \( f(A, B) = AB \).
+    
+    \item Let \( f : \mathbb{F}[x] \times \mathbb{F}[x] \to \mathbb{F} \) be with \( f(p(x), q(x)) = p(1) q(2) \).
+    
+    \item Let \( f : \mathbb{F}[x] \times \mathbb{F}[x] \to \mathbb{F}[x] \) be with \( f(p(x), q(x)) = p(x) q(x) \).
+    
+    \item \( f : \mathbb{R}^3 \times \mathbb{R}^3 \) with \( f(u, v) = u \times v \) (the \emph{cross product} in \( \mathbb{R}^3 \)).
+\end{itemize}
+\end{example}
+
+\noindent Unfortunately, bilinear maps are almost always \textbf{not a linear transformation}. For instance, in the last example, one has:
+\[
+f(3 \mathbf{v}, 3 \mathbf{w}) = (3 \mathbf{v}) \times (3 \mathbf{w}) = 9 \mathbf{v} \times \mathbf{w} \neq 3 f(\mathbf{v}, \mathbf{w}).
+\]
+
+Since \( f \) is not a linear transformation, one cannot apply any of the tools (e.g., matrix representations, rank-nullity theorem, etc.) we developed in this course so far to study \( f \).
+
+Indeed, the fundamental issue is that the vector space structure of \( V \times W \) is not suited to studying bilinear maps.
+
+\medskip
+
+As a consequence, we begin by giving an abstract, category-theoretic definition of tensor product \( V \otimes W \).
+
+\subsection{The Universal Property of Tensor Products}
+
+\begin{definition}[Universal Property of Tensor Product]\label{def:univtensor}
+Let \(V,W\) be vector spaces. Consider the set
+\[
+\text{Obj} :=  \{ \phi  : V \times  W \rightarrow  U \mid  \phi \text{ is a bilinear map }\}.
+\]
+We say the {\bf tensor product space} \(\mathcal{T}\), or the bilinear map \(\left( {i : V \times  W \rightarrow  \mathcal{T}}\right)  \in Obj\) satisfies the {\bf universal property of tensor product} if for any \((\phi  : V \times  W \rightarrow U) \in  \mathrm{{Obj}}\), there exists an unique linear transformation \(\color{red} T_{\phi } : \mathcal{T} \rightarrow  U\) such that the diagram below commutes:
+
+
+\begin{center}
+\begin{tikzcd}[row sep=large, column sep=large]
+V \times W \arrow[r, "i", blue] \arrow[rd, "\phi"']  & \mathcal{T}  \arrow[d, "T_{\phi}"', dashed, red]\\
+& U 
+\end{tikzcd} \quad \quad \quad i.e. \(\phi  = {\color{red} T_{\phi}} \circ  i\).
+\end{center} 
+
+\end{definition}
+
+\noindent
+In other words, rather than studying the \textbf{bilinear map} \( \phi \), it is better to study the \textbf{linear transformation} \( T_\phi \). Since \( \phi = T_\phi \circ i \), \( T_\phi \) contains all the information about \( \phi \), and one can apply all the theorems we know about linear algebra to study \( T_\phi \)!
+
+\bigskip
+
+\noindent
+\textbf{\Large The question is: Does the tensor product space \( \mathcal{T} \) exist?}
+
+\bigskip
+
+\noindent
+In the next section, we will construct \( \mathcal{T} \) explicitly, and show that it satisfies the properties we mentioned above.
+
+
+\section{Tensor Product Space}
+
+\subsection{Construction of Tensor Product Space}
+We begin with defining the tensor product $\mathcal{T} = V \otimes W$ of two vector spaces $V$ and $W$. This can be generalized into any (countable) number of vector spaces.
+
+
+\begin{definition} Let \(V,W\) be vector spaces. Let \(S = \{ \left( {\mathbf{v},\mathbf{w}}\right)  \mid  \mathbf{v} \in  V,\mathbf{w} \in  W\}\), we define
+
+\[
+\mathfrak{X} = \operatorname{span}\left( S\right).
+\]
+\end{definition}
+
+\begin{remark}
+    Note that we assume no relations on the elements \(\left( {\mathbf{v},\mathbf{w}}\right)  \in  \mathcal{S}\). In other words, $1\cdot ({\bf v}, {\bf w})$ and $1 \cdot ({\bf v}', {\bf w}') \in \mathfrak{X}$ are linearly independent unless ${\bf v} = {\bf v}'$ and ${\bf w} = {\bf w}'$ 
+    
+    For example, if ${\bf w} \neq {\bf 0}$, then ${\bf w} \neq 2{\bf w}$. Therefore, $(0,{\bf w})$ and $(0, 2{\bf w})$ are linearly independent and hence:
+    \begin{align*} 
+    2\cdot \left( {0,\mathbf{w}}\right)  &\neq  \left( {0,2\mathbf{w}}\right)\\
+3\cdot \left( {0,\mathbf{w}}\right) &\neq 1\cdot \left( {0,\mathbf{w}}\right)  + 1\cdot\left( {0,{2\bf w}}\right)  \end{align*}
+Similarly, if ${\bf v}, {\bf w} \neq {\bf 0}$:
+\begin{align*}
+\left(\mathbf{v},\mathbf{w}\right) &\neq \left( \mathbf{v},0\right)  +  \left( 0,\mathbf{w}\right). \end{align*}
+The only legitimate relationship in $\mathfrak{X}$ is
+\[
+2\cdot \left( \mathbf{v},{\bf w}\right)  + 3\cdot \left(\mathbf{v},\mathbf{w}\right)  = 5\left( {\mathbf{v},\mathbf{w}}\right) ,
+\]
+yet it is not equal to $(5{\bf v},5{\bf w})$.
+
+\noindent In other words, \(\mathcal{S}\) is a basis of \(\mathfrak{X}\), and consequently \(\mathfrak{X}\) is of uncountable dimension.
+\end{remark}
+
+\begin{definition}[Tensor Product of $V$ and $W$] Let \(\mathfrak{Y} \leq  \mathfrak{X}\) be a vector subspace spanned by vectors of the form
+\[
+\left\{  {1\left( {{\bf v}_1+{\bf v}_2,\mathbf{w}}\right)  - 1\left( {{\bf v}_1,\mathbf{w}}\right)  - 1\left( {{\bf v}_2,\mathbf{w}}\right) }\right\}  ,\quad \left\{  {1\left( {\mathbf{v},{\bf w}_1 + {\bf w}_2}\right)  - 1\left( {\mathbf{v},{\bf w}_1}\right)  - 1\left( {\mathbf{v},{\bf w}_2}\right) }\right\}
+\]
+and
+\[
+\{ 1\left( {k\mathbf{v},\mathbf{w}}\right)  - k\left( {\mathbf{v},\mathbf{w}}\right)  \mid  k \in  \mathbb{F}\},
+\quad
+\{ 1\left( {\mathbf{v},k\mathbf{w}}\right)  - k\left( {\mathbf{v},\mathbf{w}}\right)  \mid  k \in  \mathbb{F}\}
+\]
+for all ${\bf v}, {\bf v}_1, {\bf v}_2 \in V$, ${\bf w}, {\bf w}_1, {\bf w}_2 \in W$. Then the {\bf tensor product} \(V \otimes  W\) is defined by
+
+\[
+V \otimes  W := \mathfrak{X}/\mathfrak{Y}
+\]
+
+\noindent Also, for ${\bf v} \in V$ and ${\bf w} \in W$, we define 
+\[\mathbf{v} \otimes  \mathbf{w} := \left( {\mathbf{v},\mathbf{w}}\right)  + \mathfrak{Y} \quad \in  \mathfrak{X}/\mathfrak{Y} = V \otimes W.\]
+\end{definition}
+
+\noindent Using our definition of $V \otimes W$, the expression ${\bf v} \otimes {\bf w} \in V \otimes W$ is `bilinear', for instance:
+\begin{equation} \label{eq:tensorrule1}
+\begin{aligned}
+\left( {{\bf v}_1 + {\bf v}_2}\right)  \otimes  \mathbf{w} &= \left( {{\bf v}_1 + {\bf v}_2,\mathbf{w}}\right)  + \mathfrak{Y} \\
+&= \left( {{\bf v}_1 + {\bf v}_2,\mathbf{w}}\right)  - \left\lbrack  {\left( {{\bf v}_1 + {\bf v}_2,\mathbf{w}}\right)  - \left( {{\bf v}_1,\mathbf{w}}\right)  - \left( {{\bf v}_2,\mathbf{w}}\right) }\right\rbrack   + \mathfrak{Y}
+\\
+&= 0\left( {{\bf v}_1 + {\bf v}_2,\mathbf{w}}\right)  + \left( {{\bf v}_1,\mathbf{w}}\right)  + \left( {{\bf v}_2,\mathbf{w}}\right)  + \mathfrak{Y}
+\\
+&= \left\lbrack  {\left( {{\bf v}_1,\mathbf{w}}\right)  + \mathfrak{Y}}\right\rbrack   + \left\lbrack  {\left( {{\bf v}_2,\mathbf{w}}\right)  + \mathfrak{Y}}\right\rbrack
+\\
+&= {\bf v}_1 \otimes  {\bf w} + {\bf v}_2 \otimes  {\bf w}
+\end{aligned}
+\end{equation}
+Similarly, one can check that
+\begin{equation} \label{eq:tensorrule2}
+\begin{aligned}
+\mathbf{v} \otimes  \left( {{\bf w}_1 + {\bf w}_2}\right)  &= \left( {\mathbf{v} \otimes  {\bf w}_1}\right)  + \left( {\mathbf{v} \otimes  {\bf w}_2}\right)
+\\
+\left( {k\mathbf{v}}\right)  \otimes  \mathbf{w} &= k\left( {\mathbf{v} \otimes  \mathbf{w}}\right)
+\\
+\mathbf{v} \otimes  \left( {k\mathbf{w}}\right)  &= k\left( {\mathbf{v} \otimes  \mathbf{w}}\right)
+\end{aligned}
+\end{equation}
+Making use of the rules above, we present an example of arithmetic on tensor product spaces:
+\begin{example} 
+Let \(V = W = {\mathbb{R}}^2\), with
+\({\mathbf{e}}_1 = \left( \begin{array}{l} 1 \\  0 \end{array}\right) ,\;{\mathbf{e}}_2 = \left( \begin{array}{l} 0 \\  1 \end{array}\right) .
+\)
+Then
+\begin{align*}
+\left( \begin{array}{l} 3 \\  1 \end{array}\right)  \otimes  \left( \begin{matrix}  - 4 \\  2 \end{matrix}\right)  &= \left( {3{\mathbf{e}}_1 + 2{\mathbf{e}}_2}\right)  \otimes  \left( {-4{\mathbf{e}}_1 + 2{\mathbf{e}}_2}\right)
+\\
+&= \left( {3{\mathbf{e}}_1}\right)  \otimes  \left( {-4{\mathbf{e}}_1 + 2{\mathbf{e}}_2}\right)  + \left( {\mathbf{e}}_2\right)  \otimes  \left( {-4{\mathbf{e}}_1 + 2{\mathbf{e}}_2}\right)
+\\
+&= \left( {3{\mathbf{e}}_1}\right)  \otimes  \left( {-4{\mathbf{e}}_1}\right)  + \left( {3{\mathbf{e}}_1}\right)  \otimes  \left( {2{\mathbf{e}}_2}\right)  + \left( {\mathbf{e}}_2\right)  \otimes  \left( {-4{\mathbf{e}}_1}\right)  + {\mathbf{e}}_2 \otimes  \left( {2{\mathbf{e}}_2}\right)
+\\
+&=  - {12}\left( {{\mathbf{e}}_1 \otimes  {\mathbf{e}}_1}\right)  + 6\left( {{\mathbf{e}}_1 \otimes  {\mathbf{e}}_2}\right)  - 4\left( {{\mathbf{e}}_2 \otimes  {\mathbf{e}}_1}\right)  + 2\left( {{\mathbf{e}}_2 \otimes  {\mathbf{e}}_2}\right)
+\end{align*}
+Exercise: Check that \({\mathbf{e}}_1 \otimes  {\mathbf{e}}_2 + {\mathbf{e}}_2 \otimes  {\mathbf{e}}_1\) cannot be re-written as
+\[
+\left( {a{\mathbf{e}}_1 + b{\mathbf{e}}_2}\right)  \otimes  \left( {c{\mathbf{e}}_1 + d{\mathbf{e}}_2}\right).
+\]
+for any $a,b,c,d \in  \mathbb{R}$.
+\end{example}
+
+\begin{remark}
+The product space \(V \times  W\) is different from the tensor product space \(V \otimes  W\) in the following sense:
+
+(a) \(\left( {\mathbf{v},\mathbf{0}}\right)  \neq  {\mathbf{0}}_{V \times  W}\) in \(V \times  W\) ; but \(\mathbf{v} \otimes  {\bf 0} \in  {\bf 0}_{V \otimes  W}\), since
+
+\[
+{\bf v} \otimes  0 = {\bf v} \otimes  \left( {0\mathbf{w}}\right)
+= 0\left( {\bf v} \otimes  {\bf w}\right) = {\bf 0}_{V \otimes  W}
+\]
+
+
+(b) \(\left( {{\bf v}_1,{\bf w}_1}\right)  + \left( {{\bf v}_2,{\bf w}_2}\right)  = \left( {{\bf v}_1 + {\bf v}_2,{\bf w}_1 + {\bf w}_2}\right)\) ; but \({\bf v}_1 \otimes  {\bf w}_1 + {\bf v}_2 \otimes  {\bf w}_2\) cannot be
+
+simplified further in general, unless (for instance) \({\bf v}_1 = {\bf v}_2\), so that:
+
+\[
+\mathbf{v} \otimes  {\bf w}_1 + \mathbf{v} \otimes  {\bf w}_2 = \mathbf{v} \otimes  \left( {{\bf w}_1 + {\bf w}_2}\right)
+\]
+
+As we saw in the exercise above, a general element in $V \otimes W$ {\bf cannot} is not necessarily of the form $v \otimes w$.
+How does a general element in $V \otimes W$ look like?
+
+We begin with a general element in \(\mathfrak{X}\) :
+\[
+{a}_1\left( {{\bf v}_1,{\bf w}_1}\right)  + \cdots  + {a}_k\left( {{\bf v}_k,{\bf w}_k}\right) ,
+\]
+
+where \(\left( {{\bf v}_{i},{\bf w}_{i}}\right)\) are distinct. Then a general element in \(\mathfrak{X}/\mathfrak{Y} \mathrel{\text{ := }} V \otimes  W\) looks like:
+\begin{align*}
+{a}_1\left( {{\bf v}_1,{\bf w}_1}\right)  + \cdots  + {a}_k\left( {{\bf v}_k,{\bf w}_k}\right)  + \mathfrak{Y} &= {a}_1\left( {\left( {{\bf v}_1,{\bf w}_1}\right)  + \mathfrak{Y}}\right)  + \cdots  + {a}_k\left( {\left( {{\bf v}_k,{\bf w}_k}\right)  + \mathfrak{Y}}\right)
+\\
+&= {a}_1\left( {{\bf v}_1 \otimes  {\bf w}_1}\right)  + \cdots  + {a}_k\left( {{\bf v}_k \otimes  {\bf w}_k}\right)
+\\
+&= \left( {{a}_1{\bf v}_1}\right)  \otimes  {\bf w}_1 + \cdots  + \left( {{a}_k{\bf v}_k}\right)  \otimes  {\bf w}_k
+\end{align*}
+Therefore, a general element in \(V \otimes  W\) is of the form
+\begin{equation} \label{eq:generaltensor}
+{\bf v}^{(1)} \otimes  {\bf w}^{(1)} + \cdots  + {\bf v}^{(k)} \otimes  {\bf w}^{(k)} \quad \quad ({\bf v}^{(i)} \in  V, \quad {\bf w}^{(i)} \in  W).
+\end{equation}
+\end{remark}
+
+\begin{theorem}\label{thm: univ-binlinear-map} 
+The bilinear map
+$$i : V \times W \rightarrow V \otimes W$$ 
+defined by 
+$$i({\bf v}, {\bf w}) := {\bf v} \otimes {\bf w}$$ 
+is in \textnormal{Obj} in \autoref{def:univtensor} (i.e. $i$ is a bilinear map). Moreover, by taking $\mathcal{T} := V \otimes W$ in \autoref{def:univtensor}, it satisfies the universal property of tensor products.
+\end{theorem}
+\begin{proof}
+By Equations \eqref{eq:tensorrule1} and \eqref{eq:tensorrule2}, \( i \) satisfies:
+\begin{align*}
+    i(\mathbf{v}_1 + \mathbf{v}_2, \mathbf{w}) &= i(\mathbf{v}_1, \mathbf{w}) + i(\mathbf{v}_2, \mathbf{w}), \\
+    i(\mathbf{v}, \mathbf{w}_1 + \mathbf{w}_2) &= i(\mathbf{v}, \mathbf{w}_1) + i(\mathbf{v}, \mathbf{w}_2), \\
+    i(a \mathbf{v}, \mathbf{w}) &= a \cdot i(\mathbf{v}, \mathbf{w}), \quad i(\mathbf{v}, b \mathbf{w}) = b \cdot i(\mathbf{v}, \mathbf{w}),
+\end{align*}
+so \( i \in \textnormal{Obj} \) as in \autoref{def:univtensor}.
+
+Now, let \( (\phi : V \times W \to U) \in \textnormal{Obj} \) be any bilinear map into some vector space \( U \). Since \( \phi \) is bilinear, it respects the relations that generate \( \mathfrak{Y} \). Therefore, we can define a linear map
+\[
+T_{\phi} : V \otimes W \to U, \quad T_{\phi}(\mathbf{v} \otimes \mathbf{w}) := \phi(\mathbf{v}, \mathbf{w}),
+\]
+and extend linearly to all of \( V \otimes W \) (recall all elements of $V \otimes W$ are of the form ${\bf v}^{(1)} \otimes {\bf w}^{(1)} + \dots + {\bf v}^{(k)} \otimes {\bf w}^{(k)}$). This map is well-defined because if two elements \( (\mathbf{v}, \mathbf{w}) \) and \( (\mathbf{v}', \mathbf{w}') \) are equivalent in \( \mathfrak{X}/\mathfrak{Y} \), i.e. $({\bf v},{\bf w}) - ({\bf v}',{\bf w}') \in \mathfrak{Y}$, then their images under \( \phi \) are equal due to bilinearity.
+
+It follows directly from the definition that the diagram
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+V \times W \arrow[r, "i", blue] \arrow[rd, "\phi"'] & V \otimes W \arrow[d, "T_{\phi}"', dashed, red] \\
+& U
+\end{tikzcd}
+\]
+commutes, i.e., \( \phi = T_\phi \circ i \).
+
+For uniqueness: suppose there exists another linear map \( T' : V \otimes W \to U \) such that \( \phi = T' \circ i \). Then both \( T_\phi \) and \( T' \) agree on all pure tensors \( \mathbf{v} \otimes \mathbf{w} \), and hence, by linearity, on all of \( V \otimes W \). So \( T' = T_\phi \).
+
+Therefore, the pair \( (V \otimes W, i) \) satisfies the universal property of the tensor product.
+\end{proof}

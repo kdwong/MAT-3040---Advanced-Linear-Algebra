@@ -1,0 +1,531 @@
+\chapter{Minimal Polynomial \& Cayley-Hamilton Theorem}
+\section{ Minimal Polynomial}
+
+\begin{definition}[Linear Operator Induced From Polynomial]
+Let \( f(x) := a_m x^m + \cdots + a_0 \in \mathbb{F}[x] \), and let \( T : V \to V \) be a linear operator. Then the operator
+\[
+f(T) := a_m T^m + \cdots + a_1 T + a_0 I : V \to V
+\]
+is called the linear operator induced by the polynomial \( f(x) \).
+\end{definition}
+
+The composition of linear operators is not commutative, i.e. \( S \circ T \neq T \circ S \) in general. This follows similarly to the fact that matrix multiplication is not commutative. However, we always have
+  \[
+  f(T) T = T f(T),
+  \]
+for any polynomial \( f \in \mathbb{F}[x] \) - Indeed, we can show that \( T^n T = T T^n \) for all \( n \) by induction. Now for \( f(x) = \sum_i a_i x^i \), then
+  \[
+  f(T) T = \sum_i a_i T^i T = \sum_i a_i T T^i = T \sum_i a_i T^i = T f(T). 
+  \]
+More generally, one can apply induction argument again to show that the composition of polynomial-induced operators is commutative:
+  \[
+  f(T) g(T) = g(T) f(T),
+  \]
+for all \( f(x), g(x) \in \mathbb{F}[x] \).
+
+\begin{definition}[Minimal Polynomial]
+Let \( T : V \to V \) be a linear operator. The \emph{minimal polynomial} \( m_T(x) \) is the unique monic polynomial of least degree such that
+\[
+m_T(T) = \mathbf{0}_{V \to V},
+\]
+where \( \mathbf{0}_{V \to V} \) denotes the zero operator in \( \operatorname{Hom}(V, V) \).
+\end{definition}
+
+\begin{example}[Minimal Polynomials of Matrices]
+\leavevmode
+\begin{enumerate}
+  \item Let \( A = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} \), then
+  \[
+  \mathcal{X}_A(x) = (x - 1)^2, \quad m_A(x) = x - 1,
+  \]
+  since \( A - I = 0 \).
+
+  \item Let \( B = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix} \), then
+  \[
+  \mathcal{X}_B(x) = (x - 1)^2.
+  \]
+  Could the minimal polynomial be \( x - 1 \)? No, because
+  \[
+  B - I = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \neq 0.
+  \]
+  However,
+  \[
+  (B - I)^2 = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix} \Rightarrow m_B(x) = (x - 1)^2.
+  \]
+\end{enumerate}
+\end{example}
+
+Two natural questions arise:
+\begin{enumerate}
+  \item Does \( m_T(x) \) always exist? Is it unique?
+  \item What is the relationship between \( m_T(x) \) and \( \mathcal{X}_T(x) \)?
+\end{enumerate}
+
+Regarding the existence of minimal polynomial, note that $m_T(x)$ may not exist if \( V \) is infinite-dimensional:
+\begin{example}
+Let \( V = \mathbb{R}[x] \), and define
+\[
+T : V \to V, \quad p(x) \mapsto \int_0^x p(t)\, dt.
+\]
+Then, for monomials: \( T(x^n) = \frac{1}{n+1} x^{n+1} \). Suppose \( m_T(x) = x^n + \cdots + a_0 \), then
+\[
+m_T(T) = T^n + \cdots + a_0 I = 0.
+\]
+Applying this to \( x \in V \), we would have:
+\[
+m_T(T)(x) = \frac{1}{n!} x^n + a_{n-1} \frac{1}{(n-1)!} x^{n-1} + \cdots + a_0 x = 0.
+\]
+But this is a contradiction since the LHS is a nonzero polynomial while the RHS is zero. Hence, no such minimal polynomial exists.
+\end{example}
+
+\subsection{ Properties of the Minimal Polynomial}
+
+\begin{proposition}[Existence]\label{prop:minpoly-existence}
+The minimal polynomial \( m_T(x) \) always exists if \( \dim(V) = n < \infty \).
+\end{proposition}
+
+\begin{proof}
+We consider the set
+\[
+\{ I, T, T^2, \dots, T^{n^2} \} \subseteq \operatorname{Hom}(V, V),
+\]
+which lies in a vector space $\mathrm{Hom}(V,V)$ of dimension \( n^2 \). Therefore, this set is linearly dependent, and there exist scalars \( a_0, \dots, a_{n^2} \), not all zero, such that
+\[
+a_0 I + a_1 T + \cdots + a_{n^2} T^{n^2} = 0.
+\]
+That is, there exists a nonzero polynomial \( g(x) \in \mathbb{F}[x] \) with \( \deg(g) < n^2 \) such that \( g(T) = 0 \). Thus a minimal-degree such polynomial exists.
+\end{proof}
+
+\begin{proposition}[Uniqueness]\label{prop:minpoly-uniqueness}
+The minimal polynomial \( m_T(x) \), if it exists, is unique.
+\end{proposition}
+
+\begin{proof}
+Suppose \( f_1(x) \neq f_2(x) \) are two minimal polynomials with the same minimal degree. Then their difference
+\[
+g(x) = f_1(x) - f_2(x) \neq 0,
+\]
+satisfies \( \deg(g) < \deg(f_1) \) and
+\[
+g(T) = f_1(T) - f_2(T) = 0.
+\]
+After scaling \( g(x) \) to be monic, we obtain a polynomial of strictly lower degree annihilating \( T \), contradicting the minimality of \( f_1 \). Hence \( m_T(x) \) is unique.
+\end{proof}
+
+\begin{proposition}[Divisibility]\label{prop:minpoly-divides}
+Let \( f(x) \in \mathbb{F}[x] \) satisfy \( f(T) = 0 \). Then
+\[
+m_T(x) \mid f(x).
+\]
+\end{proposition}
+
+\begin{proof}
+By the division algorithm, write
+\[
+f(x) = q(x) m_T(x) + r(x), \quad \deg(r) < \deg(m_T).
+\]
+Then
+\[
+f(T) = q(T) m_T(T) + r(T) = 0 + r(T) = r(T).
+\]
+Since \( f(T) = 0 \), we get \( r(T) = 0 \). But then \( r(x) \) is a polynomial of smaller degree than \( m_T \) that annihilates \( T \), contradicting the minimality of \( m_T \). Thus \( r(x) \equiv 0 \), and \( m_T(x) \mid f(x) \).
+\end{proof}
+
+\begin{proposition}[Similarity Invariance]\label{prop:minpoly-similarity}
+Let \( A, B \in \mathbb{F}^{n \times n} \) be similar, i.e., \( B = P^{-1} A P \) for some invertible matrix \( P \). Then
+\[
+m_A(x) = m_B(x).
+\]
+\end{proposition}
+
+\begin{proof}
+Let \( m_A(x) = x^k + a_{k-1}x^{k-1} + \cdots + a_0 \). Then
+\[
+m_A(B) = m_A(P^{-1} A P) = P^{-1} m_A(A) P = P^{-1}(0)P = 0.
+\]
+Hence \( m_A(x) \) annihilates \( B \), so by \autoref{prop:minpoly-divides}, \( m_B(x) \mid m_A(x) \). A symmetric argument shows \( m_A(x) \mid m_B(x) \). Since both are monic, we conclude
+\[
+m_A(x) = m_B(x).
+\]
+\end{proof}
+
+\begin{remark}
+\autoref{prop:minpoly-similarity} states that the minimal polynomial is invariant under similarity. In fact, the characteristic polynomial is similarity-invariant as well.
+\end{remark}
+
+% From now on we assume finite-dimensionality.
+% Define standard notation for minimal polynomial.
+
+We now assume \( \dim(V) < \infty \). The minimal polynomial \( m_T(x) \) denotes the unique monic polynomial of least degree such that
+\[
+m_T(T) = 0 \in \operatorname{Hom}(V, V).
+\]
+
+
+
+\section{Cayley–Hamilton Theorem}
+\subsection{Statement of the Theorem}
+We begin with an example: consider the matrix \( A = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix} \), and its associated linear operator on \( \mathbb{F}^2 \). The characteristic polynomial of \( A \) is
+\[
+\chi_A(x) = (x - 1)(x - 2).
+\]
+Note that the minimal polynomial \( m_A(x) \) cannot have degree one. Otherwise, \( m_A(x) = x - k \) for some scalar \( k \), and we would have
+\[
+m_A(A) = A - k I = \begin{pmatrix} 1 - k & 0 \\ 0 & 2 - k \end{pmatrix} \neq 0,
+\]
+for any \( k \in \mathbb{F} \), contradicting the definition of minimal polynomial. Therefore, \( m_A(x) \) must be
+\[
+m_A(x) = (x - 1)(x - 2),
+\]
+which coincides with the characteristic polynomial. In fact, one has:
+
+\begin{theorem}[Cayley–Hamilton]\label{thm:cayley-hamilton}
+Let \( T : V \to V \) be a linear operator on a finite-dimensional vector space over a field \( \mathbb{F} \). Then the characteristic polynomial \( \mathcal{X}_T(x) \) annihilates \( T \), i.e.,
+\[
+\mathcal{X}_T(T) = 0.
+\]
+Equivalently, the minimal polynomial \( m_T(x) \) divides the characteristic polynomial:
+\[
+m_T(x) \mid \mathcal{X}_T(x).
+\]
+\end{theorem}
+
+In the course of the proof of \autoref{thm:cayley-hamilton}, we would assume 
+$\mathcal{X}_T(x) = (x - \lambda_1)^{e_1} \cdots (x-\lambda_k)^{e_k}$
+can be factorized into linear terms. However, this is not always possible over arbitrary \( \mathbb{F} \). For instance, consider
+\[
+A = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} \in M_{2 \times 2}(\mathbb{R}).
+\]
+Its characteristic polynomial is \( \mathcal{X}_A(x) = x^2 + 1 \), which cannot be factorized into linear terms in \( \mathbb{R}[x] \). However, we may always extend the field to its {\bf algebraic closure} 
+\[ \overline{\mathbb{F}} \supseteq \mathbb{F} \] (e.g. $\mathbb{C} \supseteq \mathbb{R}$) so that \( \mathcal{X}_A(x) \in \mathbb{F}[x] \subseteq \overline{\mathbb{F}}[x]\) always admits the factorization (e.g. $\mathcal{X}_A(x) = (x - i)(x +1)$ in $\mathbb{C}[x]$).
+
+Our strategy to prove \autoref{thm:cayley-hamilton} is:
+\begin{itemize}
+    \item Consider the case where \( m_T(x), \mathcal{X}_T(x)\) are in \(\overline{\mathbb{F}}[x]\) 
+    \item Show that \(m_T(x) \mid \mathcal{X}_T(x)\) under \(\overline{\mathbb{F}}[x]\).
+    \item Since both \(m_T(x)\) and \(\mathcal{X}_T(x)\) are in $\mathbb{F}[x]$, one must also have \(m_T(x) \mid \mathcal{X}_T(x)\) under \(\mathbb{F}[x]\).
+\end{itemize}
+
+\subsection{Invariant Subspace}
+Before we give the full proof, we develop tools that allow us to decompose the vector space using invariant subspaces.
+\begin{definition}[Invariant Subspace]\label{def:invariant-subspace}
+Let \( T : V \to V \) be a linear operator. A subspace \( W \leq V \) is called \( T \)-invariant if
+\[
+T(W) \leq W.
+\]
+\end{definition}
+
+\begin{remark}
+If \( W \leq V \) is \( T \)-invariant, then the restriction \( T|_W : W \to W \) defines a well-defined linear operator.
+\end{remark}
+
+\begin{example}\label{ex:invariant-subspace}
+The following are examples of \( T \)-invariant subspaces:
+\begin{enumerate}
+    \item The whole space \( V \) is trivially \( T \)-invariant.
+    \item For each eigenvalue \( \lambda \), the eigenspace \( \ker(T - \lambda I) \) is \( T \)-invariant.
+    \item More generally, for any polynomial \( g \in \mathbb{F}[x] \), the space
+    \[
+    U = \ker(g(T)) \leq V
+    \]
+    is \( T \)-invariant.
+
+    \emph{Proof:} If \( {\bf v} \in \ker(g(T)) \), then \( g(T)({\bf v}) = 0 \). We want to show \( T({\bf v}) \in \ker(g(T)) \), i.e., \( g(T)(T({\bf v})) = 0 \). Observe:
+    \[
+    g(T)(T({\bf v})) = (a_m T^m + \cdots + a_1 T + a_0 I)(T({\bf v})) = T(g(T)({\bf v})) = T({\bf 0}) = {\bf 0}.
+    \]
+    \item If \( {\bf v} \in \ker(T - \lambda I) \), then \( \operatorname{span}\{{\bf v}\} \) is a \( T \)-invariant subspace.
+\end{enumerate}
+\end{example}
+
+\begin{proposition}\label{prop:block-diagonal}
+Let \( T : V \to V \) be a linear operator, and suppose \( W \leq V \) is a \( T \)-invariant subspace. Then we have the induced linear operators:
+\begin{align}
+\left. T \right|_W & : W \to W, \quad \mathbf{w} \mapsto T(\mathbf{w}) \label{eq:restriction-map} \\
+\widetilde{T} & : V/W \to V/W, \quad \mathbf{v} + W \mapsto T(\mathbf{v}) + W \label{eq:quotient-map}
+\end{align}
+(The well-definedness of \( \widetilde{T} \) is proved in Homework 2, Exercise 4.)
+
+With respect to a suitable basis, the matrix representation of \( T \) has the block form:
+\[
+[T]_{\mathcal{B},\mathcal{B}} =
+\begin{pmatrix}
+[\left. T \right|_W]_{\mathcal{C}, \mathcal{C}} & * \\
+0 & [\widetilde{T}]_{\overline{\mathcal{B}}, \overline{\mathcal{B}}}
+\end{pmatrix}
+\]
+where \( \mathcal{C} = \{ \mathbf{v}_1, \dots, \mathbf{v}_k \} \) is a basis of \( W \), and \( \overline{\mathcal{B}} = \{ \mathbf{v}_{k+1} + W, \dots, \mathbf{v}_n + W \} \) is a basis of \( V/W \).
+
+It follows that the characteristic polynomial of \( T \) satisfies:
+\[
+\mathcal{X}_T(x) = \mathcal{X}_{\left. T \right|_W}(x) \cdot \mathcal{X}_{\widetilde{T}}(x).
+\]
+\end{proposition}
+
+\subsection{Triangularizable Transformation}
+As mentioned before, we will now focus on the case when 
+\[
+\mathcal{X}_T(x) = (x - \lambda_1) \cdots (x - \lambda_n) \in \mathbb{F}[x]
+\]
+can be factorized into linear terms (for instance, when $\mathbb{F} = \overline{\mathbb{F}}$ is algebraically closed.
+\begin{proposition}\label{prop:upper-triangular-form}
+Suppose
+\[
+\mathcal{X}_T(x) = (x - \lambda_1) \cdots (x - \lambda_n)
+\]
+where the \( \lambda_i \in \mathbb{F} \) are not necessarily distinct. Then there exists a basis \( \mathcal{A} \) of \( V \) such that
+\[
+[T]_{\mathcal{A}, \mathcal{A}} =
+\begin{pmatrix}
+\lambda_1 & * & \cdots & * \\
+0 & \lambda_2 & \cdots & * \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \lambda_n
+\end{pmatrix}.
+\]
+In such a case, we call $T$ a {\bf triangularizable} linear transformation.
+\end{proposition}
+
+Obviously, the converse of the above proposition also holds, i.e. if $T:V \to V$ is triangularizable, then $\mathcal{X}_T(x) = (x - \lambda_1) \cdots (x - \lambda_n)$ can be factorized into linear terms. We will not make use of this fact in the proof of \autoref{thm:cayley-hamilton}, though.
+\begin{proof}
+We proceed by induction on \( n = \dim V \).
+
+\textbf{Base Case:} For \( n = 1 \), the matrix of \( T \) is scalar \( (\lambda_1) \), and the statement holds.
+
+\textbf{Induction Hypothesis:} Assume the result holds for all dimensions \( < n \). We show it holds for \( \dim V = n \).
+
+\textbf{Step 1: Existence of eigenvector.}
+Let \( \lambda_1 \) be an eigenvalue of \( T \). By the fundamental theorem of algebra (applied over \( \mathbb{C} \)), there exists an eigenvector \( \mathbf{v} \in V \setminus \{{\bf 0}\} \) such that
+\[
+T(\mathbf{v}) = \lambda_1 \mathbf{v}.
+\]
+
+\textbf{Step 2: Invariant subspace and quotient.}
+Define \( W = \operatorname{span}\{\mathbf{v}\} \leq V \), which is \( T \)-invariant. By \autoref{prop:block-diagonal}, \( T \) induces a well-defined operator \( \widetilde{T} : V/W \to V/W \) with characteristic polynomial
+\[
+\mathcal{X}_{\widetilde{T}}(x) = (x - \lambda_2) \cdots (x - \lambda_n).
+\]
+
+\textbf{Step 3: Apply induction.}
+By the induction hypothesis, there exists a basis \( \overline{\mathcal{C}} = \{ \mathbf{w}_2 + W, \dots, \mathbf{w}_n + W \} \) of \( V/W \) such that
+\[
+[\widetilde{T}]_{\overline{\mathcal{C}}, \overline{\mathcal{C}}} =
+\begin{pmatrix}
+\lambda_2 & * & \cdots & * \\
+0 & \lambda_3 & \cdots & * \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \lambda_n
+\end{pmatrix}.
+\]
+
+\textbf{Step 4: Lift basis to \( V \).}
+Define \( \mathcal{A} := \{ \mathbf{v}, \mathbf{w}_2, \dots, \mathbf{w}_n \} \). Then \( \mathcal{A} \) is a basis of \( V \) (see Homework 2, Exercise 2), and in this basis we have:
+\[
+[T]_{\mathcal{A}, \mathcal{A}} =
+\begin{pmatrix}
+\lambda_1 & * \\
+0 & [\widetilde{T}]_{\overline{\mathcal{C}}, \overline{\mathcal{C}}}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\lambda_1 & * & * & * \\
+0 & \lambda_2 & \cdots & * \\
+0 & \cdots & \ddots & * \\
+0 & 0 & \cdots & \lambda_n
+\end{pmatrix}
+\]
+as given in \autoref{prop:block-diagonal}. So the result follows.
+\end{proof}
+\begin{proposition}\label{prop:cayley-hamilton-diagonalizable}
+Suppose that the characteristic polynomial of a linear operator \( T \) is
+\[
+\mathcal{X}_{T}(x) = (x - \lambda_1)\cdots(x - \lambda_n) \in \mathbb{F}[x].
+\]
+Then
+\[
+\mathcal{X}_{T}(T) = \mathbf{0}_{V \to V}.
+\]
+In other words, \autoref{thm:cayley-hamilton} holds for $T$.
+\end{proposition}
+
+
+\begin{proof}
+Since ${\mathcal{X}}_{T}(x) = (x - \lambda_1) \cdots (x - \lambda_n)$, we imply $T$ is triangularizable under some basis $\mathcal{A}$, i.e.
+$$T_{\mathcal{A},\mathcal{A}} = \begin{pmatrix}
+\lambda_1 & \times & \cdots & \times \\
+0 & \lambda_2 & \ddots & \vdots \\
+\vdots & \ddots & \ddots & \times \\
+0 & \cdots & 0 & \lambda_n
+\end{pmatrix}.$$
+Note that
+\begin{itemize}
+\item $\ast \mapsto {\left( \ast \right)}_{\mathcal{A},\mathcal{A}}$ is an isomorphism between $\operatorname{Hom}(V,V)$ and ${M}_{n \times n}(\mathbb{F})$ (c.f. \autoref{thm: coordinate-isomorphism} with $S = T$ and $\mathcal{A} = \mathcal{B} = \mathcal{C}$).
+\item ${\left( T^m \right)}_{\mathcal{A},\mathcal{A}} = \left[ T_{\mathcal{A},\mathcal{A}} \right]^m$ for any $m$ (c.f. \autoref{prop:functoriality}).
+\end{itemize}
+Therefore, if
+${\mathcal{X}}_{T}(x) = x^n + \alpha_{n-1}x^{n-1} + \dots + \alpha_1 x + \alpha_0,$ then
+\begin{align*}
+[{\mathcal{X}}_{T}(T)]_{\mathcal{A},\mathcal{A}} &= 
+[T^n + \alpha_{n-1}T^{n-1} + \dots + \alpha_1 T + \alpha_0I]_{\mathcal{A},\mathcal{A}} \\
+&= (T_{\mathcal{A},\mathcal{A}})^n + \alpha_{n-1}(T_{\mathcal{A},\mathcal{A}})^{n-1} + \dots + \alpha_1 T_{\mathcal{A},\mathcal{A}} + \alpha_0I_{\mathcal{A},\mathcal{A}} \\
+&= {\mathcal{X}}_{T}\left( T_{\mathcal{A},\mathcal{A}}\right)
+\end{align*}
+Therefore,
+$$\mathcal{X}_{T}(T) = \mathbf{0}_{V \to V} \quad \Leftrightarrow \quad [\mathcal{X}_{T}(T)]_{\mathcal{A},\mathcal{A}} = {\bf 0}_{n \times n} \quad \Leftrightarrow \quad {\mathcal{X}}_{T}\left( T_{\mathcal{A},\mathcal{A}}\right) = {\bf 0}_{n \times n},$$
+and it suffices to show ${\mathcal{X}}_{T}\left( T_{\mathcal{A},\mathcal{A}}\right)$ is the zero matrix. To see so, note that
+\[
+{\mathcal{X}}_{T}\left( T_{\mathcal{A},\mathcal{A}} \right) = \left( T_{\mathcal{A},\mathcal{A}} - \lambda_1 \mathbf{I} \right) \cdots \left( T_{\mathcal{A},\mathcal{A}} - \lambda_n \mathbf{I} \right),
+\]
+where $T_{\mathcal{A},\mathcal{A}}$ is as given above. Write
+
+$$M_i := \left( T_{\mathcal{A},\mathcal{A}} - \lambda_i \mathbf{I} \right) = \begin{pmatrix}
+\lambda_1 - \lambda_i & \times & \cdots & \cdots &\times \\
+0 & \ddots & \ddots & & \vdots \\
+\vdots & \ddots & {\bf 0} & \ddots& \vdots \\
+\vdots &  & \ddots &\ddots  &\times \\
+0 & \cdots & \cdots & 0 &\lambda_n - \lambda_i
+\end{pmatrix}$$
+so that ${\mathcal{X}}_{T}\left( T_{\mathcal{A},\mathcal{A}}\right) = M_1\cdots M_i \cdots M_n$. Then
+\begin{align*}
+{\mathcal{X}}_{T}\left( T_{\mathcal{A},\mathcal{A}}\right)
+\begin{pmatrix}
+x_1 \\
+\vdots \\
+x_{n-1} \\
+x_n
+\end{pmatrix}
+&=
+M_1\cdots M_{n-1} M_n \begin{pmatrix}
+x_1 \\
+\vdots \\
+x_{n-1} \\
+x_n
+\end{pmatrix} \\
+&= M_1\cdots M_{n-1}\begin{pmatrix}
+\lambda_1 - \lambda_n & \times &  \cdots &\times \\
+0 & \ddots & \ddots & \vdots \\
+\vdots &  \ddots &\lambda_{n-1} - \lambda_n  &\times \\
+0  & \cdots & 0 & 0
+\end{pmatrix}\begin{pmatrix}
+x_1 \\
+\vdots \\
+x_{n-1} \\
+x_n
+\end{pmatrix} \\
+&= M_1\cdots M_{n-1}\begin{pmatrix}
+x_1' \\
+\vdots \\
+x_{n-1}' \\
+0
+\end{pmatrix}
+\end{align*}
+So we `kill off' the last coordinate of $\mathbf{v} =  \begin{pmatrix}
+x_1 \\
+\vdots \\
+x_n 
+\end{pmatrix}$. Continuing the process, one will kill of the $n-1$, $n-2$, $\dots$ until the top entry of ${\bf v}$, i.e.
+\[
+{\mathcal{X}}_{T}\left( T_{\mathcal{A},\mathcal{A}}\right){\bf v} = M_n \cdots M_1 \mathbf{v} = {\bf 0}.
+\]
+Consequently, ${\mathcal{X}}_{T}\left( T_{\mathcal{A},\mathcal{A}} \right)$ is a zero matrix.
+\end{proof}
+
+\section{Proof of Cayley–Hamilton Theorem}
+Now we are ready to give a proof for the Cayley-Hamilton Theorem:
+\begin{theorem}[Cayley–Hamilton]\label{thm:cayley-hamilton-weaker}
+Let \( T : V \to V \) be a linear operator on a finite-dimensional vector space over a field \( \mathbb{F} \). Then the characteristic polynomial \( \mathcal{X}_T(x) \) annihilates \( T \), i.e.,
+\[
+\mathcal{X}_T(T) = {\bf 0}.
+\]
+\end{theorem}
+
+\begin{proof}
+Suppose that \( \mathcal{X}_T(x) = x^n + a_{n - 1}x^{n - 1} + \cdots + a_0 \in \mathbb{F}[x] \). By considering an algebraically closed field \( \overline{\mathbb{F}} \supseteq \mathbb{F} \), we write
+\begin{align}
+\mathcal{X}_T(x) &= x^n + a_{n - 1}x^{n - 1} + \cdots + a_0, \quad a_i \in \mathbb{F} \label{eq:charpoly-explicit} \\
+                 &= (x - \lambda_1)\cdots(x - \lambda_n), \quad \lambda_i \in \overline{\mathbb{F}}. \label{eq:charpoly-factor}
+\end{align}
+By applying \autoref{prop:cayley-hamilton-diagonalizable}, we conclude \( \mathcal{X}_T(T) = {\bf 0} \), where the coefficients in the formula \( \mathcal{X}_T(T) = {\bf 0} \) with respect to \( T \) lie in \( \overline{\mathbb{F}} \).
+
+Then we argue that these coefficients are actually in \( \mathbb{F} \). Expand the full expression for \( \mathcal{X}_T(T) \):
+\begin{align}
+\mathcal{X}_T(T) &= (T - \lambda_1 I)\cdots(T - \lambda_n I) \label{eq:poly-subst-product} \\
+                 &= T^n - (\lambda_1 + \cdots + \lambda_n) T^{n-1} + \cdots + (-1)^n \lambda_1 \cdots \lambda_n I \label{eq:poly-subst-expanded} \\
+                 &= T^n + a_{n - 1} T^{n - 1} + \cdots + a_0 I. \label{eq:poly-subst-original}
+\end{align}
+The equality \eqref{eq:poly-subst-original} holds because the coefficients of the polynomials in \eqref{eq:charpoly-explicit} and \eqref{eq:charpoly-factor} are equal.
+
+Therefore, we conclude that \( \mathcal{X}_T(T) = 0 \) over the field \( \mathbb{F} \).
+\end{proof}
+
+\begin{corollary}\label{cor:cayley-hamiton-cor}
+$m_T(x) \mid \mathcal{X}_T(x)$. More precisely, if
+\[
+\mathcal{X}_T(x) = [p_1(x)]^{e_1} \cdots [p_k(x)]^{e_k}, \quad e_i > 0 \text{ for all } i,
+\]
+where $p_i$ are distinct, monic, and irreducible polynomials, then
+\[
+m_T(x) = [p_1(x)]^{f_1} \cdots [p_k(x)]^{f_k}, \quad \text{for some } 0 < f_i \leq e_i \text{ for all } i.
+\]
+\end{corollary}
+
+\begin{proof}
+The statement $m_T(x) \mid \mathcal{X}_T(x)$ follows from \autoref{thm:cayley-hamilton-weaker} and \autoref{prop:minpoly-divides}. Therefore, $0 < f_i \leq e_i$ for all $i$.
+
+Suppose on the contrary that $f_i = 0$ for some $i$. Without loss of generality, let $i = 1$.
+
+It’s clear that $\gcd(p_1, p_j) = 1$ for all $j \neq 1$, which implies
+\[
+a(x)p_1(x) + b(x)p_j(x) = 1, \quad \text{for some } a(x), b(x) \in \mathbb{F}[x].
+\]
+Considering the field extension $\overline{\mathbb{F}} \supseteq \mathbb{F}$, we have
+\[
+p_1(x) = (x - \mu_1) \cdots (x - \mu_\ell).
+\]
+For any root $\mu_m$ of $p_1$, $m = 1, \ldots, \ell$, we have
+\[
+a(\mu_m)p_1(\mu_m) + b(\mu_m)p_j(\mu_m) = 1 \Rightarrow b(\mu_m)p_j(\mu_m) = 1 \Rightarrow p_j(\mu_m) \neq 0,
+\]
+i.e., $\mu_m$ is not a root of $p_j$ for all $j \neq 1$.
+
+Therefore, $\mu_m$ is a root of $\mathcal{X}_T(x)$ but not a root of $m_T(x)$. Then $\mu_m$ is an eigenvalue of $T$, i.e., $T \mathbf{v} = \mu_m \mathbf{v}$ for some $\mathbf{v} \neq 0$.
+
+Recall that $m_{T,\mathbf{v}} = x - \mu_m$, so $m_{T,\mathbf{v}} = x - \mu_m \mid m_T(x)$, which contradicts the assumption $f_1 = 0$.
+\end{proof}
+
+\begin{example}\label{ex:minpoly-examples}
+We can use \autoref{cor:cayley-hamiton-cor}, a stronger version of the Cayley–Hamilton Theorem, to determine minimal polynomials:
+
+\begin{enumerate}
+  \item For the matrix \( A = \begin{pmatrix} 0 & -1 \\ 1 & 1 \end{pmatrix} \), we compute
+  \[
+  \mathcal{X}_A(x) = \left(x^2 + x + 1\right)^1.
+  \]
+  Since \( x^2 + x + 1 \) is irreducible over \( \mathbb{R} \), we conclude
+  \[
+  m_A(x) = x^2 + x + 1.
+  \]
+
+  \item For the matrix
+  \[
+  A = \begin{pmatrix}
+  1 & 1 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 2 & 0 \\
+  0 & 0 & 0 & 2
+  \end{pmatrix},
+  \]
+  we compute
+  \[
+  \mathcal{X}_A(x) = (x - 1)^2(x - 2)^2.
+  \]
+  By \autoref{cor:cayley-hamiton-cor}, both \( (x - 1) \) and \( (x - 2) \) must divide \( m_A(x) \), so the minimal polynomial must be one of:
+  \[
+  (x - 1)^2(x - 2)^2, \quad (x - 1)(x - 2)^2, \quad (x - 1)^2(x - 2), \quad (x - 1)(x - 2).
+  \]
+  By trial and error, we find that
+  \[
+  m_A(x) = (x - 1)^2(x - 2).
+  \]
+\end{enumerate}
+\end{example}

@@ -1,0 +1,401 @@
+\chapter{Quotient Spaces \& Its Universal Properties}
+
+\section{Cosets and Quotient Space}
+One important aspect in mathematics is to construct {\it new} objects from {\it known} ones. In this chapter, we will study the quotient space of a (known) vector space $V$ by a (known) vector subspace $W$. Informally speaking, we will `divide' the big vector space $V$ into many `slices' of $W$.
+
+
+\begin{definition}[Coset]
+Let \( V \) be a vector space and \( W \leq V \). For any element \( \mathbf{v} \in V \), the (right) coset determined by \( \mathbf{v} \) is the set
+\[
+\mathbf{v} + W := \{ \mathbf{v} + \mathbf{w} \mid \mathbf{w} \in W \}.
+\]
+\end{definition}
+
+\begin{example}
+Consider \( V = \mathbb{R}^3 \) and \( W = \mathrm{span}\{(1,2,0)\} \). Then the coset determined by \( \mathbf{v} = (5,6,-3) \) can be written as
+\[
+\mathbf{v} + W = \{ (5 + t, 6 + 2t, -3) \mid t \in \mathbb{R} \}.
+\]
+
+It’s interesting that the coset determined by \( \mathbf{v}' = (4,4,-3) \) is exactly the same as the coset shown above:
+\[
+\mathbf{v}' + W = \{ (4 + t, 4 + 2t, -3) \mid t \in \mathbb{R} \} = \mathbf{v} + W.
+\]
+
+Therefore, writing the exact expression of \( \mathbf{v} + W \) may sometimes become tedious and hard to check the equivalence. We say \( \mathbf{v} \) is a \emph{representative} of a coset \( \mathbf{v} + W \). 
+\end{example}
+
+\begin{example}
+One motivation to understand cosets is to describe the solutions of the linear system \( A \mathbf{x} = \mathbf{b} \) with \( A \in \mathbb{R}^{m \times n} \). 
+Recall in MAT2040 that the general step for solving this linear system is as follows:
+\begin{enumerate}
+    \item Find the solution set for \( A \mathbf{x} = 0 \), i.e., the set \( \ker(A) \leq \mathbb{R}^n\).
+    \item Find a particular solution \( \mathbf{x}_0 \) such that \( A \mathbf{x}_0 = \mathbf{b} \).
+\end{enumerate}
+\noindent Then the general solution set to this linear system is the coset 
+$\mathbf{x}_0 + \ker(A)$
+of $\mathbb{R}^n$.
+
+Recall that the particular solution ${\bf x}_0$ is {\bf not} unique. Indeed, if ${\bf y}_0$ is another particular solution of $A{\bf x} = {\bf b}$, then 
+$${\bf x}_0 + \ker(A) = {\bf y}_0 + \ker(A)$$
+describes the same set of solutions of the system of equations.
+\end{example}
+
+As directed by the previous examples, we have:
+\begin{proposition}\label{prop: coset-equality}
+Two cosets are the same if and only if the subtraction for the corresponding representatives is in \( W \), i.e.,
+\[
+\mathbf{v}_1 + W = \mathbf{v}_2 + W \iff \mathbf{v}_1 - \mathbf{v}_2 \in W.
+\]
+\end{proposition}
+
+\begin{proof}
+\textbf{Necessity.} Suppose that \( \mathbf{v}_1 + W = \mathbf{v}_2 + W \),  
+then \( \mathbf{v}_1 + \mathbf{w}_1 = \mathbf{v}_2 + \mathbf{w}_2 \) for some \( \mathbf{w}_1, \mathbf{w}_2 \in W \),  
+which implies
+\[
+\mathbf{v}_1 - \mathbf{v}_2 = \mathbf{w}_2 - \mathbf{w}_1 \in W.
+\]
+
+\textbf{Sufficiency.} Suppose that \( \mathbf{v}_1 - \mathbf{v}_2 = \mathbf{w} \in W \).  
+It suffices to show \( \mathbf{v}_1 + W \subseteq \mathbf{v}_2 + W \).  
+For any \( \mathbf{v}_1 + \mathbf{w}' \in \mathbf{v}_1 + W \), this element can be expressed as
+\[
+\mathbf{v}_1 + \mathbf{w}' = (\mathbf{v}_2 + \mathbf{w}) + \mathbf{w}' = \mathbf{v}_2 + \underbrace{(\mathbf{w} + \mathbf{w}')}_{\in W} \in \mathbf{v}_2 + W.
+\]
+Therefore, \( \mathbf{v}_1 + W \subseteq \mathbf{v}_2 + W \). Similarly, we can show that \( \mathbf{v}_2 + W \subseteq \mathbf{v}_1 + W \),  
+and thus \( \mathbf{v}_1 + W = \mathbf{v}_2 + W \).
+\end{proof}
+
+\noindent (Exercise: If two cosets \(\mathbf{v}_1 +W \neq \mathbf{v}_2+W \) are not equal, then they have no intersection, i.e. \( (\mathbf{v}_1 +W) \cap   (\mathbf{v}_2 + W) = \phi \)).
+
+\begin{remark} \label{rmk:different_expression}
+    To many of us, this may be the first occasion to come across some mathematical objects that has {\bf different expressions of the same element}, i.e. one may have 
+    \begin{center}
+    ${\bf v}_1 \neq {\bf v}_2$ but ${\bf v}_1 + W = {\bf v}_2 + W$. 
+    \end{center}
+    Therefore, extra care is needed whenever we study such objects (see {\bf WARNING} above \autoref{prop:coset_well_defined}).
+\end{remark}
+
+
+\begin{definition}[Quotient Space]\label{def:quotient-space}
+The quotient space $V/W$ of \( V \) by the subspace \( W \) is the collection of all cosets \( \mathbf{v} + W \), i.e. 
+\[ V/W := \{{\bf v} + W\ | {\bf v} \in V\}.\]
+\end{definition}
+
+To make the quotient space a vector space structure, we define the addition and scalar multiplication on \( V/W \) by:
+\[
+(\mathbf{v}_1 + W) + (\mathbf{v}_2 + W) := (\mathbf{v}_1 + \mathbf{v}_2) + W
+\]
+\[
+\alpha \cdot (\mathbf{v} + W) := (\alpha \cdot \mathbf{v}) + W
+\]
+
+For example, consider \( V = \mathbb{R}^2 \) and \( W = \operatorname{span}\{\begin{pmatrix}
+    1 \\ 1
+\end{pmatrix}\} \). Then note that:
+\[
+\left( \left( \begin{array}{c} 1 \\ 0 \end{array} \right) + W \right)
++ \left( \left( \begin{array}{c} 2  \\ 0 \end{array} \right) + W \right)
+=  \left( \begin{array}{c} 3  \\ 0 \end{array} \right) + W 
+\]
+
+\[
+\pi \cdot \left( \left( \begin{array}{c} 1 \\ 0 \end{array} \right) + W \right)
+= \left( \left( \begin{array}{c} \pi \\ 0 \end{array} \right) + W \right)
+\]
+
+\noindent {\bf WARNING:} As mentioned in \autoref{rmk:different_expression}, one has different expression of the same element in $V/W$. For instance,
+$$\left( \begin{array}{c} 1 \\ 0 \end{array} \right) + W =  \left( \begin{array}{c} 11 \\ 10 \end{array} \right) + W , \quad \quad \left( \begin{array}{c} 2 \\ 0 \end{array} \right) + W =  \left( \begin{array}{c} -98 \\ -100 \end{array} \right) + W $$
+by \autoref{prop: coset-equality}. It is unclear from our definition of addition that
+$$\left( \left( \begin{array}{c} 1 \\ 0 \end{array} \right) + W \right)
++ \left( \left( \begin{array}{c} 2  \\ 0 \end{array} \right) + W \right) = \left( \left( \begin{array}{c} 11 \\ 10 \end{array} \right) + W \right)
++ \left( \left( \begin{array}{c} -98  \\ -100 \end{array} \right) + W \right)$$
+are both equal to $\left( \begin{array}{c} 3  \\ 0 \end{array} \right) + W$ (similar problem also occurs in scalar multiplication). In other words, we do not know if the functions $+:\ V/W \times V/W \to V/W$ given by
+$$({\bf v}_1+W, {\bf v}_2+W) \mapsto ({\bf v}_1+{\bf v}_2) +W$$
+and $\cdot :\ \mathbb{F} \times V/W \to V/W$ given by
+$$(\alpha, {\bf v}+W) \mapsto (\alpha\cdot {\bf v}) +W$$
+are {\bf well-defined} \footnote{A function $f:A \to B$ is well-defined if for $a_1 = a_2 \in A$, $f(a_1) = f(a_2) \in B$.}.
+\begin{proposition} \label{prop:coset_well_defined}
+Addition and scalar multiplication on \( V/W \) is well-defined.
+\end{proposition}
+
+\begin{proof}
+\textbf{Addition.} Suppose that
+\begin{equation}\label{eq: coset-addition}
+\left\{
+\begin{aligned}
+\mathbf{v}_1 + W &= \mathbf{v}_1' + W \\
+\mathbf{v}_2 + W &= \mathbf{v}_2' + W
+\end{aligned}
+\right.
+\end{equation}
+
+We need to show that
+\[
+(\mathbf{v}_1 + \mathbf{v}_2) + W = (\mathbf{v}_1' + \mathbf{v}_2') + W.
+\]
+From \eqref{eq: coset-addition} and \autoref{prop: coset-equality}, we have:
+\[
+\mathbf{v}_1 - \mathbf{v}_1' \in W, \quad \mathbf{v}_2 - \mathbf{v}_2' \in W,
+\]
+which implies
+\[
+(\mathbf{v}_1 - \mathbf{v}_1') + (\mathbf{v}_2 - \mathbf{v}_2') = (\mathbf{v}_1 + \mathbf{v}_2) - (\mathbf{v}_1' + \mathbf{v}_2') \in W.
+\]
+By \autoref{prop: coset-equality} again, we conclude:
+\[
+(\mathbf{v}_1 + \mathbf{v}_2) + W = (\mathbf{v}_1' + \mathbf{v}_2') + W.
+\]
+
+\textbf{Multiplication.} For scalar multiplication, similarly, we can show that \( \mathbf{v}_1 + W = \mathbf{v}_1' + W \) implies
+\[
+\alpha \mathbf{v}_1 + W = \alpha \mathbf{v}_1' + W \quad \text{for all } \alpha \in \mathbb{F}.
+\]
+\end{proof}
+
+Consequently
+$$(V/W, +,\ \cdot)$$
+is a vector space, and is called the {\bf quotient space}. In particular, its zero vector is
+$${\bf 0}_{V/W} = {\bf 0}_V + W.$$
+
+
+\begin{proposition}\label{prop:canonical-projection}
+The {\bf canonical projection} mapping defined by
+\[
+\pi_W : V \to V/W, \quad \mathbf{v} \mapsto \mathbf{v} + W
+\]
+is a surjective linear transformation, with \( \ker(\pi_W) = W \).
+\end{proposition}
+
+\begin{proof} We follow a few steps:
+\begin{enumerate}
+    \item To show the mapping \( \pi_W \) is a linear transformation, note that
+    \begin{align*}
+    \pi_W(\alpha \mathbf{v}_1 + \beta \mathbf{v}_2) &= (\alpha \mathbf{v}_1 + \beta \mathbf{v}_2) + W \\
+    &= (\alpha \mathbf{v}_1 + W) + (\beta \mathbf{v}_2 + W) \\
+    &= \alpha (\mathbf{v}_1 + W) + \beta (\mathbf{v}_2 + W) \\
+    &= \alpha \pi_W(\mathbf{v}_1) + \beta \pi_W(\mathbf{v}_2).
+    \end{align*}
+    \item Then we show that \( \ker(\pi_W) = W \):
+    \[
+    \pi_W(\mathbf{v}) = {\bf 0}_{V/W}\  \Leftrightarrow \ \mathbf{v} + W = 0 + W\ \Leftrightarrow\ \ \mathbf{v} = (\mathbf{v} - 0) \in W.
+    \]
+    \item Finally, for any \( \mathbf{v}_0 + W \in V/W \), we can construct \( \mathbf{v}_0 \in V \) such that \( \pi_W(\mathbf{v}_0) = \mathbf{v}_0 + W \). Therefore the mapping \( \pi_W \) is surjective.
+\end{enumerate}
+So the proposition is proved.
+\end{proof}
+
+\section{First Isomorphism Theorem}
+\begin{proposition}[Universal Property of the Quotient Map I]\label{prop: universal-property-quotient}
+Suppose that \( T : V \to U \) is a linear transformation, and that \( W \leq \ker(T) \). Then the mapping
+\[
+\widetilde{T} : V/W \to U, \quad \mathbf{v} + W \mapsto T(\mathbf{v})
+\]
+is a well-defined linear transformation. As a result, the following diagram commutes:
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+V \arrow[r, "\pi_W", blue] \arrow[rd, "T"'] & V/W \arrow[d, "\widetilde{T}"', dashed, red] \\
+& U
+\end{tikzcd}
+\]
+In other words, we have \( T = \widetilde{T} \circ \pi_W \).
+\end{proposition}
+
+\begin{proof}
+First we show the well-definedness. Suppose that \( \mathbf{v}_1 + W = \mathbf{v}_2 + W \), and we suffice to show 
+\[
+\widetilde{T}(\mathbf{v}_1 + W) = \widetilde{T}(\mathbf{v}_2 + W),
+\]
+i.e., 
+\[
+T(\mathbf{v}_1) = T(\mathbf{v}_2).
+\]
+By \autoref{prop: coset-equality}, we imply
+\[
+\mathbf{v}_1 - \mathbf{v}_2 \in W \leq \ker(T) \Rightarrow T(\mathbf{v}_1 - \mathbf{v}_2) = 0 \Rightarrow T(\mathbf{v}_1) - T(\mathbf{v}_2) = \mathbf{0}.
+\]
+
+Then we show \( \widetilde{T} \) is a linear transformation:
+\begin{align*}
+\widetilde{T}(\alpha(\mathbf{v}_1 + W) + \beta(\mathbf{v}_2 + W)) 
+&= \widetilde{T}((\alpha \mathbf{v}_1 + \beta \mathbf{v}_2) + W) \\
+&= T(\alpha \mathbf{v}_1 + \beta \mathbf{v}_2) \\
+&= \alpha T(\mathbf{v}_1) + \beta T(\mathbf{v}_2) \\
+&= \alpha \widetilde{T}(\mathbf{v}_1 + W) + \beta \widetilde{T}(\mathbf{v}_2 + W)
+\end{align*}
+\end{proof}
+
+We now study a special case of \autoref{prop: universal-property-quotient}: under the same setting, we let
+\( W = \ker(T) \) and $U = T(V) = \mathrm{im}(T)$.
+Then one has a linear transformation mapping 
+\[
+\widetilde{T}: V/\ker{(T)} \to \mathrm{im}(T).
+\]
+In fact, more is true:
+\begin{theorem}[First Isomorphism Theorem]\label{thm: first-isomorphism}
+Let \( T: V \to U \) be a linear transformation. Then the mapping
+\[
+\widetilde{T}: V/\ker(T) \to \mathrm{im}(T), \quad \mathbf{v} + \ker(T) \mapsto T(\mathbf{v})
+\]
+is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+\textbf{Injectivity.} Suppose that 
+\[
+\widetilde{T}(\mathbf{v}_1 + \ker(T)) = \widetilde{T}(\mathbf{v}_2 + \ker(T)),
+\]
+then we imply
+\[
+T(\mathbf{v}_1) = T(\mathbf{v}_2) \Rightarrow T(\mathbf{v}_1 - \mathbf{v}_2) = 0_U \Rightarrow \mathbf{v}_1 - \mathbf{v}_2 \in \ker(T),
+\]
+i.e., 
+\[
+\mathbf{v}_1 + \ker(T) = \mathbf{v}_2 + \ker(T).
+\]
+
+\textbf{Surjectivity.} For \( \mathbf{u} \in U \), due to the surjectivity of \( T \), we can find a \( \mathbf{v}_0 \in V \) such that \( T(\mathbf{v}_0) = \mathbf{u} \). Therefore, we can construct a set \( \mathbf{v}_0 + \ker(T) \) such that
+\[
+\widetilde{T}(\mathbf{v}_0 + \ker(T)) = \mathbf{u}.
+\]
+\end{proof}
+
+\begin{example}
+Suppose that \( U, W \leq V \) with \( U \cap W = \{ \mathbf{0} \} \), the mapping
+\[
+\phi : U \oplus W \to U, \quad \phi(\mathbf{u} + \mathbf{w}) = \mathbf{u}.
+\]
+is a well-defined surjective linear transformation with \( \ker(\phi) = W \). 
+\noindent (Exercise: If  \( U \cap W \neq \{ \mathbf{0} \} \), then 
+\(\phi : U + W \to U\) given by \(\phi(\mathbf{u} + \mathbf{w}) := \mathbf{u}\) is \textbf{not} well-defined.)
+
+%Suppose that \( \mathbf{0} \neq \mathbf{v} \in U \cap W \), and for any \( \mathbf{u} \in U, \mathbf{w} \in W \), we construct
+%\[\mathbf{u}' = \mathbf{u} - \mathbf{v} \in U, \quad \mathbf{w}' = \mathbf{w} + \mathbf{v} \in V \Rightarrow \phi(\mathbf{u}' + \mathbf{w}') = \mathbf{u} - \mathbf{v}.\]
+%Therefore we get \( \mathbf{u} + \mathbf{w} = \mathbf{u}' + \mathbf{w}' \), but \( \phi(\mathbf{u} + \mathbf{w}) \neq \phi(\mathbf{u}' + \mathbf{w}') \).
+
+%\medskip
+
+%Back to the situation \( U \cap W = \{ \mathbf{0} \} \), then it’s clear that
+By \autoref{thm: first-isomorphism}, the new linear transformation
+\[
+\widetilde{\phi} : (U \oplus W)/W \to U, \quad \widetilde{\phi}((\mathbf{u} + \mathbf{w}) + W) = {\bf u}.
+\]
+is an isomorphism of vector spaces.
+\end{example}
+
+\section{Universal Property of Quotient Spaces}
+\begin{definition}[Universal Property of Quotient Spaces]\label{def:universal-property-quotient}
+Let \( V \) be a vector space and let \( V' \leq V \) be a subspace. Consider the collection of linear transformations:
+\[
+\mathrm{Obj} = \left\{ T : V \to W \;\middle|\;
+T \text{ is linear},\ V' \leq \ker(T)
+\right\}.
+\]
+({\it Important example:} the canonical projection \( \pi_{V'} : V \to V/V' \) in \autoref{prop:canonical-projection} belongs to \( \mathrm{Obj} \).)
+
+\medskip
+An element \( (\phi : V \to U) \in\mathrm{Obj} \) is said to satisfy the \textbf{universal property} if the following holds: Given any \( T : V \to W \) in \( \mathrm{Obj} \), there exists a unique linear transformation \( \widetilde{T} : U \to W \) such that the following diagram commutes:
+
+\begin{figure}[h!]
+\centering
+\begin{tikzcd}[row sep=large, column sep=large]
+V \arrow[r, "\phi", blue] \arrow[rd, swap, "T"] & U \arrow[d, dashed, red, "\widetilde{T}"] \\
+& W
+\end{tikzcd}
+\label{fig:universal-quotient}
+\end{figure}
+Equivalently, for any \( T : V \to W \) in \( \mathrm{Obj} \), there exists a unique map \( \widetilde{T} : U \to W \) such that
+\[
+T = \widetilde{T} \circ \phi.
+\]
+\end{definition}
+
+\begin{theorem}[Universal Property of Quotient Space II]\label{thm: universal-property-quotient}
+Let \( V \) be a vector space and \( V' \leq V \). Then:
+
+\begin{enumerate}
+    \item The canonical projection \( \pi_{V'} : V \to V/V' \) is a universal object in the category \( \mathrm{Obj} \), i.e., it satisfies the universal property of \autoref{def:universal-property-quotient}.
+    
+    \item If \( \phi : V \to U \) is a universal object in \( \mathrm{Obj} \), then \( U \cong V/V' \). In other words, there is intrinsically “one” element (up to isomorphism) in the set of universal objects.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof} \begin{enumerate}
+  \item Consider any linear transformation \( T : V \to W \) such that \( V' \leq \ker(T) \). By \autoref{prop: universal-property-quotient}, there is a linear transformation \( \widetilde{T} : V/V' \to W \) such that
+  \[
+  T = \widetilde{T} \circ \pi_{V'},
+  \]
+  i.e., \( \pi_{V'} \) satisfies the commuting diagram in the theorem.
+
+  To show uniqueness of \( \widetilde{T} \), suppose there exists another map \( \widetilde{S} : V/V' \to W \) such that
+  \[\widetilde{T} \circ \pi_{V'} = T = \widetilde{S} \circ \pi_{V'}\]
+%  \begin{figure}[h!]
+%  \centering
+%  \begin{tikzcd}[row sep=large, column sep=large]
+%  V \arrow[r, "\pi_{V'}", blue] \arrow[rd, "T"'] & V/V' \arrow[d, dashed, "\widetilde{S}", red] \\
+%  & W
+%  \end{tikzcd}
+%  \label{fig:universal-quotient-alt}
+%  \end{figure}
+  Then for any \( \mathbf{v} + V' \in V/V' \), we compute:
+  \[
+  \widetilde{S}(\mathbf{v} + V') := \widetilde{S}(\pi_{V'}(\mathbf{v})) = T(\mathbf{v}),
+  \]
+  and by definition of \( \widetilde{T} \), we also have \( T(\mathbf{v}) = \widetilde{T}(\mathbf{v} + V') \). Hence,
+  \[
+  \widetilde{S}(\mathbf{v} + V') = \widetilde{T}(\mathbf{v} + V')
+  \]
+  for all \( \mathbf{v} + V' \in V/V' \), proving $\widetilde{S} = \widetilde{T}$ is unique.
+
+  \item Suppose there exists another \((\phi : V \to U) \in \mathrm{Obj}\) also satisfies the universal property, i.e. for all $(T:V \to W) \in \mathrm{Obj}$, one has:
+  
+  \begin{figure}[h!]
+  \centering
+  \begin{tikzcd}[row sep=large, column sep=large]
+  V \arrow[r, "\phi", blue] \arrow[rd, "T"] & U \arrow[d, dashed, red, "\widetilde{T}"] \\
+  & W
+  \end{tikzcd}
+  \end{figure}
+  
+    So one can take $T = \pi_{V'}: V \to V/V'$, i.e.
+  \begin{figure}[h!]
+  \centering
+  \begin{tikzcd}[row sep=large, column sep=large]
+  V \arrow[r, "\phi", blue] \arrow[rd, "\pi_{V'}"] & U \arrow[d, dashed, red, "\alpha"] \\
+  & V/V'
+  \end{tikzcd}
+  \end{figure}
+  
+  for $\alpha = \widetilde{\pi}_{V'}$. Similarly, by the fact that $(\pi_{V'}: V \to V/V') \in \mathrm{Obj}$ is universal, one can take $T = \phi: V \to U$ and get
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzcd}[row sep=large, column sep=large]
+  V \arrow[r, "\pi_{V'}", blue] \arrow[rd, "\phi"] & V/V' \arrow[d, dashed, red, "\beta"] \\
+  & U
+  \end{tikzcd}
+  \end{figure}
+
+  for $\beta = \widetilde{\phi}$. Combining the two, we obtain the following diagram:
+
+  \begin{figure}[h!]
+  \centering
+  \begin{tikzcd}[row sep=large, column sep=large]
+  V \arrow[r, "\pi_{V'}", blue] \arrow[rd, "\phi", blue] 
+  \arrow["\pi_{V'}", rdd] & V/V' \arrow[d, dashed, red, "\beta"] \\
+  & U \arrow[d, "\alpha", red, dashed] \\
+  & V/V'
+  \end{tikzcd}
+  \end{figure}
+
+  Therefore, 
+  $${\color{red} \alpha \circ \beta} \circ \pi_{V'} = \pi_{V'} = \mathrm{id}_{V/V'} \circ \pi_{V'}.$$ 
+\end{enumerate}
+By (1), this implies ${\color{red} \alpha \circ \beta} = \mathrm{id}_{V/V'}$. Similarly, one can show that ${\color{red} \beta \circ \alpha} = \mathrm{id}_U$ and hence
+$$\alpha: U \to V/V' \quad \quad \beta:V/V' \to U$$
+are inverses of each other, i.e.
+$$V/V' \cong U.$$
+\end{proof}
+
+

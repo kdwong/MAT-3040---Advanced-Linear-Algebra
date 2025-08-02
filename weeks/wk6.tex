@@ -1,0 +1,330 @@
+\chapter{Polynomials, Eigenvalues and Eigenvectors}
+\section{Basics of Polynomials}
+
+We recall some useful properties of polynomials before studying eigenvalues and eigenvectors.
+
+\begin{definition}[Polynomial]\label{def:polynomial}
+\leavevmode
+\begin{enumerate}
+  \item A polynomial over a field \(\mathbb{F}\) has the form
+  \[
+  p(z) = a_m z^m + \cdots + a_1 z + a_0, \quad \text{with } a_m \neq 0.
+  \]
+  Here \(a_m z^m\) is called the \emph{leading term}, \(m\) the \emph{degree}, \(a_m\) the \emph{leading coefficient}, and \(a_0, \dots, a_m\) the \emph{coefficients} of the polynomial.
+
+  \item A polynomial over \(\mathbb{F}\) is said to be \emph{monic} if its leading coefficient is \(1_\mathbb{F}\).
+
+  \item A polynomial \(p(z) \in \mathbb{F}[z]\) is \emph{irreducible} if whenever
+  \[
+  p(z) = a(z) b(z)
+  \]
+  for \(a(z), b(z) \in \mathbb{F}[z]\), then either \(a(z)\) or \(b(z)\) is a constant polynomial. Otherwise, \(p(z)\) is \emph{reducible}.
+\end{enumerate}
+\end{definition}
+
+\begin{example}\label{ex:irreducible}
+The polynomial \(p(x) = x^2 + 1\) is irreducible over \(\mathbb{R}\), but reducible over \(\mathbb{C}\) since
+\[
+p(x) = (x - i)(x + i).
+\]
+\end{example}
+
+\subsection{Division Algorithm}
+\begin{theorem}[Division Theorem]\label{thm:division}
+Let \(p, q \in \mathbb{F}[z]\) with \(q \neq 0\). Then there exist unique \(s, r \in \mathbb{F}[z]\) such that
+\[
+p(z) = s(z) \cdot q(z) + r(z), \quad \deg(r) < \deg(q).
+\]
+Here \(r(z)\) is called the \emph{remainder}.
+\end{theorem}
+
+\begin{example}\label{ex:division}
+Let \(p(x) = x^4 + 1\) and \(q(x) = x^2 + 1\). Then, using basic algebra,
+\[
+x^4 + 1 = (x^2 - 1)(x^2 + 1) + 2.
+\]
+\end{example}
+
+\begin{theorem}[Root Theorem]\label{thm:root}
+Let \(p(x) \in \mathbb{F}[x]\), and \(\lambda \in \mathbb{F}\). Then \(x - \lambda\) divides \(p(x)\) if and only if \(p(\lambda) = 0\).
+\end{theorem}
+
+\begin{proof}
+\leavevmode
+\begin{enumerate}
+  \item[\((\Rightarrow)\)] If \(x - \lambda\) divides \(p\), then \(p = (x - \lambda) q\) for some \(q \in \mathbb{F}[x]\). Substituting \(\lambda\) yields
+  \[
+  p(\lambda) = (\lambda - \lambda) q(\lambda) = 0.
+  \]
+
+  \item[\((\Leftarrow)\)] Suppose \(p(\lambda) = 0\). By the Division Theorem, there exist \(s, r \in \mathbb{F}[x]\) such that
+  \[
+  p(x) = (x - \lambda)s(x) + r(x), \quad \deg(r) < \deg(x - \lambda) = 1. \tag{6.1}
+  \]
+  Therefore, \(r(x) = r\) is constant. Plugging in \(x = \lambda\),
+  \[
+  0 = p(\lambda) = 0 \cdot s(\lambda) + r \quad \Rightarrow \quad r = 0.
+  \]
+  Hence \(p(x) = (x - \lambda)s(x)\), and \(x - \lambda\) divides \(p(x)\).
+\end{enumerate}
+\end{proof}
+
+
+\begin{corollary}[Root Bound]
+A polynomial with degree \(n\) has at most \(n\) roots, counting multiplicity.
+\end{corollary}
+
+\begin{example}
+The polynomial \((x - 3)^2\) has one root \(x = 3\) with multiplicity 2. When counting multiplicity, we say it has two roots.
+\end{example}
+
+\subsection{Unique Factorization of Polynomials}
+\begin{definition}[Algebraically Closed Field]
+A field \(\mathbb{F}\) is called \emph{algebraically closed} if every non-constant polynomial \(p(x) \in \mathbb{F}[x]\) has a root \(\lambda \in \mathbb{F}\).
+\end{definition}
+
+\begin{theorem}[Fundamental Theorem of Algebra]
+The field \(\mathbb{C}\) of complex numbers is algebraically closed.
+\end{theorem}
+
+\begin{proof}[Sketch]
+One way to prove this is via complex analysis; another way is using the topology of \(\mathbb{C} \setminus \{0\}\).
+\end{proof}
+
+By induction, we can show that every polynomial of degree \(n\) over an algebraically closed field \(\mathbb{F}\) has exactly \(n\) roots, counting multiplicity. Therefore, any polynomial \(p(x)\) over such a field can be factorized as
+\begin{equation}\label{eq:root-factorization}
+p(x) = c(x - \lambda_1)\cdots(x - \lambda_n)
+\end{equation}
+for some \(c, \lambda_1, \dots, \lambda_n \in \mathbb{F}\).
+
+Polynomials over general fields \(\mathbb{F}\) may not factor as in \eqref{eq:root-factorization}, but they still satisfy a unique factorization property. To begin with:
+\begin{definition}[Divisibility]
+Let \(p(x), q(x), s(x) \in \mathbb{F}[x]\) with \(p(x) = q(x) s(x)\). Then:
+\begin{itemize}
+    \item \(p(x)\) is divisible by \(s(x)\),
+    \item \(s(x)\) is a factor of \(p(x)\),
+    \item \(s(x) \mid p(x)\),
+    \item \(s(x)\) divides \(p(x)\),
+    \item \(p(x)\) is a multiple of \(s(x)\).
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Irreducible Polynomials]
+A polynomial $f(x) \in \mathbb{F}[x]$ is {\it irreducible} if whenever
+$$s(x) | f(x),$$
+then either $s(x) = c$ is a constant or $s(x) = cf(x)$ is a scalar multiple of $f(x)$.
+\end{definition}
+
+\begin{theorem}[Unique Factorization]
+Every \(f(x) = a_n x^n + \cdots + a_0 \in \mathbb{F}[x]\) can be uniquely written as
+\[
+f(x) = a_n [p_1(x)]^{e_1} \cdots [p_k(x)]^{e_k}
+\]
+where each \(p_i\) is monic, irreducible, and \(p_i \neq p_j\) for \(i \neq j\). This factorization is unique up to the ordering of the factors.
+\end{theorem}
+
+
+
+\subsection{Greatest Common Divisor and B\'ezout's Theorem}
+\begin{definition}[Common Factor and GCD]
+Let \(f_1, \dots, f_k \in \mathbb{F}[x]\). A polynomial \(g(x)\) is a \emph{common factor} of these if \(g \mid f_i\) for all \(i\).
+
+The \emph{greatest common divisor (gcd)} \(g(x)\) satisfies:
+\begin{itemize}
+    \item \(g\) is monic,
+    \item \(g\) is a common factor of \(f_1, \dots, f_k\),
+    \item \(g\) has maximal degree among all common factors,
+    \item \(\gcd(f_1, \dots, f_k) = \gcd(\gcd(f_1, f_2), f_3, \dots, f_k)\),
+    \item \(\gcd(f_1, \dots, f_k)\) is unique.
+\end{itemize}
+If \(\gcd(f_1, \dots, f_k) = 1\), we say the polynomials are \emph{relatively prime}.
+\end{definition}
+
+\begin{remark}
+Polynomials \(f_1, \dots, f_k\) being relatively prime does not imply \(\gcd(f_i, f_j) = 1\) for all \(i \neq j\).
+\end{remark}
+
+\begin{example}[Counter-example]
+Let \(a_1, \dots, a_n\) be distinct irreducible polynomials, and define
+\[
+f_i(x) := a_1(x) \cdots \widehat{a_i(x)} \cdots a_n(x),
+\]
+where the hat means \(a_i(x)\) is omitted. Then \(\gcd(f_1, \dots, f_n) = 1\), but
+\[
+\gcd(f_i, f_j) = a_1 \cdots \widehat{a_i} \cdots \widehat{a_j} \cdots a_n
+\]
+which may not be 1.
+\end{example}
+
+\begin{example}
+Let 
+\[
+f_1(x) = (x^2 + x + 1)^3 (x - 3)^2 x^4, \quad
+f_2(x) = (x^2 + 1)(x - 3)^4 x^2 \in \mathbb{R}[x],
+\]
+then
+\[
+\gcd(f_1, f_2) = (x - 3)^2 x^2.
+\]
+\end{example}
+
+
+\noindent \textbf{Question: }How do we compute \(\gcd(f_1, f_2)\) for arbitrary (unfactorized) polynomials?
+
+\begin{theorem}[Bézout's Identity]\label{thm:bezout}
+Let \(g = \gcd(f_1, f_2)\). Then there exist polynomials \(r_1, r_2 \in \mathbb{F}[x]\) such that
+\[
+g(x) = r_1(x) f_1(x) + r_2(x) f_2(x).
+\]
+More generally, for \(g = \gcd(f_1, \ldots, f_k)\), there exist \(r_1, \ldots, r_k \in \mathbb{F}[x]\) such that
+\[
+g(x) = r_1(x) f_1(x) + \cdots + r_k(x) f_k(x).
+\]
+\end{theorem}
+
+\begin{example}
+Consider the polynomials \(f_1(x) = x^3 + 6x + 7\) and \(f_2(x) = x^2 + 3x + 2\). Applying the Euclidean algorithm:
+
+\begin{align*}
+f_1(x) - (x - 3)f_2(x) &= x^3 + 6x + 7 - (x - 3)(x^2 + 3x + 2) \\
+&= x^3 + 6x + 7 - (x^3 + 3x^2 + 2x - 3x^2 - 9x - 6) \\
+&= 13x + 13.
+\end{align*}
+
+Next,
+\begin{align*}
+f_2(x) - \frac{x + 2}{13}(13x + 13) &= x^2 + 3x + 2 - (x + 2)(x + 1) \\
+&= 0.
+\end{align*}
+
+Therefore,
+\[
+\gcd(f_1, f_2) = \gcd(f_2, 13x + 13) = x + 2.
+\]
+\end{example}
+
+By applying \autoref{thm:bezout} repeatedly, one has the following:
+\begin{corollary} \label{cor:bezout}
+    Let $g = \mathrm{gcd}(f_1, \dots, f_k)$. Then there exists polynomials $r_1, \dots, r_k \in \mathbb{F}[x]$ such that
+    $$g(x) = r_1(x)f_1(x) + \dots + r_k(x)f_k(x).$$
+\end{corollary}
+
+
+\section{Eigenvalues \& Eigenvectors}
+
+\begin{definition}[Eigenvalue and Eigenspace]\label{def:eigenvalue}
+Let \( T : V \to V \) be a linear operator.
+
+\begin{enumerate}
+  \item A nonzero vector \( {\bf v} \in V \setminus \{ \mathbf{0} \} \) is called an \emph{eigenvector} of \(T\) with eigenvalue \(\lambda\) if
+  \[
+  T({\bf v}) = \lambda {\bf v}.
+  \]
+  
+  \item Equivalently, \({\bf v} \in \ker(T - \lambda I)\), where \(I = \mathrm{id} : V \to V\) is the identity map, i.e. \(I({\bf v}) = {\bf v}\) for all \({\bf v} \in V\). The subspace \(\ker(T - \lambda I)\) is called the \(\lambda\)-\emph{eigenspace} of \(T\).
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Generalized Eigenvector]\label{def:generalized-eigen}
+A nonzero vector \({\bf v} \in V\) is a \emph{generalized eigenvector} of \(T\) with generalized eigenvalue \(\lambda\) if
+\[
+{\bf v} \in \ker\left( (T - \lambda I)^k \right)
+\quad \text{for some } k \in \mathbb{N}_{>0}.
+\]
+\end{definition}
+
+\begin{remark}
+Every eigenvector is a generalized eigenvector, but the converse does not necessarily hold.
+\end{remark}
+
+\begin{example}
+Let \( A : \mathbb{R}^2 \to \mathbb{R}^2 \) be the linear transformation defined by matrix 
+\(A = \begin{pmatrix}
+1 & 1 \\
+0 & 1
+\end{pmatrix}.
+\).
+\begin{enumerate}
+  \item The vector \( \begin{pmatrix} 1 \\ 0 \end{pmatrix} \) is an eigenvector with eigenvalue \(1\), since
+  \(
+  A \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}.
+  \).
+  
+  \item The vector \( \begin{pmatrix} 0 \\ 1 \end{pmatrix} \) is not an eigenvector of eigenvalue $1$, since
+  \(
+  A \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}.
+  \)
+  However, we compute:
+  \[
+  (A - I)^2 = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}^2 = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix},
+  \]
+  so
+  \[
+  \begin{pmatrix} 0 \\ 1 \end{pmatrix} \in \ker((A - I)^2),
+  \]
+  i.e., it is a generalized eigenvector with generalized eigenvalue \(1\).
+\end{enumerate}
+\end{example}
+
+\begin{example}
+Let \( V = C^\infty(\mathbb{R}) \) be the space of infinitely differentiable functions. Define the linear operator
+\[
+T(f) = f''.
+\]
+Then \( f \in V \) is a \((-1)\)-eigenvector of \(T\) if and only if \( f'' = -f \). From ODE theory, the general solution is
+\[
+f(x) = a \sin x + b \cos x,
+\]
+so the \((-1)\)-eigenspace is spanned by \( \{ \sin x, \cos x \} \).
+\end{example}
+
+From now on, we assume that \(V\) is finite-dimensional unless otherwise stated.
+
+\begin{definition}[Determinant of a Linear Operator]\label{def:determinant}
+Let \( T : V \to V \) be a linear operator. The determinant of \(T\) is defined as
+\[
+\det(T) = \det(T_{\mathcal{A}, \mathcal{A}}),
+\]
+where \(T_{\mathcal{A}, \mathcal{A}}\) is the matrix representation of \(T\) with respect to {\bf any} choice of basis \(\mathcal{A}\) of \(V\).
+\end{definition}
+
+\begin{remark}
+The determinant is independent of the choice of basis. For any other basis \(\mathcal{B}\), we have the following from \autoref{sec:similar_basis}:
+\[
+\det(T_{\mathcal{B}, \mathcal{B}}) = 
+\det(C_{\mathcal{B}, \mathcal{A}} T_{\mathcal{A}, \mathcal{A}} C_{\mathcal{A}, \mathcal{B}}) 
+= \det(C_{\mathcal{A}, \mathcal{B}}^{-1}) \cdot \det(T_{\mathcal{A}, \mathcal{A}}) \cdot \det(C_{\mathcal{A}, \mathcal{B}}) 
+= \det(T_{\mathcal{A}, \mathcal{A}}).
+\]
+\end{remark}
+
+\begin{definition}[Characteristic Polynomial]\label{def:char-poly}
+Let \( T : V \to V \) be a linear operator. The \emph{characteristic polynomial} \( \mathcal{X}_T(x) \in \mathbb{F}[x] \) of \(T\) is defined by
+\[
+\mathcal{X}_T(x) := \det\left( T_{\mathcal{A},\mathcal{A}} - x I \right),
+\]
+where \(T_{\mathcal{A},\mathcal{A}}\) is the matrix representation of \(T\) with respect to any basis \(\mathcal{A}\) of \(V\), and \(I\) is the identity matrix of the same size.
+\end{definition}
+
+\section{Spoiling the Future Theorems}
+
+In the next few lectures, we will study two fundamental theorems that reveal the internal structure of linear operators:
+
+\begin{itemize}
+  \item Cayley–Hamilton Theorem
+  \item Jordan Canonical Form
+\end{itemize}
+
+These results are usually stated in terms of matrices, but they are truly theorems about linear operators—independent of the choice of basis. Our goal is to understand them in the more general setting of finite-dimensional vector spaces, beyond just \( \mathbb{R}^n \) or \( \mathbb{C}^n \).
+
+\begin{remark}
+Why do we care about these theorems?
+
+\begin{enumerate}
+  \item The \textbf{Cayley–Hamilton Theorem} tells us that every linear operator satisfies its own characteristic polynomial. This bridges algebraic information (the determinant and characteristic polynomial) with operator action.
+
+  \item The \textbf{Jordan Canonical Form} provides a refined classification of linear operators up to similarity. It allows us to break down a complicated operator into blocks that reveal both eigenvalues and the structure of generalized eigenspaces.
+
+  \item Understanding these theorems gives insight into the “shape” of an operator—how it stretches, rotates, or shears a space—and how we can simplify its action by choosing the right basis.
+\end{enumerate}
+\end{remark}

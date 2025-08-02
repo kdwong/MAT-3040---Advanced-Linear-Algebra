@@ -1,0 +1,368 @@
+\chapter{Inner Product Space}
+
+\section{Introduction to Inner Product Space}
+\begin{definition}[Bilinear Form]\label{def:bilinear-form}
+Let \( V \) be a vector space over \( \mathbb{R} \). A \emph{bilinear form} on \( V \) is a map
+\[
+F : V \times V \to \mathbb{R}
+\]
+such that for all \( \mathbf{u}, \mathbf{v}, \mathbf{w} \in V \) and all scalars \( \lambda \in \mathbb{R} \),
+\begin{enumerate}
+    \item \( F(\mathbf{u} + \mathbf{v}, \mathbf{w}) = F(\mathbf{u}, \mathbf{w}) + F(\mathbf{v}, \mathbf{w}) \)
+    \item \( F(\mathbf{u}, \mathbf{v} + \mathbf{w}) = F(\mathbf{u}, \mathbf{v}) + F(\mathbf{u}, \mathbf{w}) \)
+    \item \( F(\lambda \mathbf{u}, \mathbf{v}) = \lambda F(\mathbf{u}, \mathbf{v}) = F(\mathbf{u}, \lambda \mathbf{v}) \)
+\end{enumerate}
+
+We say:
+\begin{itemize}
+    \item \( F \) is \emph{symmetric} if \( F(\mathbf{u}, \mathbf{v}) = F(\mathbf{v}, \mathbf{u}) \) for all \( \mathbf{u}, \mathbf{v} \in V \).
+    \item \( F \) is \emph{non-degenerate} if \( F(\mathbf{u}, \mathbf{w}) = 0 \) for all \( \mathbf{u} \in V \) implies \( \mathbf{w} = 0 \).
+    \item \( F \) is \emph{positive definite} if \( F(\mathbf{v}, \mathbf{v}) > 0 \) for all \( \mathbf{v} \in V \setminus \{0\} \).
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+If \( F \) is positive definite, then \( F \) is non-degenerate. Indeed, suppose \( F(\mathbf{v}, \mathbf{v}) > 0 \) for all \( \mathbf{v} \neq 0 \), and that \( F(\mathbf{u}, \mathbf{w}) = 0 \) for all \( \mathbf{u} \in V \). Then in particular, \( F(\mathbf{w}, \mathbf{w}) = 0 \). But by positive definiteness, this implies \( \mathbf{w} = 0 \). Hence \( F \) is non-degenerate.
+\end{remark}
+
+When we say that \( V \) is a vector space over a field \( \mathbb{F} \), we treat \( \alpha \in \mathbb{F} \) as a scalar.
+
+\begin{definition}[Sesquilinear Form]\label{def:sesquilinear}
+Let \( V \) be a vector space over \( \mathbb{C} \). A \emph{sesquilinear form} on \( V \) is a function
+\[
+F : V \times V \to \mathbb{C}
+\]
+satisfying, for all \( \mathbf{u}, \mathbf{v}, \mathbf{w} \in V \) and all \( \lambda \in \mathbb{C} \),
+\begin{enumerate}
+    \item \( F(\mathbf{u} + \mathbf{v}, \mathbf{w}) = F(\mathbf{u}, \mathbf{w}) + F(\mathbf{v}, \mathbf{w}) \)
+    \item \( F(\mathbf{u}, \mathbf{v} + \mathbf{w}) = F(\mathbf{u}, \mathbf{v}) + F(\mathbf{u}, \mathbf{w}) \)
+    \item \( F(\bar{\lambda} \mathbf{v}, \mathbf{w}) = F(\mathbf{v}, \lambda \mathbf{w}) = \lambda F(\mathbf{v}, \mathbf{w}) \)
+\end{enumerate}
+
+We say that \( F \) is \emph{conjugate symmetric} if
+\[
+F(\mathbf{v}, \mathbf{w}) = \overline{F(\mathbf{w}, \mathbf{v})}, \quad \forall \mathbf{v}, \mathbf{w} \in V.
+\]
+
+The definitions of \emph{non-degenerate} and \emph{positive definite} are the same as those for bilinear forms:
+\begin{itemize}
+    \item \( F \) is non-degenerate if \( F(\mathbf{u}, \mathbf{w}) = 0 \) for all \( \mathbf{u} \in V \) implies \( \mathbf{w} = 0 \).
+    \item \( F \) is positive definite if \( F(\mathbf{v}, \mathbf{v}) > 0 \) for all \( \mathbf{v} \neq 0 \).
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+Why is the complex conjugate \( \bar{\lambda} \) necessary in the definition?
+
+Suppose we want \( F \) to be positive definite. If we define sesquilinearity without the conjugation, then for any \( \mathbf{v} \in V \), we would have
+\[
+F(i\mathbf{v}, i\mathbf{v}) = i^2 F(\mathbf{v}, \mathbf{v}) = -F(\mathbf{v}, \mathbf{v}) < 0,
+\]
+contradicting positive definiteness.
+
+But with the conjugation, we instead compute:
+\[
+F(i\mathbf{v}, i\mathbf{v}) = \bar{i} \cdot i \cdot F(\mathbf{v}, \mathbf{v}) = |i|^2 F(\mathbf{v}, \mathbf{v}) = F(\mathbf{v}, \mathbf{v}),
+\]
+which preserves positivity. Hence, the use of \( \bar{\lambda} \) is essential to ensure the existence of positive definite sesquilinear forms on complex vector spaces.
+\end{remark}
+
+\begin{example}[Hermitian Inner Product]\label{ex:hermitian-inner-product}
+Let \( V = \mathbb{C}^n \). A fundamental sesquilinear form on \( V \) is the Hermitian inner product, defined by
+\[
+F(\mathbf{v}, \mathbf{w}) = \mathbf{v}^{\mathrm{H}} \mathbf{w} = 
+\begin{bmatrix}
+\overline{v_1} & \cdots & \overline{v_n}
+\end{bmatrix}
+\begin{bmatrix}
+w_1 \\ \vdots \\ w_n
+\end{bmatrix}
+= \sum_{i=1}^n \overline{v_i} w_i.
+\]
+In this case, \( F \) is not symmetric in the usual sense, i.e., \( F(\mathbf{v}, \mathbf{w}) \neq F(\mathbf{w}, \mathbf{v}) \), but it is \emph{conjugate symmetric}:
+\[
+F(\mathbf{v}, \mathbf{w}) = \overline{F(\mathbf{w}, \mathbf{v})}.
+\]
+\end{example}
+
+\begin{definition}[Inner Product]\label{def:inner-product}
+Let \( V \) be a real (respectively, complex) vector space. A bilinear (respectively, sesquilinear) form
+\[
+\langle \cdot, \cdot \rangle : V \times V \to \mathbb{R} \text{ (respectively, } \mathbb{C} \text{)}
+\]
+is called an \emph{inner product} if it satisfies:
+\begin{itemize}
+    \item Symmetry (or conjugate symmetry): \( \langle \mathbf{v}, \mathbf{w} \rangle = \overline{\langle \mathbf{w}, \mathbf{v} \rangle} \)
+    \item Positive definiteness: \( \langle \mathbf{v}, \mathbf{v} \rangle > 0 \) for all \( \mathbf{v} \neq 0 \)
+\end{itemize}
+A vector space equipped with an inner product is called an \emph{inner product space}.
+\end{definition}
+
+\begin{remark}
+We denote the inner product using the bracket notation \( \langle \cdot, \cdot \rangle \) instead of a general form symbol like \( F(\cdot, \cdot) \).
+\end{remark}
+
+\begin{definition}[Norm]\label{def:norm}
+The \emph{norm} induced by the inner product is defined as
+\[
+\| \mathbf{v} \| := \sqrt{\langle \mathbf{v}, \mathbf{v} \rangle}.
+\]
+In particular, for any scalar \( \alpha \in \mathbb{F} \),
+\[
+\| \alpha \mathbf{v} \| = \sqrt{ \langle \alpha \mathbf{v}, \alpha \mathbf{v} \rangle }
+= \sqrt{ \bar{\alpha} \alpha \langle \mathbf{v}, \mathbf{v} \rangle }
+= |\alpha| \cdot \| \mathbf{v} \|.
+\]
+The norm is well-defined by the positive definiteness of the inner product.
+\end{definition}
+
+\begin{definition}[Orthogonality and Orthonormality]\label{def:orthogonal}
+Let \( S = \{ \mathbf{v}_i \mid i \in I \} \subset V \). We say \( S \) is an \emph{orthogonal set} if
+\[
+\langle \mathbf{v}_i, \mathbf{v}_j \rangle = 0 \quad \text{for all } i \neq j.
+\]
+If in addition each vector has unit norm, i.e.,
+\[
+\langle \mathbf{v}_i, \mathbf{v}_i \rangle = 1 \quad \text{for all } i,
+\]
+then \( S \) is called an \emph{orthonormal set}.
+\end{definition}
+
+\section{Cauchy–Schwarz Inequality}
+\begin{proposition}[Cauchy–Schwarz Inequality]\label{prop:cauchy-schwarz}
+Let \( V \) be an inner product space. Then for all \( \mathbf{u}, \mathbf{v} \in V \),
+\[
+| \langle \mathbf{u}, \mathbf{v} \rangle | \leq \| \mathbf{u} \| \cdot \| \mathbf{v} \|.
+\]
+\end{proposition}
+
+\begin{proof}
+We divide the proof into two cases depending on whether the inner product is real-valued or complex-valued.
+
+\textbf{Case 1:} \( \langle \mathbf{u}, \mathbf{v} \rangle \in \mathbb{R} \): Define the function \( f(t) := \| \mathbf{u} + t\mathbf{v} \|^2 \) for real \( t \in \mathbb{R} \). Then
+\[
+f(t) = \langle \mathbf{u} + t\mathbf{v}, \mathbf{u} + t\mathbf{v} \rangle = \| \mathbf{u} \|^2 + 2t \langle \mathbf{u}, \mathbf{v} \rangle + t^2 \| \mathbf{v} \|^2.
+\]
+Since \( f(t) \geq 0 \) for all \( t \in \mathbb{R} \), the discriminant of this quadratic must be non-positive:
+\[
+(2 \langle \mathbf{u}, \mathbf{v} \rangle)^2 - 4 \| \mathbf{u} \|^2 \| \mathbf{v} \|^2 \leq 0,
+\]
+which simplifies to
+\[
+|\langle \mathbf{u}, \mathbf{v} \rangle|^2 \leq \| \mathbf{u} \|^2 \| \mathbf{v} \|^2,
+\]
+and hence
+\[
+|\langle \mathbf{u}, \mathbf{v} \rangle| \leq \| \mathbf{u} \| \cdot \| \mathbf{v} \|.
+\]
+
+\textbf{Case 2:} \( \langle \mathbf{u}, \mathbf{v} \rangle \in \mathbb{C} \smallsetminus \mathbb{R} \): We apply a rescaling argument to reduce to the real case. Define
+\[
+\mathbf{w} := \frac{1}{\langle \mathbf{u}, \mathbf{v} \rangle} \mathbf{u}.
+\]
+Then
+\[
+\langle \mathbf{w}, \mathbf{v} \rangle 
+= \left\langle \frac{1}{\langle \mathbf{u}, \mathbf{v} \rangle} \mathbf{u}, \mathbf{v} \right\rangle
+= \overline{ \frac{1}{\overline{ \langle \mathbf{u}, \mathbf{v} \rangle }} } \cdot \langle \mathbf{u}, \mathbf{v} \rangle = 1 \in \mathbb{R}.
+\]
+Now applying the Cauchy–Schwarz inequality in the real case to vectors \( \mathbf{w} \) and \( \mathbf{v} \), we have
+\[
+| \langle \mathbf{w}, \mathbf{v} \rangle | \leq \| \mathbf{w} \| \cdot \| \mathbf{v} \|,
+\]
+i.e.,
+\[
+1 \leq \left\| \frac{1}{\langle \mathbf{u}, \mathbf{v} \rangle} \mathbf{u} \right\| \cdot \| \mathbf{v} \| = \frac{\| \mathbf{u} \|}{| \langle \mathbf{u}, \mathbf{v} \rangle |} \cdot \| \mathbf{v} \|.
+\]
+Rearranging gives
+\[
+| \langle \mathbf{u}, \mathbf{v} \rangle | \leq \| \mathbf{u} \| \cdot \| \mathbf{v} \|,
+\]
+as desired.
+\end{proof}
+
+\begin{proposition}[Triangle Inequality]\label{prop:triangle-inequality}
+Let \( V \) be an inner product space. Then for all \( \mathbf{u}, \mathbf{v} \in V \),
+\[
+\| \mathbf{u} + \mathbf{v} \| \leq \| \mathbf{u} \| + \| \mathbf{v} \|.
+\]
+\end{proposition}
+
+\begin{proof}
+We expand:
+\[
+\| \mathbf{u} + \mathbf{v} \|^2 = \langle \mathbf{u} + \mathbf{v}, \mathbf{u} + \mathbf{v} \rangle = \| \mathbf{u} \|^2 + 2\operatorname{Re}(\langle \mathbf{u}, \mathbf{v} \rangle) + \| \mathbf{v} \|^2.
+\]
+Now use \( \operatorname{Re}(\langle \mathbf{u}, \mathbf{v} \rangle) \leq | \langle \mathbf{u}, \mathbf{v} \rangle | \) and apply Cauchy–Schwarz:
+\[
+\| \mathbf{u} + \mathbf{v} \|^2 \leq \| \mathbf{u} \|^2 + 2 \| \mathbf{u} \| \| \mathbf{v} \| + \| \mathbf{v} \|^2 = (\| \mathbf{u} \| + \| \mathbf{v} \|)^2.
+\]
+Taking square roots on both sides completes the proof.
+\end{proof}
+
+\begin{theorem}[Gram–Schmidt Process]\label{thm:gram-schmidt}
+Let \( S = \{ \mathbf{v}_1, \ldots, \mathbf{v}_n \} \subset V \) be a finite linearly independent set in an inner product space \( V \). Then there exists an orthonormal set \( \{ \mathbf{e}_1, \ldots, \mathbf{e}_n \} \) such that \( \operatorname{span}\{ \mathbf{v}_1, \ldots, \mathbf{v}_k \} = \operatorname{span}\{ \mathbf{e}_1, \ldots, \mathbf{e}_k \} \) for all \( k \).
+
+The construction is given inductively:
+\[
+\mathbf{w}_1 := \mathbf{v}_1, \quad 
+\mathbf{w}_{i+1} := \mathbf{v}_{i+1} - \sum_{j=1}^{i} \frac{\langle \mathbf{v}_{i+1}, \mathbf{w}_j \rangle}{\| \mathbf{w}_j \|^2} \mathbf{w}_j, \quad \text{for } i = 1, \ldots, n-1,
+\]
+and the orthonormal set is obtained by normalizing:
+\[
+\mathbf{e}_i := \frac{\mathbf{w}_i}{\| \mathbf{w}_i \|}.
+\]
+\end{theorem}
+
+\begin{corollary}
+Every finite-dimensional inner product space admits an orthonormal basis.
+\end{corollary}
+
+\section{Orthogonal Complement}
+
+\begin{definition}[Orthogonal Complement] Let \(U \leq  V\) be a subspace of an inner product space. Then the orthogonal complement of \(U\) is
+\[
+{U}^{\perp} = \{ \mathbf{v} \in  V \mid  \langle \mathbf{v},\mathbf{u}\rangle  = 0,\forall \mathbf{u} \in  U\}
+\]
+\end{definition}
+
+The analysis for orthogonal complement for vector spaces over \(\mathbb{C}\) is quite similar as what we have studied in MAT2040.
+
+\begin{proposition} 
+Let $V$ be an inner product space, $U \leq V$ a subspace of $V$, and $U_1, U_2 \subseteq V$ are subsets of $V$.
+\begin{enumerate}
+    \item ${U}^{\perp} \leq V$ is a subspace of \(V\).
+    \item \(U \cap  {U}^{\perp} = \{ 0\}\).
+    \item \({U}_{1} \subseteq  {U}_{2}\) implies \({U}_{2}^{\perp} \leq  {U}_{1}^{\perp}\) .
+\end{enumerate}
+\end{proposition}
+
+\begin{proof} 
+1. Suppose that \({\bf v}_{1},{\bf v}_{2} \in  {U}^{\perp}\) , where \(a,b \in  K\left( {K = \mathbb{C}\text{ or }\mathbb{R}}\right)\) , then for all \(\mathbf{u} \in  U\) ,
+
+\[
+\left\langle  {a{\mathbf{v}}_{1} + b{\mathbf{v}}_{2},\mathbf{u}}\right\rangle   = \bar{a}\left\langle  {{\mathbf{v}}_{1},\mathbf{u}}\right\rangle   + \bar{b}\left\langle  {{\mathbf{v}}_{2},\mathbf{u}}\right\rangle
+= \bar{a} \cdot  0 + \bar{b} \cdot  0 = 0
+\]
+
+Therefore, \(a{\mathbf{v}}_{1} + b{\mathbf{v}}_{2} \in  {U}^{\perp}\) .
+
+2. Suppose that \(\mathbf{u} \in  U \cap  {U}^{\perp}\) , then we imply \(\langle \mathbf{u},\mathbf{u}\rangle  = 0\) . By the positive-definiteness of inner product, \(\mathbf{u} = \mathbf{0}\).
+
+3. Exercise.
+\end{proof}
+
+\begin{proposition} \label{prop:orthogonal_comple}
+Let $U, W \leq V$ be subspaces of an inner product space $V$.
+\begin{enumerate}
+    \item If \(\dim \left( V\right)  < \infty\) and \(U \leq  V\) , then \(V = U \oplus  {U}^{\perp}\).
+    \item One has
+\begin{enumerate}
+    \item[(a)] ${\left( U + W\right) }^{\perp} = {U}^{\perp} \cap  {W}^{\perp}$;
+    \item[(b)] ${\left( U \cap  W\right) }^{\perp} \supseteq  {U}^{\perp} + {W}^{\perp}$;
+    \item[(c)] ${\left( {U}^{\perp}\right) }^{\perp} \supseteq  U$. 
+\end{enumerate}
+Moreover, if \(\dim \left( V\right)  < \infty\) , then these are equalities.
+\end{enumerate}
+\end{proposition}
+
+
+\begin{proof} 1. Suppose that \(\left\{  {{\mathbf{v}}_{1},\ldots ,{\mathbf{v}}_{k}}\right\}\) forms a basis for \(U\) , and by basis extension, we obtain \(\left\{  {{\mathbf{v}}_{1},\ldots ,{\mathbf{v}}_{k},{\mathbf{v}}_{k + 1},\ldots ,{\mathbf{v}}_{n}}\right\}\) is a basis for \(V\) .
+
+By Gram-Schmidt Process, any finite basis induces an orthonormal basis. Therefore, suppose that \(\left\{  {{\mathbf{e}}_{1},\ldots ,{\mathbf{e}}_{k}}\right\}\) forms an orthonormal basis for \(U\) , and \(\left\{  {{\mathbf{e}}_{k + 1},\ldots ,{\mathbf{e}}_{n}}\right\}\) forms an orthonormal basis for \({U}^{\perp}\) .
+
+It’s easy to show \(V = U + {U}^{\perp}\) using orthonormal basis.
+
+\noindent 2. (a) The inclusion \({\left( U + W\right) }^{\perp} \supseteq  {U}^{\perp} \cap  {W}^{\perp}\) is trivial; for the other inclusion, suppose
+\({\bf v} \in  {\left( U + W\right) }^{\perp}\). Then
+\[
+\langle \mathbf{v},\mathbf{u} + \mathbf{w}\rangle  = 0,\forall \mathbf{u} \in  U,\mathbf{w} \in  W
+\]
+Taking \(\mathbf{u} \equiv  \mathbf{0}\) in the equality above gives \(\langle \mathbf{v},\mathbf{w}\rangle  = 0\) , i.e., \(\mathbf{v} \in  W^{\perp}\) . Similarly, \({\bf v} \in U^{\perp}\) .
+
+(b) Follow the similar argument as in (2a). If \(\dim \left( V\right)  < \infty\) , then write down the orthonormal basis for \({U}^{\perp} + {W}^{\perp}\) and \({\left( U \cap  W\right) }^{\perp}\) .
+
+(c) Follow the similar argument as in (2a). If \(\dim \left( V\right)  < \infty\) , then
+\[
+V = {U}^{\perp} \oplus  {\left( {U}^{\perp}\right) }^{\perp} = U \oplus  {U}^{\perp}.
+\]
+Therefore, \(\dim{\left( {U}^{\perp}\right) }^{\perp} = \dim(U)\) and hence we have \({\left( {U}^{\perp}\right)}^{\perp} = (U)\)
+\end{proof}
+
+
+
+\section{The Riesz Representation Theorem}
+
+\begin{theorem}[Riesz Representation]\label{thm:riesz}
+Let \( V \) be an inner product space over \( \mathbb{F} \in \{ \mathbb{R}, \mathbb{C} \} \). Define the mapping
+\[
+\phi : V \to V^*, \quad \mathbf{v} \mapsto \phi_{\mathbf{v}},
+\]
+where \( \phi_{\mathbf{v}}(\mathbf{w}) := \langle \mathbf{v}, \mathbf{w} \rangle \) for all \( \mathbf{w} \in V \).
+
+Then:
+\begin{enumerate}
+    \item The mapping \( \phi \) is well-defined and \(\mathbb{R}\)-linear.
+    \item If \( V \) is finite-dimensional, then \( \phi \) is an isomorphism of real vector spaces.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+Note that:
+\begin{itemize}
+    \item If \( V \) is over \( \mathbb{R} \), then \( \phi \) is a linear map in the usual sense.
+    \item If \( V \) is over \( \mathbb{C} \), then \( \phi \) is only \(\mathbb{R}\)-linear. In particular, \( \phi(i\mathbf{v}) \neq i\phi(\mathbf{v}) \), but \( \phi(2\mathbf{v}) = 2\phi(\mathbf{v}) \).
+\end{itemize}
+\end{remark}
+
+\begin{example}
+Let \( V \) be a complex vector space with basis \( \{ \mathbf{v}_1, \ldots, \mathbf{v}_n \} \). Any vector \( \mathbf{v} \in V \) can be written as
+\[
+\mathbf{v} = \sum_{j=1}^n \alpha_j \mathbf{v}_j, \quad \alpha_j = p_j + iq_j \in \mathbb{C}.
+\]
+Then
+\[
+\mathbf{v} = \sum_j p_j \mathbf{v}_j + \sum_j q_j (i \mathbf{v}_j), \quad p_j, q_j \in \mathbb{R},
+\]
+so the set \( \{ \mathbf{v}_1, \ldots, \mathbf{v}_n, i\mathbf{v}_1, \ldots, i\mathbf{v}_n \} \) forms a basis for \( V \) over \( \mathbb{R} \).
+\end{example}
+
+\begin{proof}
+\textbf{(1) Well-definedness.}  
+We need to show \( \phi_{\mathbf{v}} \in V^* \), i.e., that it defines a linear functional. Let \( \mathbf{w}_1, \mathbf{w}_2 \in V \) and \( a, b \in \mathbb{F} \). Then:
+\[
+\phi_{\mathbf{v}}(a\mathbf{w}_1 + b\mathbf{w}_2) = \langle \mathbf{v}, a\mathbf{w}_1 + b\mathbf{w}_2 \rangle = a \langle \mathbf{v}, \mathbf{w}_1 \rangle + b \langle \mathbf{v}, \mathbf{w}_2 \rangle = a \phi_{\mathbf{v}}(\mathbf{w}_1) + b \phi_{\mathbf{v}}(\mathbf{w}_2),
+\]
+so \( \phi_{\mathbf{v}} \) is linear (over \( \mathbb{R} \) or \( \mathbb{C} \), depending on \( V \)).
+
+\textbf{(2) \(\mathbb{R}\)-linearity of \( \phi \).}  
+Let \( \mathbf{v}_1, \mathbf{v}_2 \in V \) and \( c, d \in \mathbb{R} \). For any \( \mathbf{w} \in V \),
+\[
+\phi_{c\mathbf{v}_1 + d\mathbf{v}_2}(\mathbf{w}) = \langle c\mathbf{v}_1 + d\mathbf{v}_2, \mathbf{w} \rangle = c \langle \mathbf{v}_1, \mathbf{w} \rangle + d \langle \mathbf{v}_2, \mathbf{w} \rangle = c \phi_{\mathbf{v}_1}(\mathbf{w}) + d \phi_{\mathbf{v}_2}(\mathbf{w}),
+\]
+so \( \phi(c\mathbf{v}_1 + d\mathbf{v}_2) = c\phi(\mathbf{v}_1) + d\phi(\mathbf{v}_2) \), i.e., \( \phi \) is \(\mathbb{R}\)-linear.
+
+\textbf{(3) Isomorphism when \(\dim V < \infty\).}  
+Since \( V \) and \( V^* \) have the same dimension, and \( \phi \) is injective (because \( \phi_{\mathbf{v}} = 0 \) implies \( \langle \mathbf{v}, \mathbf{w} \rangle = 0 \) for all \( \mathbf{w} \), which by positive-definiteness implies \( \mathbf{v} = 0 \)), \( \phi \) is a linear isomorphism.
+\end{proof}
+
+We now relate orthogonal complement with the annihilator space:
+\begin{proposition} The mapping \(\phi  : V \rightarrow  {V}^*\) defined by
+$$\phi({\bf v}) := \phi_{\bf v}$$
+in \autoref{thm:riesz} maps \({U}^{\perp} \leq  V\) injectively to \(\operatorname{Ann}\left( U\right)  \leq  {V}^*\). If \(\dim \left( V\right)  < \infty\) , then \({U}^{\perp} \cong  \operatorname{Ann}\left( U\right)\) as \(\mathbb{R}\)-vector spaces.
+\end{proposition}
+
+\begin{proof} The injectivity of \(\phi\) is given in \autoref{thm:riesz}. For any \(\mathbf{v} \in  {U}^{\perp}\) , we imply \({\phi }_{\mathbf{v}}\left( \mathbf{u}\right)  = 0\) for all \(\mathbf{u} \in  U\) , i.e. \({\phi }_{\mathbf{v}} \in  \operatorname{Ann}\left( U\right)\) . Therefore, \(\phi \left( {U}^{\perp}\right)  \leq  \operatorname{Ann}\left( U\right)\).
+
+\medskip
+Suppose \(\dim \left( V\right)  < \infty\) , by \autoref{prop:orthogonal_comple}(1),
+\[
+\dim \left( U\right)  + \dim \left( {U}^{\perp}\right)  = \dim \left( V\right).
+\]
+Since \(\dim \left( U\right)  + \dim \left( {\operatorname{Ann}\left( U\right) }\right)  = \dim \left( V\right)\) , we imply \(\dim \left( {U}^{\perp}\right)  = \dim \left( {\operatorname{Ann}\left( U\right) }\right)\) .
+Consequently, the injection
+\[
+\phi|_{U^{\perp}}  : {U}^{\perp} \rightarrow  \operatorname{Ann}\left( U\right)
+\]
+is an isomorphism between \(\mathbb{R}\)-vector spaces \({U}^{\perp}\) and \(\operatorname{Ann}\left( U\right)\) .
+\end{proof}
