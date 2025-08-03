@@ -411,8 +411,8 @@ So the identity \( T_{\mathcal{B}\mathcal{A}} [\mathbf{v}_j]_{\mathcal{A}} = [T\
 \item \textbf{Extension to arbitrary vector}
 Let \( \mathbf{v} = \sum_{j=1}^n r_j \mathbf{v}_j \) with coefficients \( r_j \in \mathbb{F} \). Then:
 \begin{align*}
-[T]_{\mathcal{B}\mathcal{A}}([\mathbf{v}]_{\mathcal{A}}) = (T)_{\mathcal{B}\mathcal{A}}\left( \sum_{j=1}^n r_j [\mathbf{v}_j]_{\mathcal{A}} \right) 
-&= \sum_{j=1}^n r_j [T]_{\mathcal{B}\mathcal{A}}[\mathbf{v}_j]_{\mathcal{A}}  \\
+T_{\mathcal{B}\mathcal{A}}([\mathbf{v}]_{\mathcal{A}}) = T_{\mathcal{B}\mathcal{A}}\left( \sum_{j=1}^n r_j [\mathbf{v}_j]_{\mathcal{A}} \right) 
+&= \sum_{j=1}^n r_j T_{\mathcal{B}\mathcal{A}}[\mathbf{v}_j]_{\mathcal{A}}  \\
 &= \sum_{j=1}^n r_j [T (\mathbf{v}_j)]_{\mathcal{B}}  \\
 &= \left[ \sum_{j=1}^n r_j T(\mathbf{v}_j)\right]_{\mathcal{B}}\\
 &= [T(\sum_{j=1}^n r_j \mathbf{v}_j)]_{\mathcal{B}} = [T( \mathbf{v})]_{\mathcal{B}}.
@@ -421,7 +421,7 @@ Let \( \mathbf{v} = \sum_{j=1}^n r_j \mathbf{v}_j \) with coefficients \( r_j \i
 
 Thus, for all \( \mathbf{v} \in V \), we have
 \[
-[T]_{\mathcal{B}\mathcal{A}} [\mathbf{v}]_{\mathcal{A}} = [T(\mathbf{v})]_{\mathcal{B}},
+T_{\mathcal{B}\mathcal{A}} [\mathbf{v}]_{\mathcal{A}} = [T(\mathbf{v})]_{\mathcal{B}},
 \]
 completing the proof.
 \end{proof}

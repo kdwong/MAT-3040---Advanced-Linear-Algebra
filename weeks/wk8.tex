@@ -296,14 +296,16 @@ with \( m_{T|_{\mathbf{v}_i}}(x) = (x - \lambda_i)^{e_i} \).
 
 \medskip
 
-Therefore, to prove the full Jordan normal form, it suffices to treat the case where
+Therefore, to prove the full Jordan normal form, it suffices to treat the case where $T:V \to V$ has minimal polynomial:
 \[
 m_T(x) = (x - \lambda)^e
 \]
-is a single primary factor.
+is a single primary factor. In such a case, all vectors ${\bf v} \in V$ satisfies
+$$(T-\lambda I)^e{\bf v} = {\bf 0},$$
+that is, all ${\bf v} \in V$ are generalized eigenvectors (\autoref{def:generalized-eigen}) of $T$ with generalized eigenvalue $\lambda$.
 
 \subsection{Second Step of Proof}
-Firstly, we consider the case where the minimal polynomial has the form \(m_T(x) = x^m\):
+Firstly, we consider the case when the generalized eigenvalue is $\lambda = 0$, and the minimal polynomial has the form \(m_T(x) = x^m\):
 \begin{proposition}[Nilpotent Case of Jordan Normal Form]\label{prop:jordan-nilpotent}
 Suppose \( T : V \to V \) is a linear operator with minimal polynomial
 \[
