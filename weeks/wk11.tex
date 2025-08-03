@@ -1,26 +1,26 @@
 \chapter{Introduction to Tensor Products}
 
-\section{Motivation of Tensor Products}
-\subsection{Constrains of Bilinear Form}
-Let \( U, V, W \) be vector spaces. We want to study bilinear maps \( f : U \times W \to U \), i.e., for all \( v, v_1, v_2 \in V \), \( w, w_1, w_2 \in W \), \( a, b, c, d \in \mathbb{F} \), one has
+\section{Motivation}
+Let \( U, V, W \) be vector spaces. We want to study bilinear maps \( f : V \times W \to U \), i.e., for all \( {\bf v}, {\bf v}_1, {\bf v}_2 \in V \), \( {\bf w}, {\bf w}_1, {\bf w}_2 \in W \), \( a, b, c, d \in \mathbb{F} \), one has
 \[
-f(av_1 + bv_2, w) = a f(v_1, w) + b f(v_2, w)
+f(a{\bf v}_1 + b{\bf v}_2, {\bf w}) = a f({\bf v}_1, {\bf w}) + b f({\bf v}_2, {\bf w})
 \]
 \[
-f(v, cw_1 + dw_2) = c f(v, w_1) + d f(v, w_2)
+f({\bf v}, c{\bf w}_1 + d{\bf w}_2) = c f(v, {\bf w_1}) + d f({\bf v}, {\bf w}_2)
 \]
 
 \begin{example}
-Let \( f : \mathbb{R}^n \times \mathbb{R}^n \to \mathbb{R} \) be with \( (u, v) \mapsto \langle u, v \rangle \).
-
 \begin{itemize}
-    \item Let \( f : M_{n \times n}(\mathbb{F}) \times M_{n \times n}(\mathbb{F}) \to M_{n \times n}(\mathbb{F}) \) be with \( f(A, B) = AB \).
+\item \( f : \mathbb{R}^n \times \mathbb{R}^n \to \mathbb{R} \) defined by the usual inner product \( ({\bf u}, {\bf v}) \mapsto \langle {\bf u}, {\bf v} \rangle \).
+
+
+    \item \( f : M_{n \times n}(\mathbb{F}) \times M_{n \times n}(\mathbb{F}) \to M_{n \times n}(\mathbb{F}) \) defined by matrix multiplication \( f(A, B) = AB \).
+
+    \item \( f : \mathbb{F}[x] \times \mathbb{F}[x] \to \mathbb{F}[x] \) defined by multiplication \( f(p(x), q(x)) = p(x) q(x) \).
     
-    \item Let \( f : \mathbb{F}[x] \times \mathbb{F}[x] \to \mathbb{F} \) be with \( f(p(x), q(x)) = p(1) q(2) \).
+    \item \( f : \mathbb{F}[x] \times \mathbb{F}[x] \to \mathbb{F} \) defined by \( f(p(x), q(x)) = p(1) q(2) \).
     
-    \item Let \( f : \mathbb{F}[x] \times \mathbb{F}[x] \to \mathbb{F}[x] \) be with \( f(p(x), q(x)) = p(x) q(x) \).
-    
-    \item \( f : \mathbb{R}^3 \times \mathbb{R}^3 \) with \( f(u, v) = u \times v \) (the \emph{cross product} in \( \mathbb{R}^3 \)).
+    \item \( f : \mathbb{R}^3 \times \mathbb{R}^3 \) defined by the \emph{cross product} \( f({\bf u}, {\bf v}) = {\bf u} \times {\bf v} \) .
 \end{itemize}
 \end{example}
 
@@ -37,8 +37,7 @@ Indeed, the fundamental issue is that the vector space structure of \( V \times 
 
 As a consequence, we begin by giving an abstract, category-theoretic definition of tensor product \( V \otimes W \).
 
-\subsection{The Universal Property of Tensor Products}
-
+\subsection{Universal Property of Tensor Products}
 \begin{definition}[Universal Property of Tensor Product]\label{def:univtensor}
 Let \(V,W\) be vector spaces. Consider the set
 \[
@@ -71,8 +70,6 @@ In the next section, we will construct \( \mathcal{T} \) explicitly, and show th
 
 
 \section{Tensor Product Space}
-
-\subsection{Construction of Tensor Product Space}
 We begin with defining the tensor product $\mathcal{T} = V \otimes W$ of two vector spaces $V$ and $W$. This can be generalized into any (countable) number of vector spaces.
 
 
@@ -243,3 +240,366 @@ For uniqueness: suppose there exists another linear map \( T' : V \otimes W \to 
 
 Therefore, the pair \( (V \otimes W, i) \) satisfies the universal property of the tensor product.
 \end{proof}
+
+\section{Basis of \(V \otimes W\)}
+
+Given that \(\left\{  {{\bf v}_1,\ldots ,{\bf v}_n}\right\}\) is a basis of \(V\), and \(\left\{  {{\bf w}_1,\ldots ,{\bf w}_{m}}\right\}\) a basis of \(W\), we aim to find a basis of \(V \otimes  W\) using \({\bf v}_{i}\) ’s and \({\bf w}_{i}\) ’s.
+
+\begin{proposition}\label{prop: tensor-span}
+    The set \(\left\{  {{\bf v}_{i} \otimes  {\bf w}_{j} \mid  1 \leq  i \leq  n,1 \leq  j \leq  m}\right\}\) spans the tensor product space \(V \otimes  W\).
+\end{proposition}
+
+\begin{proof} Consider any \(\mathbf{v} \in  V\) and \(\mathbf{w} \in  W\), and we want to express \(\mathbf{v} \otimes  \mathbf{w}\) in terms of \({\bf v}_{i},{\bf w}_{j}\). Suppose that \(\mathbf{v} = \alpha_1{\bf v}_1 + \cdots  + \alpha_n{\bf v}_n\) and \(\mathbf{w} = \beta_1{\bf w}_1 + \cdots  + \beta_{m}{\bf w}_{m}\).
+
+Substituting \(\mathbf{v} = \alpha_1{\bf v}_1 + \cdots  + \alpha_n{\bf v}_n\) into the expression \(\mathbf{v} \otimes  \mathbf{w}\), we imply
+
+\begin{align*}
+\mathbf{v} \otimes  \mathbf{w} &= \left( {\alpha_1{\bf v}_1 + \cdots  + \alpha_n{\bf v}_n}\right)  \otimes  \mathbf{w} \\
+&= \left( {\alpha_1{\bf v}_1}\right)  \otimes  {\bf w}_1 + \cdots  + \left( {\alpha_n{\bf v}_n}\right)  \otimes  {\bf w}_n \\
+&= \alpha_1\left( {{\bf v}_1 \otimes  \mathbf{w}}\right)  + \cdots  + \alpha_n\left( {{\bf v}_n \otimes  \mathbf{w}}\right)
+\end{align*}
+
+Similarly, for each \({\bf v}_{i} \otimes  \mathbf{w},i = 1,\ldots ,n\),
+
+\[
+{\bf v}_{i} \otimes  \mathbf{w} = \beta_1\left( {{\bf v}_{i} \otimes  {\bf w}_1}\right)  + \cdots  + \beta_{m}\left( {{\bf v}_{i} \otimes  {\bf w}_{m}}\right) .
+\]
+
+Therefore,
+
+\begin{equation}\label{eq: tensor-expansion}
+    \mathbf{v} \otimes  \mathbf{w} = \mathop{\sum }\limits_{{i = 1}}^n\mathop{\sum }\limits_{{j = 1}}^{m}\alpha_{i}\beta_{j}\left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right)
+\end{equation}
+
+
+
+By \autoref{eq:generaltensor}, any vector in \(V \otimes  W\) is of the form
+\(
+{\bf v}^{\left( 1\right) } \otimes  {\bf w}^{\left( 1\right) } + \cdots  + {\bf v}^{\left( k \right) } \otimes  {\bf w}^{\left( k \right) }
+\), and by \autoref{eq: tensor-expansion}, each \({\bf v}^{\left( \ell \right) } \otimes  {\bf w}^{\left( \ell \right) },\ell = 1,\ldots ,k\), can be expressed as
+
+\[
+{\bf v}^{\left( \ell\right) } \otimes  {\bf w}^{\left( \ell\right) } = \mathop{\sum }\limits_{{i = 1}}^n\mathop{\sum }\limits_{{j = 1}}^{m}\alpha_{i}^{\left( \ell\right) }\beta_{j}^{\left( \ell\right) }\left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right)
+\]
+Therefore,
+\[
+{\bf v}^{\left( 1\right) } \otimes  {\bf w}^{\left( 1\right) } + \cdots  + {\bf v}^{\left( k \right) } \otimes  {\bf w}^{\left( k \right) } = \mathop{\sum }\limits_{{\ell = 1}}^{k}\mathop{\sum }\limits_{{i = 1}}^n\mathop{\sum }\limits_{{j = 1}}^{m}\alpha_{i}^{\left( k\right) }\beta_{j}^{\left( k\right) }\left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right)
+\]
+
+In other words, \(\left\{  {{\bf v}_{i} \otimes  {\bf w}_{j} \mid  1 \leq  i \leq  n,1 \leq  j \leq  m}\right\}\) spans \(V \otimes  W\).
+\end{proof}
+
+
+\begin{theorem} \label{thm:tensorbasis}
+    A basis of \(V \otimes  W\) is \(\left\{  {{\bf v}_{i} \otimes  {\bf w}_{j} \mid  1 \leq  i \leq  n,1 \leq  j \leq  m}\right\}\)
+\end{theorem} 
+
+\begin{proof}
+By \autoref{prop: tensor-span}, it suffices to show that the set \(\left\{  {{\bf v}_{i} \otimes  {\bf w}_{j} \mid  1 \leq  i \leq  n,1 \leq  j \leq  m}\right\}\) is linear independent. Suppose that
+
+\begin{equation}\label{eq: tensor-linear-independece}
+    \mathop{\sum }\limits_{{i = 1}}^n\mathop{\sum }\limits_{{j = 1}}^n\alpha_{ij}\left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right)  = \mathbf{0} \tag{13.3}
+\end{equation}
+
+
+Suppose that \(\left\{  {{\phi }_1,\ldots ,{\phi }_n}\right\}\) is a dual basis of \({V}^{ * }\), and \(\left\{  {{\psi }_1,\ldots ,{\psi }_{m}}\right\}\) is a dual basis of \({W}^{ * }\). Define the mapping
+\[
+{\pi }_{p,q} : \;V \times  W \rightarrow  \mathbb{F}
+\]
+by 
+$$\pi_{p,q}(\mathbf{v},\mathbf{w}) := {\phi }_{p}\left( \mathbf{v}\right) {\psi }_{q}\left( \mathbf{w}\right).$$
+Then one can check that \({\pi }_{p,q}\) is bilinear: for instance,
+\begin{align*}
+{\pi }_{p,q}\left( {a{\bf v}_1 + b{\bf v}_2,\mathbf{w}}\right)  = {\phi }_{p}\left( {a{\bf v}_1 + b{\bf v}_2}\right) {\psi }_{q}\left( \mathbf{w}\right)
+&= \left( {a{\phi }_{p}\left( {\bf v}_1\right)  + b{\phi }_{p}\left( {\bf v}_2\right) }\right) {\psi }_{q}\left( \mathbf{w}\right)\\
+&= a{\phi }_{p}\left( {\bf v}_1\right) {\psi }_{q}\left( \mathbf{w}\right)  + b{\phi }_{p}\left( {\bf v}_2\right) {\psi }_{q}\left( \mathbf{w}\right)\\
+&= a{\pi }_{p,q}\left( {{\bf v}_1,\mathbf{w}}\right)  + b{\pi }_{p,q}\left( {{\bf v}_2,\mathbf{w}}\right) .
+\end{align*}
+similarly, we can check that \({\pi }_{p,q}\left( {\mathbf{v},a{\bf w}_1 + b{\bf w}_2}\right)  = a{\pi }_{p,q}\left( {\mathbf{v},{\bf w}_1}\right)  +\)  \(b{\pi }_{p,q}\left( {v,{\bf w}_2}\right)\). Therefore, \({\pi }_{p,q} \in\) Obj. By the universal property of the tensor product (Theorem \ref{thm: univ-binlinear-map}), \({\pi }_{p,q}\) induces the unique {\it linear transformation}
+\[
+\Pi_{p,q} : \;V \otimes  W \rightarrow  \mathbb{F}
+\quad \text{ with }\;\Pi_{p,q}\left( {\mathbf{v} \otimes  \mathbf{w}}\right)  = {\pi }_{p,q}\left( {\mathbf{v},\mathbf{w}}\right)
+\]
+
+In other words, \(\Pi_{p,q}\left( {\mathbf{v} \otimes  \mathbf{w}}\right)  = {\phi }_{p}\left( \mathbf{v}\right) {\psi }_{q}\left( \mathbf{w}\right)\).
+
+\begin{itemize}
+\item Applying the mapping \({\Pi }_{p,q}\) on both sides of \autoref{eq: tensor-linear-independece}, we imply
+\end{itemize}
+
+\[
+{\Pi }_{p,q}\left( {\mathop{\sum }\limits_{{i = 1}}^n\mathop{\sum }\limits_{{j = 1}}^n\alpha_{ij}\left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right) }\right)  = {\Pi }_{p,q}\left( \mathbf{0}\right)
+\]
+
+Or equivalently,
+
+\[
+\mathop{\sum }\limits_{{i = 1}}^n\mathop{\sum }\limits_{{j = 1}}^n\alpha_{ij}{\Pi }_{p,q}\left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right)  = 0,
+\]
+
+i.e.,
+
+\[
+\mathop{\sum }\limits_{{i = 1}}^n\mathop{\sum }\limits_{{j = 1}}^n\alpha_{ij}{\phi }_{p}\left( {\bf v}_{i}\right) {\psi }_{q}\left( {\bf w}_{j}\right)  = \alpha_{p,q} = 0
+\]
+
+Following this procedure, we can argue that \(\alpha_{ij} = 0\) for all $i$ and \(j\).
+\end{proof}
+
+\begin{corollary} If \(\dim \left( V\right) ,\dim \left( W\right)  < \infty\), then \(\dim \left( {V \otimes  W}\right)  = \dim \left( V\right) \dim \left( W\right)\)
+\end{corollary}
+
+\begin{proof} Check dimension of the basis of \(V \otimes  W\).
+\end{proof}
+
+\section{An Application of Universal Property}
+As we saw in the proof of Theorem \ref{thm:tensorbasis}, the universal property (\autoref{thm: univ-binlinear-map}) is very helpful. In particular, whenever \(\phi  : V \times  W \rightarrow  U\) is a {\it bilinear map}, \autoref{thm: univ-binlinear-map} implies that we can induce an unique {\it linear transformation} \(\psi  : V \otimes  W \rightarrow  U\). Let's try another example for applying universal property: 
+
+\begin{theorem}
+For any vector spaces \(U\) and \(V\),
+\[
+V \otimes  U \cong  U \otimes  V.
+\]
+\end{theorem}
+
+\begin{proof}
+Construct the mapping
+\[
+\phi  : \;V \times  U \rightarrow  U \otimes  V
+\]
+by \(\phi \left( {\mathbf{v},\mathbf{u}}\right)  = \mathbf{u} \otimes  \mathbf{v}
+\). Then \(\phi\) is bilinear: for instance,
+
+\[
+\phi \left( {a{\bf v}_1 + b{\bf v}_2,\mathbf{u}}\right)  = u \otimes  \left( {a{\bf v}_1 + b{\bf v}_2}\right)
+= a\left( {\mathbf{u} \otimes  {\bf v}_1}\right)  + b\left( {u \otimes  {\bf v}_2}\right)
+= {a\phi }\left( {{\bf v}_1,\mathbf{u}}\right)  + {b\phi }\left( {{\bf v}_2,\mathbf{u}}\right).
+\]
+Therefore, \(\phi  \in  \mathrm{{Obj}}\). By Theorem \autoref{thm: univ-binlinear-map}, we induce a unique linear transformation
+\[
+\Phi  : \;V \otimes  U \rightarrow  U \otimes  V
+\]
+satisfying \(\Phi \left( {\mathbf{v} \otimes  \mathbf{u}}\right)  = \mathbf{u} \otimes  \mathbf{v}
+\).
+
+Similarly, we may induce the linear transformation
+\[
+\Psi  : \;U \otimes  V \rightarrow  V \otimes  U
+\]
+satisfying \(\Psi \left( {\mathbf{u} \otimes  \mathbf{v}}\right)  = \mathbf{v} \otimes  \mathbf{u}\).
+
+Given any \(\mathop{\sum }\limits_{i}{\mathbf{u}}_{i} \otimes  {\bf v}_{i} \in  U \otimes  V\), observe that
+\[
+\left( {\Phi  \circ  \Psi }\right) \left( {\mathop{\sum }\limits_{i}{\mathbf{u}}_{i} \otimes  {\bf v}_{i}}\right)  = \Phi \left( {\mathop{\sum }\limits_{i}\Psi \left( {{\mathbf{u}}_{i} \otimes  {\bf v}_{i}}\right) }\right)
+= \Phi \left( {\mathop{\sum }\limits_{i}{\bf v}_{i} \otimes  {\mathbf{u}}_{i}}\right)
+= \mathop{\sum }\limits_{i}\Phi \left( {{\bf v}_{i} \otimes  {\mathbf{u}}_{i}}\right)
+= \mathop{\sum }\limits_{i}{\mathbf{u}}_{i} \otimes  {\bf v}_{i}
+\]
+Therefore, \(\Phi  \circ  \Psi  = {\operatorname{id}}_{U \otimes  V}\). Similarly, \(\Psi  \circ  \Phi  = {\operatorname{id}}_{V \otimes  U}\). Therefore,
+$U \otimes  V \cong  V \otimes  U$.
+\end{proof} 
+
+\section{Tensor Product of Linear Transformation}
+ Given two linear transformations \(T : V \rightarrow  {V}^{\prime }\) and \(S : W \rightarrow  {W}^{\prime }\), we want to use the universal property of tensor product to construct the linear transformation between tensor product spaces:
+\[
+T \otimes  S : V \otimes  W \rightarrow  {V}^{\prime } \otimes  {W}^{\prime }
+\]
+
+\begin{proposition} \label{prop:tensor_linear_trans}
+Suppose that \(T : V \rightarrow  {V}^{\prime }\) and \(S : W \rightarrow  {W}^{\prime }\) are linear transformations, then there exists a unique linear transformation
+\[
+T \otimes  S : V \otimes  W \rightarrow  {V}^{\prime } \otimes  {W}^{\prime }
+\]
+satisfying \(\left( {T \otimes  S}\right) \left( {\bf v} \otimes  {\bf w}\right)  = T\left({\bf v}\right)  \otimes  S\left( {\bf w}\right)
+\) for all ${\bf v} \in V$ and ${\bf w} \in W$.
+\end{proposition} 
+
+\begin{proof}
+Define the map
+\[
+T \times  S : \;V \times  W \rightarrow  {V}^{\prime } \otimes  {W}^{\prime }
+\]
+by \(\left( {T \times  S}\right) \left( {\bf v},{\bf w}\right)  := T\left( {\bf v}\right)  \otimes  S\left({\bf w}\right)
+\).
+
+Then $T \times S$ is bilinear: for instance, we can show that
+\[
+\left( {T \times  S}\right) \left( {a{\bf v}_1 + b{\bf v}_2,{\bf w}}\right)  = a\left( {T \times  S}\right) \left( {{\bf v}_1,{\bf w}}\right)  + b\left( {T \times  S}\right) \left( {{\bf v}_2,{\bf w}}\right)
+\]
+Therefore, \(T \times  S \in\) Obj. By \autoref{thm: univ-binlinear-map}, there exists a unique {\it linear transformation}
+\[
+T \otimes  S\ :V \otimes  W \rightarrow  {V}^{\prime } \otimes  {W}^{\prime }
+\]
+with the properties as described in the proposition.
+\end{proof} 
+
+\noindent \textbf{Notation Warning.} We use the notation \(T \otimes  S\) for the linear transformation defined above. Does it possess the properties of tensor product? For instance, do we have the following equality:
+\[
+\left( {a{T}_1 + b{T}_2}\right)  \otimes  S = a\left( {{T}_1 \otimes  S}\right)  + b\left( {{T}_2 \otimes  S}\right) ?
+\]
+This will be proved in \autoref{prop:tensorlineartrans} below, which justifies our notation of $T \otimes S$.
+
+\begin{example}\label{ex: notation-verification}
+\item
+Let \(V = {V}^{\prime } = {\mathbb{F}}^2\) and \(W = {W}^{\prime } = {\mathbb{F}}^{3}\). Define the linear transformations 
+$$T :  V \rightarrow  V, \quad \quad S: W \rightarrow  W$$
+by:
+\[
+T({\bf v}) := A{\bf v} = \left( \begin{array}{ll} a & b \\  c & d \end{array}\right){\bf v}, \quad \quad S({\bf w}) := B{\bf w} =\left( \begin{array}{lll} p & q & r \\  s & t & u \\  v & w & x \end{array}\right){\bf w}. 
+\]
+How does \(T \otimes  S : V \otimes  W \rightarrow  V \otimes  W\) look like? Suppose \(\left\{  {{e}_1,{\bf e}_2}\right\}  ,\left\{  {{\bf f}_1,{\bf f}_2,{\bf f}_{3}}\right\}\) are the usual bases of \(V\) and \(W\), respectively. By \autoref{thm:tensorbasis}, a basis of
+\(V \otimes  W\) is given by:
+\[
+\mathcal{C} = \left\{  {{\bf e}_1 \otimes  {\bf f}_1,{\bf e}_1 \otimes  {\bf f}_2,{\bf e}_1 \otimes  {\bf f}_{3},{\bf e}_2 \otimes  {\bf f}_1,{\bf e}_2 \otimes  {\bf f}_2,{\bf e}_2 \otimes  {\bf f}_{3}}\right\}  .
+\]
+Now compute \(\left( {T \otimes  S}\right) \left( {{\bf e}_{i} \otimes  {\bf f}_{j}}\right)\) for \(i = 1,2\) and \(j = 1,2,3\). For instance,
+\begin{align*}
+&\left( {T \otimes  S}\right) \left( {{\bf e}_1 \otimes  {\bf f}_1}\right)\\ 
+&= T\left( {\bf e}_1\right)  \otimes  S\left( {\bf f}_1\right)\\
+&= \left( {a{\bf e}_1 + c{\bf e}_2}\right)  \otimes  \left( {p{\bf f}_1 + s{\bf f}_2 + v{\bf f}_{3}}\right)
+\\
+&= \left( {ap}\right) {\bf e}_1 \otimes  {\bf f}_1 + \left( {as}\right) {\bf e}_1 \otimes  {\bf f}_2 + \left( {av}\right) {\bf e}_1 \otimes  {\bf f}_{3} + \left( {cp}\right) {\bf e}_2 \otimes  {\bf f}_1 + \left( {cs}\right) {\bf e}_2 \otimes  {\bf f}_2 + \left( {cv}\right) {\bf e}_2 \otimes  {\bf f}_{3}.
+\end{align*}
+Therefore, the linear transformation \(\left( {T \otimes  S}\right)\) has a $6 \times 6$ matrix representation:
+\[
+{\left( T \otimes  S\right) }_{\mathcal{C},\mathcal{C}} = \left( \begin{array}{ll} {aB} & {bB} \\  {cB} & {dB} \end{array}\right) ,
+\]
+Th above matrix is called the {\bf Kronecker Tensor Product} of $A$ and $B$ (see the command kron in MATLAB for details).
+\end{example}
+
+\begin{proposition}
+More generally, given the linear operator \(T : V \rightarrow  V\) and \(S : W \rightarrow  W\), let \(\mathcal{A} = \left\{  {{\bf v}_1,\ldots ,{\bf v}_n}\right\}  ,\mathcal{B} = \left\{  {{\bf w}_1,\ldots ,{\bf w}_{m}}\right\}\) be a basis of \(V,W\) respectively, with
+
+\[
+ {\left(T \right)}_{\mathcal{A},\mathcal{A}} = \left( {a}_{ij} \right)\mathrel{\text{ := }} A, \;{\left(S\right)}_{\mathcal{B},\mathcal{B}}  = \left( {b}_{ij}\right)  \mathrel{\text{ := }} B
+\]
+
+As a result, \({\left( T \otimes  S\right) }_{C,C} = A \otimes  B\), where \(C = \left\{  {{\bf v}_1 \otimes  {\bf w}_1,\ldots ,{\bf v}_n \otimes  {\bf w}_{m}}\right\}\), and \(A \otimes  B\) denotes the Kronecker tensor product, defined as the matrix
+
+\[
+\left( \begin{matrix} {a}_{1,1}B & \cdots & {a}_{1,n}B \\  \vdots &  \ddots  & \vdots \\  {a}_{n,1}B & \cdots & {a}_{n,n}B \end{matrix}\right) .
+\]
+\end{proposition} 
+\begin{proof}
+Following the similar procedure as in \autoref{ex: notation-verification} and applying the relation
+
+\[
+\left( {T \otimes  S}\right) \left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right)  = T\left( {\bf v}_{i}\right)  \otimes  S\left( {\bf w}_{j}\right)
+= \left( {\mathop{\sum }\limits_{{k = 1}}^n{a}_{ki}{\bf v}_{k}}\right)  \otimes  \left( {\mathop{\sum }\limits_{{\ell  = 1}}^{m}{b}_{\ell j}{\bf w}_{\ell }}\right)
+= \mathop{\sum }\limits_{{k = 1}}^n\mathop{\sum }\limits_{{\ell  = 1}}^{m}\left( {{a}_{ki}{b}_{\ell j}}\right) {\bf v}_{k} \otimes  {\bf w}_{\ell }
+\]
+\end{proof} 
+
+\begin{proposition} \label{prop:tensorlineartrans}
+The operation \(T \otimes  S\) satisfies all the properties of tensor product. For example,
+
+\[
+\left( {a{T}_1 + b{T}_2}\right)  \otimes  S = a\left( {{T}_1 \otimes  S}\right)  + b\left( {{T}_2 \otimes  S}\right)
+\]
+
+\[
+T \otimes  \left( {c{S}_1 + d{S}_2}\right)  = c\left( {T \otimes  {S}_1}\right)  + d\left( {T \otimes  {S}_2}\right)
+\]
+
+Therefore, the usage of the notion " \(\otimes\) " is justified for the definition of \(T \otimes  S\).
+\end{proposition}
+
+\begin{proof}
+using matrix multiplication. For instance, consider the operation \(\left( {T + {T}^{\prime }}\right)  \otimes  S\), with
+
+\({\left( T\right) }_{\mathcal{A},\mathcal{A}} = \left( {a}_{ij}\right) ,{\left( {T}^{\prime }\right) }_{\mathcal{A},\mathcal{A}} = \left( {c}_{ij}\right) ,{\left( S\right) }_{\mathcal{B},\mathcal{B}} = \left( {b}_{ij}\right).\)
+
+We compute its matrix representation directly:
+
+\begin{align*}
+{\left( \left( T + {T}^{\prime }\right)  \otimes  S\right) }_{\mathcal{C},\mathcal{C}} &= {\left( T + {T}^{\prime }\right) }_{\mathcal{A},\mathcal{A}} \otimes  {\left( S\right) }_{\mathcal{B},\mathcal{B}}\\
+&= \left\lbrack  {{\left( T\right) }_{\mathcal{A},\mathcal{A}} + {\left( {T}^{\prime }\right) }_{\mathcal{A},\mathcal{A}}}\right\rbrack   \otimes  {\left( S\right) }_{\mathcal{B},\mathcal{B}}\\
+&= {\left( T\right) }_{\mathcal{A},\mathcal{A}} \otimes  {\left( S\right) }_{\mathcal{B},\mathcal{B}} + {\left( {T}^{\prime }\right) }_{\mathcal{A},\mathcal{A}} \otimes  {\left( S\right) }_{\mathcal{B},\mathcal{B}}
+\end{align*}
+
+where the last equality is by the additive rule for Kronecker product for matrices. Therefore,
+
+\[
+{\left( \left( T + {T}^{\prime }\right)  \otimes  S\right) }_{\mathcal{C},\mathcal{C}} = {\left( T \otimes  S\right) }_{\mathcal{C},\mathcal{C}} + {\left( {T}^{\prime } \otimes  S\right) }_{\mathcal{C},\mathcal{C}} \Rightarrow  \left( {T + {T}^{\prime }}\right)  \otimes  S = T \otimes  S + {T}^{\prime } \otimes  S
+\]
+\end{proof} 
+
+\noindent Alternatively, we study the linear transformations by applying them on a basis of $V \otimes W$. Another way of the proof is by computing
+\(\left( {\left( {T + {T}^{\prime }}\right)  \otimes  S}\right) \left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right),
+\)
+where \(\left\{  {{\bf v}_{i} \otimes  {\bf w}_{j} \mid  1 \leq  i \leq  n,1 \leq  j \leq  m}\right\}\) forms a basis of \(\left( {T + {T}^{\prime }}\right)  \otimes  S\) :
+\begin{align*}
+\left( {\left( {T + {T}^{\prime }}\right)  \otimes  S}\right) \left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right)  &= \left( {T + {T}^{\prime }}\right) \left( {\bf v}_{i}\right)  \otimes  S\left( {\bf w}_{j}\right)
+\\
+&= \left( {T\left( {\bf v}_{i}\right)  + {T}^{\prime }\left( {\bf v}_{i}\right) }\right)  \otimes  S\left( {\bf w}_{j}\right)
+\\
+&= T\left( {\bf v}_{i}\right)  \otimes  S\left( {\bf w}_{j}\right)  + {T}^{\prime }\left( {\bf v}_{i}\right)  \otimes  S\left( {\bf w}_{j}\right)
+\\
+&= \left( {T \otimes  S}\right) \left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right)  + \left( {{T}^{\prime } \otimes  S}\right) \left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right)
+\end{align*}
+Since \(\left( {\left( {T + {T}^{\prime }}\right)  \otimes  S}\right) \left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right)\) coincides with \(\left( {T \otimes  S + {T}^{\prime } \otimes  S}\right) \left( {{\bf v}_{i} \otimes  {\bf w}_{j}}\right)\) for all basis vectors \({\bf v}_{i} \otimes  {\bf w}_{j} \in  C\), we imply
+\(\left( {T + {T}^{\prime }}\right)  \otimes  S = T \otimes  S + {T}^{\prime } \otimes  S 
+\).
+\qed
+
+\begin{proposition}
+Let \(A,C: V \to V\) be linear operators of \(V\), and \(B,D: W \to W\) be linear operators on \(W\), then
+\[
+\left( {A \otimes  B}\right)  \circ  \left( {C \otimes  D}\right)  = \left( {AC}\right)  \otimes  \left( {BD}\right).
+\] 
+\end{proposition}
+
+\begin{proposition}
+Define linear operators \(A : V \rightarrow  V\) and \(B : W \rightarrow  W\) with \(\dim \left( V\right) ,\dim \left( W\right)  <\)  \(\infty\). Then
+\[
+\det \left( {A \otimes  B}\right)  = {\left( \det \left( A\right) \right) }^{\dim \left( W\right) }{\left( \det \left( B\right) \right) }^{\dim \left( V\right) }
+\]
+\end{proposition} 
+\begin{proof}
+    Homework question.
+\end{proof}
+
+\begin{corollary}
+There exists a linear transformation
+\[
+\Phi : \operatorname{Hom}\left( {V,V}\right)  \otimes  \operatorname{Hom}\left( {W,W}\right)  \rightarrow  \operatorname{Hom}\left( {V \otimes  W,V \otimes  W}\right)
+\]
+with \(\Phi(A \otimes  B) :=  A \otimes  B\), where the input of \(\Phi\) is a linear transformation $A:V \to V$ tensored with another linear transformation $B: W \to W$, and the output is the tensored linear transformation on $V \otimes W$ (c.f. \autoref{prop:tensor_linear_trans}).
+
+Moreover, if $\dim(V), \dim(W) < \infty$, then $\Phi$ is an isomorphism.
+\end{corollary} 
+
+\begin{proof}
+Construct the mapping
+
+\[
+\Phi  : \operatorname{Hom}\left( {V,V}\right)  \times  \operatorname{Hom}\left( {W,W}\right)  \rightarrow  \operatorname{Hom}\left( {V \otimes  W,V \otimes  W}\right)
+\]
+with \(\Phi \left( {A,B}\right)  = A \otimes  B
+\). Then \(\Phi\) is indeed bilinear: for instance,
+\[
+\Phi \left( {{pA} + {qC},B}\right)  = \left( {{pA} + {qC}}\right)  \otimes  B
+= p\left( {A \otimes  B}\right)  + q\left( {C \otimes  B}\right)
+= {p\Phi }\left( {A,B}\right)  + {q\Phi }\left( {C,B}\right)
+\]
+So the first statement follows from the universal property of tensor product.
+
+If \(\dim \left( V\right) ,\dim \left( W\right)  < \infty\), we imply
+\begin{align*}
+\dim(\operatorname{Hom}\left( {V,V}\right)  \otimes  \operatorname{Hom}\left( {W,W}\right)) &= \dim \left( {\operatorname{Hom}\left( {V,V}\right) }\right) \cdot \dim \left( {\operatorname{Hom}\left( {W,W}\right) }\right)
+\\
+&= \left\lbrack  {\dim \left( V\right) \dim \left( V\right) }\right\rbrack   \cdot  \left\lbrack  {\dim \left( W\right) \dim \left( W\right) }\right\rbrack   \\
+&= {\left\lbrack  \dim \left( V\right) \dim \left( W\right) \right\rbrack  }^2
+\\
+&= {\left\lbrack  \dim \left( V \otimes  W\right) \right\rbrack  }^2
+\\
+&= \dim \left( {\operatorname{Hom}\left( {V \otimes  W,V \otimes  W}\right) }\right)
+\end{align*}
+Therefore, is \(\Phi\) is an isomorphism.    
+\end{proof}
+
+As a result, every linear operator \(\alpha  : V \otimes  W \rightarrow V \otimes  W\) can be expressed as
+\[
+\alpha  = {A}_1 \otimes  {B}_1 + \cdots  + {A}_{k} \otimes  {B}_{k}
+\]
+where \({A}_{i} : V \rightarrow  V\) and \({B}_{j} : W \rightarrow  W\).

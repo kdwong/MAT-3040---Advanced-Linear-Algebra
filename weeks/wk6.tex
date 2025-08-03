@@ -10,7 +10,7 @@ We recall some useful properties of polynomials before studying eigenvalues and 
   \[
   p(z) = a_m z^m + \cdots + a_1 z + a_0, \quad \text{with } a_m \neq 0.
   \]
-  Here \(a_m z^m\) is called the \emph{leading term}, \(m\) the \emph{degree}, \(a_m\) the \emph{leading coefficient}, and \(a_0, \dots, a_m\) the \emph{coefficients} of the polynomial.
+  Here \(a_m z^m\) is called the \emph{leading term} of $p(z)$; \(\deg(p(z)) =m\) the \emph{degree} of $p(z)$; \(a_m\) the \emph{leading coefficient} of $p(z)$; and \(a_0, \dots, a_m\) the \emph{coefficients} of $p(z)$.
 
   \item A polynomial over \(\mathbb{F}\) is said to be \emph{monic} if its leading coefficient is \(1_\mathbb{F}\).
 
@@ -18,7 +18,7 @@ We recall some useful properties of polynomials before studying eigenvalues and 
   \[
   p(z) = a(z) b(z)
   \]
-  for \(a(z), b(z) \in \mathbb{F}[z]\), then either \(a(z)\) or \(b(z)\) is a constant polynomial. Otherwise, \(p(z)\) is \emph{reducible}.
+  for \(a(z), b(z) \in \mathbb{F}[z]\), then either \(\deg(a(z)) = 0\) or \(\deg(b(z)) = 0\) (i.e. $a(z)$ or $b(z)$ is a constant polynomial). Otherwise, \(p(z)\) is \emph{reducible}.
 \end{enumerate}
 \end{definition}
 
@@ -78,12 +78,12 @@ A polynomial with degree \(n\) has at most \(n\) roots, counting multiplicity.
 The polynomial \((x - 3)^2\) has one root \(x = 3\) with multiplicity 2. When counting multiplicity, we say it has two roots.
 \end{example}
 
-\subsection{Unique Factorization of Polynomials}
+\subsection{Unique Factorization}
 \begin{definition}[Algebraically Closed Field]
 A field \(\mathbb{F}\) is called \emph{algebraically closed} if every non-constant polynomial \(p(x) \in \mathbb{F}[x]\) has a root \(\lambda \in \mathbb{F}\).
 \end{definition}
 
-\begin{theorem}[Fundamental Theorem of Algebra]
+\begin{theorem}[Fundamental Theorem of Algebra] \label{thm:fundamental_theorem_of_algebra}
 The field \(\mathbb{C}\) of complex numbers is algebraically closed.
 \end{theorem}
 
@@ -126,19 +126,20 @@ where each \(p_i\) is monic, irreducible, and \(p_i \neq p_j\) for \(i \neq j\).
 
 
 \subsection{Greatest Common Divisor and B\'ezout's Theorem}
-\begin{definition}[Common Factor and GCD]
+\begin{definition}[Common Factor and GCD] \label{def:gcd}
 Let \(f_1, \dots, f_k \in \mathbb{F}[x]\). A polynomial \(g(x)\) is a \emph{common factor} of these if \(g \mid f_i\) for all \(i\).
 
-The \emph{greatest common divisor (gcd)} \(g(x)\) satisfies:
+The \emph{greatest common divisor {GCD}} \(g = \gcd(f_1, \dots, f_k)\) of $f_1, \dots, f_k$ satisfies:
 \begin{itemize}
     \item \(g\) is monic,
     \item \(g\) is a common factor of \(f_1, \dots, f_k\),
-    \item \(g\) has maximal degree among all common factors,
-    \item \(\gcd(f_1, \dots, f_k) = \gcd(\gcd(f_1, f_2), f_3, \dots, f_k)\),
-    \item \(\gcd(f_1, \dots, f_k)\) is unique.
+    \item \(g\) has maximal degree among all common factors.
 \end{itemize}
 If \(\gcd(f_1, \dots, f_k) = 1\), we say the polynomials are \emph{relatively prime}.
 \end{definition}
+With the definition above, it is easy to check that \(\gcd(f_1, \dots, f_k)\) is unique, and 
+\[\gcd(f_1, \dots, f_k) = \gcd(\gcd(f_1, f_2), f_3, \dots, f_k) = \gcd(\gcd(\gcd(f_1, f_2), f_3), \dots, f_k) = \cdots.\]
+
 
 \begin{remark}
 Polynomials \(f_1, \dots, f_k\) being relatively prime does not imply \(\gcd(f_i, f_j) = 1\) for all \(i \neq j\).
@@ -169,8 +170,12 @@ then
 \end{example}
 
 
-\noindent \textbf{Question: }How do we compute \(\gcd(f_1, f_2)\) for arbitrary (unfactorized) polynomials?
+As mentioned in the paragraph after \autoref{def:gcd}, \(\gcd(f_1, f_2, f_3, \cdots,f_k)\) can be computed inductively by understanding
+$$\gcd(f_1, f_2), \gcd((\gcd(f_1,f_2),f_3)), \gcd(\gcd((\gcd(f_1,f_2),f_3)),f_4), \cdots$$
+So it suffices to study the greatest common divisor of two polynomials. In such a case $\gcd(f_1, f_2)$ can be computed using {\bf Euclidean Algorithm} (see Homework set).
 
+\medskip
+One important theorem relating $f_1, f_2$ and $\gcd(f_1,f_2)$ is the following:
 \begin{theorem}[Bézout's Identity]\label{thm:bezout}
 Let \(g = \gcd(f_1, f_2)\). Then there exist polynomials \(r_1, r_2 \in \mathbb{F}[x]\) such that
 \[
@@ -306,9 +311,14 @@ Let \( T : V \to V \) be a linear operator. The \emph{characteristic polynomial}
 where \(T_{\mathcal{A},\mathcal{A}}\) is the matrix representation of \(T\) with respect to any basis \(\mathcal{A}\) of \(V\), and \(I\) is the identity matrix of the same size.
 \end{definition}
 
-\section{Spoiling the Future Theorems}
+\begin{remark}
+    The above definition is independent of the choice of basis of $V$. Indeed, let $\mathcal{B}$ be another basis of $V$, then 
+    $$T_{\mathcal{B},\mathcal{B}} = M^{-1}T_{\mathcal{A},\mathcal{A}}M$$
+    for $M := C_{\mathcal{A},\mathcal{B}}$. As a result, one has:
+    $$\det(T_{\mathcal{B},\mathcal{B}} - xI) = \det(M^{-1}T_{\mathcal{A},\mathcal{A}}M - xM^{-1}IM) = \det(M)^{-1}\det(T_{\mathcal{A},\mathcal{A}} - xI)\det(M) = \det(T_{\mathcal{A},\mathcal{A}} - xI).$$
+\end{remark}
 
-In the next few lectures, we will study two fundamental theorems that reveal the internal structure of linear operators:
+In the next couple of chapters, we will study two fundamental theorems that reveal the internal structure of linear operators:
 
 \begin{itemize}
   \item Cayley–Hamilton Theorem

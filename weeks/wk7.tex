@@ -275,7 +275,7 @@ Suppose
 \]
 where the \( \lambda_i \in \mathbb{F} \) are not necessarily distinct. Then there exists a basis \( \mathcal{A} \) of \( V \) such that
 \[
-[T]_{\mathcal{A}, \mathcal{A}} =
+T_{\mathcal{A}, \mathcal{A}} =
 \begin{pmatrix}
 \lambda_1 & * & \cdots & * \\
 0 & \lambda_2 & \cdots & * \\
@@ -309,7 +309,7 @@ Define \( W = \operatorname{span}\{\mathbf{v}\} \leq V \), which is \( T \)-inva
 \textbf{Step 3: Apply induction.}
 By the induction hypothesis, there exists a basis \( \overline{\mathcal{C}} = \{ \mathbf{w}_2 + W, \dots, \mathbf{w}_n + W \} \) of \( V/W \) such that
 \[
-[\widetilde{T}]_{\overline{\mathcal{C}}, \overline{\mathcal{C}}} =
+\widetilde{T}_{\overline{\mathcal{C}}, \overline{\mathcal{C}}} =
 \begin{pmatrix}
 \lambda_2 & * & \cdots & * \\
 0 & \lambda_3 & \cdots & * \\
@@ -321,10 +321,10 @@ By the induction hypothesis, there exists a basis \( \overline{\mathcal{C}} = \{
 \textbf{Step 4: Lift basis to \( V \).}
 Define \( \mathcal{A} := \{ \mathbf{v}, \mathbf{w}_2, \dots, \mathbf{w}_n \} \). Then \( \mathcal{A} \) is a basis of \( V \) (see Homework 2, Exercise 2), and in this basis we have:
 \[
-[T]_{\mathcal{A}, \mathcal{A}} =
+T_{\mathcal{A}, \mathcal{A}} =
 \begin{pmatrix}
 \lambda_1 & * \\
-0 & [\widetilde{T}]_{\overline{\mathcal{C}}, \overline{\mathcal{C}}}
+0 & \widetilde{T}_{\overline{\mathcal{C}}, \overline{\mathcal{C}}}
 \end{pmatrix}
 =
 \begin{pmatrix}
